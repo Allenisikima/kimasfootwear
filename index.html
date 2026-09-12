@@ -355,4 +355,524 @@
     /* ORDER MESSAGE */
 
     .order-message {
-      margin-top:
+      margin-top: 30px;
+      padding-top: 22px;
+
+      border-top: 1px solid #dfcda8;
+
+      text-align: center;
+
+      color: #555;
+
+      font-family: 'Cormorant Garamond', serif;
+
+      font-size: 19px;
+    }
+
+    .order-button {
+      display: inline-block;
+
+      margin-top: 16px;
+
+      padding: 14px 28px;
+
+      background: #111;
+      color: white;
+
+      text-decoration: none;
+
+      border-radius: 30px;
+
+      font-family: 'Montserrat', sans-serif;
+
+      font-weight: 600;
+
+      transition: .3s;
+    }
+
+    .order-button:hover {
+      background: #d6a85f;
+      color: #111;
+    }
+
+    /* ABOUT */
+
+    .about {
+      background: #eee7dc;
+      text-align: center;
+    }
+
+    .about-content {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .about h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .about p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+    }
+
+    /* CTA */
+
+    .cta {
+      background: #d6a85f;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+    }
+
+    .cta .button {
+      background: #111;
+      color: white;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    footer strong {
+      color: white;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ANIMATION */
+
+    @keyframes letterReveal {
+
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      nav a {
+        margin-left: 7px;
+        font-size: 11px;
+      }
+
+      .title h2,
+      .message h2,
+      .about h2,
+      .cta h2 {
+        font-size: 28px;
+      }
+
+      #revealedMessage {
+        padding: 35px 22px;
+      }
+
+      #revealedMessage h3 {
+        font-size: 40px;
+      }
+
+      #revealedMessage p {
+        font-size: 19px;
+        line-height: 1.8;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- MESSAGE SYSTEM -->
+
+  <script>
+
+    const messages = {
+
+      "KIMAS-LOVE-001": {
+        title: "Dear You ❤️",
+        text: `Someone chose this pair especially for you, with a heart full of love and a hope that it brings a beautiful smile to your face. May every step you take remind you of how special you are. Keep walking, keep smiling, and keep making beautiful memories.`
+      },
+
+      "KIMAS-APPRECIATION-001": {
+        title: "Dear Special One 💝",
+        text: `This is a little reminder that you are appreciated more than words can say. May this pair bring comfort to your feet and happiness to your heart. You deserve beautiful things and beautiful moments.`
+      },
+
+      "KIMAS-SMILE-001": {
+        title: "Dear You 😊",
+        text: `Today, we simply want you to smile. May this little gift add some happiness to your day and remind you that life is made of beautiful moments worth celebrating. Enjoy every step!`
+      },
+
+      "KIMAS-SPECIAL-001": {
+        title: "Dear Someone Special 💕",
+        text: `Some people deserve something more than an ordinary gift. This pair was chosen to remind you that you matter and that someone thought about making your day a little brighter. Wear it proudly and enjoy every step.`
+      },
+
+      "KIMAS-SURPRISE-001": {
+        title: "Surprise! 🎁",
+        text: `You probably weren't expecting this little message. Someone wanted to put a smile on your face and give you something you can enjoy beyond today. May this pair become part of a beautiful memory.`
+      },
+
+      "KIMAS-COUPLES-001": {
+        title: "To Two Beautiful Hearts ❤️",
+        text: `May every step you take together lead to more laughter, more memories and more reasons to love each other. Keep choosing each other, keep growing together, and never stop creating your own story.`
+      },
+
+      "KIMAS-FRIEND-001": {
+        title: "Dear Friend 🤝",
+        text: `Good friends make life's journey better, and this is just a little reminder of how much you are valued. May your journey ahead be filled with laughter, success and unforgettable moments.`
+      },
+
+      "KIMAS-CHAMPION-001": {
+        title: "Dear Champion 🌟",
+        text: `Whatever season of life you're in, keep moving forward. Every step may not be easy, but every step takes you somewhere. Wear this as a little reminder to keep believing in yourself.`
+      },
+
+      "KIMAS-CELEBRATE-001": {
+        title: "Dear You 🎉",
+        text: `Today is worth celebrating, and so are you. May this pair accompany you through many more joyful moments, achievements and memories. Here's to where you've been and everything still ahead.`
+      },
+
+      "KIMAS-STORY-001": {
+        title: "Dear You 👣❤️",
+        text: `This isn't just a pair of footwear. It's a little piece of a story — a story that begins with the person who chose it for you and continues with every step you take. May your journey be filled with love, happiness and beautiful memories.`
+      }
+
+    };
+
+
+    function revealMessage() {
+
+      const input = document.getElementById("messageCode");
+
+      const result = document.getElementById("revealedMessage");
+
+      const code = input.value.trim().toUpperCase();
+
+
+      if (messages[code]) {
+
+        result.style.display = "block";
+
+        result.innerHTML = `
+
+          <h3>${messages[code].title}</h3>
+
+          <p>${messages[code].text}</p>
+
+          <div class="order-message">
+
+            Ready for your next KimasFootwear story? 👣
+
+            <br>
+
+            <a href="#collection" class="order-button">
+              Order Your Next Pair
+            </a>
+
+          </div>
+
+        `;
+
+      }
+
+      else {
+
+        result.style.display = "block";
+
+        result.innerHTML = `
+
+          <h3>Hmm... 🤔</h3>
+
+          <p>
+            We couldn't find that code.
+            Please check the code that came with
+            your KimasFootwear pair and try again.
+          </p>
+
+        `;
+
+      }
+
+    }
+
+  </script>
+
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="brand">
+
+      <img src="logo.png" alt="KimasFootwear Logo">
+
+      <span>KimasFootwear</span>
+
+    </div>
+
+
+    <nav>
+
+      <a href="#home">Home</a>
+
+      <a href="#message">Message</a>
+
+      <a href="#about">About</a>
+
+    </nav>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="hero-content">
+
+      <h1>
+        Every Step
+        <span class="gold">Tells a Story.</span>
+      </h1>
+
+      <p>
+        Footwear made to be worn, remembered and cherished.
+        At KimasFootwear, every pair can carry more than style.
+      </p>
+
+      <a href="#message" class="button">
+        A Message For You
+      </a>
+
+      <a href="#collection" class="button outline">
+        Explore
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- MESSAGE -->
+
+  <section class="message" id="message">
+
+    <h2>A Message For You 💌</h2>
+
+    <p>
+      Imagine giving someone a pair of KimasFootwear
+      with a personal message hidden inside —
+      something special that only they can discover.
+    </p>
+
+    <br>
+
+    <p>
+      That's more than footwear.
+      That's a memory they can wear.
+    </p>
+
+  </section>
+
+
+  <!-- COLLECTION -->
+
+  <section id="collection">
+
+    <div class="title">
+
+      <h2>Made For Every Journey</h2>
+
+      <p>
+        Style, comfort and meaning in every step.
+      </p>
+
+    </div>
+
+
+    <div class="cards">
+
+      <div class="card">
+
+        <div class="icon">👞</div>
+
+        <h3>For Him</h3>
+
+        <p>
+          Stylish footwear for confident men.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="icon">👠</div>
+
+        <h3>For Her</h3>
+
+        <p>
+          Beautiful footwear made for elegance.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="icon">❤️</div>
+
+        <h3>For Couples</h3>
+
+        <p>
+          Meaningful footwear ideas for two.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="icon">🎁</div>
+
+        <h3>For Gifting</h3>
+
+        <p>
+          Turn a footwear gift into a memory.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SECRET MESSAGE -->
+
+  <section class="secret-message" id="secret-message">
+
+    <div class="title">
+
+      <h2>Someone Left You a Message 💌</h2>
+
+      <p>
+        Enter the special KimasFootwear code
+        that came with your pair.
+      </p>
+
+    </div>
+
+
+    <div class="message-box">
+
+      <input
+        type="text"
+        id="messageCode"
+        placeholder="Enter your Kimas code"
+        autocomplete="off"
+      >
+
+
+      <button onclick="revealMessage()">
+        Reveal My Message ❤️
+      </button>
+
+
+      <div id="revealedMessage"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+
+  <section class="about" id="about">
+
+    <div class="about-content">
+
+      <h2>More Than Footwear.</h2>
+
+      <p>
+        KimasFootwear was created with a simple belief:
+        what we wear can carry meaning.
+      </p>
+
+      <br>
+
+      <p>
+        From everyday steps to special occasions,
+        we want every KimasFootwear experience to feel
+        personal, memorable and uniquely yours.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <h2>Ready to Make a Statement?</h2>
+
+    <p>
+      Your next pair could carry a story.
+    </p>
+
+    <a href="#" class="button">
+      Order Your Pair
+    </a>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      © 2026
+      <strong>KimasFootwear</strong>.
+      Every Step Tells a Story.
+    </p>
+
+  </footer>
+
+
+</body>
+
+</html>
