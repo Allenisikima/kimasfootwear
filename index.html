@@ -21,6 +21,10 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Montserrat', sans-serif;
       background: #f8f5f0;
@@ -37,6 +41,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .brand {
@@ -63,6 +70,10 @@
       margin-left: 15px;
       font-size: 13px;
       font-family: 'Montserrat', sans-serif;
+    }
+
+    nav a:hover {
+      color: #d6a85f;
     }
 
     /* HERO */
@@ -192,7 +203,6 @@
       text-align: center;
       border-radius: 15px;
       box-shadow: 0 5px 20px rgba(0,0,0,.08);
-
       transition: .3s;
     }
 
@@ -230,7 +240,6 @@
       background: white;
       padding: 40px 30px;
       border-radius: 24px;
-
       box-shadow: 0 15px 45px rgba(0,0,0,.10);
     }
 
@@ -322,8 +331,6 @@
       border-radius: 10px;
     }
 
-    /* BEAUTIFUL LETTER HEADING */
-
     #revealedMessage h3 {
       margin-bottom: 25px;
 
@@ -338,8 +345,6 @@
       font-weight: normal;
     }
 
-    /* BEAUTIFUL LETTER TEXT */
-
     #revealedMessage p {
       color: #403a34;
 
@@ -352,27 +357,33 @@
       letter-spacing: .3px;
     }
 
-    /* ORDER MESSAGE */
+    /* BRAND DISCOVERY */
 
-    .order-message {
+    .discover-brand {
       margin-top: 30px;
-      padding-top: 22px;
+      padding-top: 25px;
 
       border-top: 1px solid #dfcda8;
 
       text-align: center;
-
-      color: #555;
-
-      font-family: 'Cormorant Garamond', serif;
-
-      font-size: 19px;
     }
 
-    .order-button {
-      display: inline-block;
+    .discover-brand h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #171717;
+    }
 
-      margin-top: 16px;
+    .discover-brand p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px !important;
+      color: #666 !important;
+      margin-bottom: 15px;
+    }
+
+    .discover-button {
+      display: inline-block;
 
       padding: 14px 28px;
 
@@ -390,9 +401,10 @@
       transition: .3s;
     }
 
-    .order-button:hover {
+    .discover-button:hover {
       background: #d6a85f;
       color: #111;
+      transform: translateY(-2px);
     }
 
     /* ABOUT */
@@ -590,19 +602,28 @@
 
           <p>${messages[code].text}</p>
 
-          <div class="order-message">
+          <div class="discover-brand">
 
-            Ready for your next KimasFootwear story? 👣
+            <h4>Discover KimasFootwear</h4>
 
-            <br>
+            <p>
+              Your journey doesn't end with this message.
+              Discover our footwear, our work and the stories
+              behind every step.
+            </p>
 
-            <a href="#collection" class="order-button">
-              Order Your Next Pair
+            <a href="#home" class="discover-button">
+              Explore KimasFootwear
             </a>
 
           </div>
 
         `;
+
+        result.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
 
       }
 
@@ -619,6 +640,21 @@
             Please check the code that came with
             your KimasFootwear pair and try again.
           </p>
+
+          <div class="discover-brand">
+
+            <h4>New to KimasFootwear?</h4>
+
+            <p>
+              Explore the brand and discover why
+              every step tells a story.
+            </p>
+
+            <a href="#home" class="discover-button">
+              Discover KimasFootwear
+            </a>
+
+          </div>
 
         `;
 
@@ -648,6 +684,8 @@
 
       <a href="#message">Message</a>
 
+      <a href="#collection">Collection</a>
+
       <a href="#about">About</a>
 
     </nav>
@@ -676,7 +714,7 @@
       </a>
 
       <a href="#collection" class="button outline">
-        Explore
+        Explore Collection
       </a>
 
     </div>
@@ -804,11 +842,9 @@
         autocomplete="off"
       >
 
-
       <button onclick="revealMessage()">
         Reveal My Message ❤️
       </button>
-
 
       <div id="revealedMessage"></div>
 
@@ -853,8 +889,8 @@
       Your next pair could carry a story.
     </p>
 
-    <a href="#" class="button">
-      Order Your Pair
+    <a href="#collection" class="button">
+      Explore KimasFootwear
     </a>
 
   </section>
