@@ -1,299 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KimasFootwear | Every Step Tells a Story</title>
 
-    <title>KimasFootwear | A Message For You</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #171717, #3a3028);
-            color: #222;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 92%;
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 50px 0 30px;
-            text-align: center;
-        }
-
-        .brand img {
-    width: 220px;
-    max-width: 80%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-        .tagline {
-            color: #d6b98c;
-            font-size: 14px;
-            margin-top: 8px;
-            letter-spacing: 2px;
-        }
-
-        .card {
-            background: #ffffff;
-            padding: 35px 22px;
-            margin-top: 35px;
-            border-radius: 24px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-        }
-
-        .icon {
-            width: 75px;
-            height: 75px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: #f4eadb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-        }
-
-        h1 {
-            font-size: 25px;
-            margin: 0;
-            color: #222;
-        }
-
-        .description {
-            color: #777;
-            line-height: 1.6;
-            font-size: 15px;
-            margin-top: 12px;
-        }
-
-        .label {
-            display: block;
-            text-align: left;
-            margin-top: 25px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 17px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #b89563;
-        }
-
-        button {
-            width: 100%;
-            padding: 17px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 12px;
-            background: #222;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        #message {
-    display: none;
-    margin-top: 25px;
-    padding: 22px;
-    border-radius: 15px;
-    background: #f8f1e7;
-    border-left: 4px solid #b89563;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.6;
-    color: #333;
-    animation: messageReveal 0.8s ease;
-}
-
-@keyframes messageReveal {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f5f0;
+      color: #171717;
+      line-height: 1.6;
     }
-}
-            margin-top: 25px;
-            padding: 22px;
-            border-radius: 15px;
-            background: #f8f1e7;
-            border-left: 4px solid #b89563;
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 1.6;
-            color: #333;
-        }
 
-        .footer {
-            margin-top: 25px;
-            color: #c9c9c9;
-            font-size: 12px;
-            line-height: 1.6;
-        }
+    header {
+      background: #111;
+      color: white;
+      padding: 15px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .footer strong {
-            color: #d6b98c;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-    </style>
+    .brand img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
+    }
 
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 13px;
+    }
+
+    .hero {
+      min-height: 75vh;
+      padding: 60px 7%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      background:
+        linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+        url("logo.png") center/contain no-repeat;
+      background-color: #222;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .gold {
+      color: #d6a85f;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 25px;
+      margin: 5px;
+      border-radius: 30px;
+      background: #d6a85f;
+      color: #111;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .outline {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+    }
+
+    section {
+      padding: 65px 7%;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title h2 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .title p {
+      color: #666;
+    }
+
+    .message {
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    .message h2 {
+      color: #d6a85f;
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .message p {
+      max-width: 650px;
+      margin: auto;
+      color: #ddd;
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #666;
+    }
+
+    .about {
+      background: #eee7dc;
+      text-align: center;
+    }
+
+    .about-content {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .about h2 {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .cta {
+      background: #d6a85f;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .cta .button {
+      background: #111;
+      color: white;
+    }
+
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      nav a {
+        margin-left: 7px;
+        font-size: 11px;
+      }
+
+      .title h2,
+      .message h2,
+      .about h2,
+      .cta h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="container">
-
-        
-<div class="brand">
-    <img src="logo.png" alt="KimasFootwear Logo">
-</div>
-        
-        
-
-        <div class="card">
-
-            <div class="icon">
-                💌
-            </div>
-
-            <h1>A Message For You</h1>
-
-<p class="description">
-    Someone special chose this pair for you.
-    A personal message is waiting inside.
-</p>
-            <label class="label">
-                YOUR SECRET CODE
-            </label>
-
-            <input
-                type="text"
-                id="code"
-                placeholder="e.g. KIMAS001"
-            >
-
-            <button onclick="revealMessage()">
-                REVEAL MY MESSAGE
-            </button>
-
-            <div id="message"></div>
-
-        </div>
-
-        <div class="footer">
-    Every step tells a story.<br>
-    <strong>KimasFootwear</strong>
-    <br><br>
-    © 2026 KimasFootwear
-</div>
-
+  <header>
+    <div class="brand">
+      <img src="logo.png" alt="KimasFootwear Logo">
+      <span>KimasFootwear</span>
     </div>
 
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#message">Message</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
 
-    <script>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Every Step <span class="gold">Tells a Story.</span></h1>
 
-        function revealMessage() {
+      <p>
+        Footwear made to be worn, remembered and cherished.
+        At KimasFootwear, every pair can carry more than style.
+      </p>
 
-            var code = document
-                .getElementById("code")
-                .value
-                .trim()
-                .toUpperCase();
+      <a href="#message" class="button">A Message For You</a>
+      <a href="#collection" class="button outline">Explore</a>
+    </div>
+  </section>
 
-            var message = document.getElementById("message");
+  <section class="message" id="message">
+    <h2>A Message For You 💌</h2>
 
-            message.style.display = "block";
+    <p>
+      Imagine giving someone a pair of KimasFootwear with
+      a personal message hidden inside — something special
+      that only they can discover.
+    </p>
 
-            if (code === "KIMAS001") {
-                message.innerHTML = "You are deeply loved. ❤️";
-            }
+    <br>
 
-            else if (code === "KIMAS002") {
-                message.innerHTML =
-                    "Every step you take is a reminder of how special you are.";
-            }
+    <p>
+      That's more than footwear. That's a memory they can wear.
+    </p>
+  </section>
 
-            else if (code === "KIMAS003") {
-                message.innerHTML =
-                    "This pair was made especially for you. Walk confidently!";
-            }
+  <section id="collection">
+    <div class="title">
+      <h2>Made For Every Journey</h2>
+      <p>Style, comfort and meaning in every step.</p>
+    </div>
 
-            else if (code === "KIMAS004") {
-                message.innerHTML =
-                    "Someone believes in you more than you know. ❤️";
-            }
+    <div class="cards">
 
-            else if (code === "KIMAS005") {
-                message.innerHTML =
-                    "You deserve beautiful things and beautiful moments. 💎";
-            }
+      <div class="card">
+        <div class="icon">👞</div>
+        <h3>For Him</h3>
+        <p>Stylish footwear for confident men.</p>
+      </div>
 
-            else if (code === "KIMAS006") {
-                message.innerHTML =
-                    "May every step you take lead you closer to your dreams. 👣";
-            }
+      <div class="card">
+        <div class="icon">👠</div>
+        <h3>For Her</h3>
+        <p>Beautiful footwear made for elegance.</p>
+      </div>
 
-            else if (code === "KIMAS007") {
-                message.innerHTML =
-                    "You are appreciated more than words can say. ❤️";
-            }
+      <div class="card">
+        <div class="icon">❤️</div>
+        <h3>For Couples</h3>
+        <p>Meaningful footwear ideas for two.</p>
+      </div>
 
-            else if (code === "KIMAS008") {
-                message.innerHTML =
-                    "This is more than footwear. It carries a message made just for you. 💌";
-            }
+      <div class="card">
+        <div class="icon">🎁</div>
+        <h3>For Gifting</h3>
+        <p>Turn a footwear gift into a memory.</p>
+      </div>
 
-            else if (code === "KIMAS009") {
-                message.innerHTML =
-                    "Keep walking. Your best chapters are still ahead. ✨";
-            }
+    </div>
+  </section>
 
-            else if (code === "KIMAS010") {
-                message.innerHTML =
-                    "Every step tells a story. Make yours a beautiful one. 👣❤️";
-            }
+  <section class="about" id="about">
+    <div class="about-content">
+      <h2>More Than Footwear.</h2>
 
-            else {
-                message.innerHTML =
-                    "Sorry, this code is not valid. Please check your code and try again.";
-            }
+      <p>
+        KimasFootwear was created with a simple belief:
+        what we wear can carry meaning.
+      </p>
 
-        }
+      <br>
 
-    </script>
+      <p>
+        From everyday steps to special occasions,
+        we want every KimasFootwear experience to feel
+        personal, memorable and uniquely yours.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Make a Statement?</h2>
+
+    <p>Your next pair could carry a story.</p>
+
+    <a href="#" class="button">Order Your Pair</a>
+  </section>
+
+  <footer>
+    <p>
+      © 2026 <strong>KimasFootwear</strong>.
+      Every Step Tells a Story.
+    </p>
+  </footer>
 
 </body>
-
 </html>
