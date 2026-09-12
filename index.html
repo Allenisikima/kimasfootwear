@@ -224,9 +224,182 @@
       }
     }
   </style>
+  .secret-message {
+  background: #f8f5f0;
+  text-align: center;
+}
+
+.message-box {
+  max-width: 650px;
+  margin: auto;
+  background: white;
+  padding: 35px 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.10);
+}
+
+.message-box input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.message-box button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 30px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.message-box button:hover {
+  background: #d6a85f;
+  color: #111;
+}
+
+#revealedMessage {
+  display: none;
+  margin-top: 25px;
+  padding: 25px;
+  background: #f8f5f0;
+  border-radius: 15px;
+  text-align: left;
+  line-height: 1.8;
+}
+
+#revealedMessage h3 {
+  margin-bottom: 15px;
+  color: #111;
+}
+
+.order-message {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.order-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 22px;
+  background: #d6a85f;
+  color: #111;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+}
 </head>
 
 <body>
+  <script>
+
+const messages = {
+
+  "KIMAS-LOVE-001": {
+    title: "Dear You ❤️",
+    text: `Someone chose this pair especially for you, with a heart full of love and a hope that it brings a beautiful smile to your face. May every step you take remind you of how special you are. Keep walking, keep smiling, and keep making beautiful memories.`
+  },
+
+  "KIMAS-APPRECIATION-001": {
+    title: "Dear Special One 💝",
+    text: `This is a little reminder that you are appreciated more than words can say. May this pair bring comfort to your feet and happiness to your heart. You deserve beautiful things and beautiful moments.`
+  },
+
+  "KIMAS-SMILE-001": {
+    title: "Dear You 😊",
+    text: `Today, we simply want you to smile. May this little gift add some happiness to your day and remind you that life is made of beautiful moments worth celebrating. Enjoy every step!`
+  },
+
+  "KIMAS-SPECIAL-001": {
+    title: "Dear Someone Special 💕",
+    text: `Some people deserve something more than an ordinary gift. This pair was chosen to remind you that you matter and that someone thought about making your day a little brighter. Wear it proudly and enjoy every step.`
+  },
+
+  "KIMAS-SURPRISE-001": {
+    title: "Surprise! 🎁",
+    text: `You probably weren't expecting this little message. Someone wanted to put a smile on your face and give you something you can enjoy beyond today. May this pair become part of a beautiful memory.`
+  },
+
+  "KIMAS-COUPLES-001": {
+    title: "To Two Beautiful Hearts ❤️",
+    text: `May every step you take together lead to more laughter, more memories and more reasons to love each other. Keep choosing each other, keep growing together, and never stop creating your own story.`
+  },
+
+  "KIMAS-FRIEND-001": {
+    title: "Dear Friend 🤝",
+    text: `Good friends make life's journey better, and this is just a little reminder of how much you are valued. May your journey ahead be filled with laughter, success and unforgettable moments.`
+  },
+
+  "KIMAS-CHAMPION-001": {
+    title: "Dear Champion 🌟",
+    text: `Whatever season of life you're in, keep moving forward. Every step may not be easy, but every step takes you somewhere. Wear this as a little reminder to keep believing in yourself.`
+  },
+
+  "KIMAS-CELEBRATE-001": {
+    title: "Dear You 🎉",
+    text: `Today is worth celebrating, and so are you. May this pair accompany you through many more joyful moments, achievements and memories. Here's to where you've been and everything still ahead.`
+  },
+
+  "KIMAS-STORY-001": {
+    title: "Dear You 👣❤️",
+    text: `This isn't just a pair of footwear. It's a little piece of a story — a story that begins with the person who chose it for you and continues with every step you take. May your journey be filled with love, happiness and beautiful memories.`
+  }
+
+};
+
+function revealMessage() {
+
+  const input = document.getElementById("messageCode");
+  const result = document.getElementById("revealedMessage");
+
+  const code = input.value.trim().toUpperCase();
+
+  if (messages[code]) {
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+      <h3>${messages[code].title}</h3>
+
+      <p>${messages[code].text}</p>
+
+      <div class="order-message">
+        Ready for your next KimasFootwear story? 👣
+
+        <br>
+
+        <a href="#collection" class="order-button">
+          Order Your Next Pair
+        </a>
+      </div>
+    `;
+
+  } else {
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+      <h3>Hmm... 🤔</h3>
+
+      <p>
+        We couldn't find that code. Please check the code
+        that came with your KimasFootwear pair and try again.
+      </p>
+    `;
+
+  }
+
+}
+
+</script>
 
   <header>
     <div class="brand">
@@ -306,7 +479,31 @@
     </div>
   </section>
 
-  <section class="about" id="about">
+  <section class="secret-message" id="secret-message">
+
+  <div class="title">
+    <h2>Someone Left You a Message 💌</h2>
+    <p>Enter the special KimasFootwear code that came with your pair.</p>
+  </div>
+
+  <div class="message-box">
+
+    <input
+      type="text"
+      id="messageCode"
+      placeholder="Enter your Kimas code"
+      autocomplete="off"
+    >
+
+    <button onclick="revealMessage()">
+      Reveal My Message ❤️
+    </button>
+
+    <div id="revealedMessage"></div>
+
+  </div>
+
+</section>
     <div class="about-content">
       <h2>More Than Footwear.</h2>
 
