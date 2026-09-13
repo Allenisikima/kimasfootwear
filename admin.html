@@ -6,7 +6,6 @@
 
     <title>KimasFootwear | Every Step Tells a Story</title>
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
@@ -189,6 +188,7 @@
 <body>
 
 <header>
+
     <img src="logo.png" alt="KimasFootwear Logo">
 
     <nav>
@@ -196,6 +196,7 @@
         <a href="#message">Message</a>
         <a href="#about">About</a>
     </nav>
+
 </header>
 
 
@@ -237,9 +238,10 @@
                 id="codeInput"
                 placeholder="Enter your Kimas code e.g. KIM-AQC257"
                 autocomplete="off"
+                onkeydown="handleEnter(event)"
             >
 
-            <button onclick="revealMessage()">
+            <button type="button" onclick="revealMessage()">
                 Reveal My Message
             </button>
 
@@ -274,9 +276,9 @@
 
 <script>
 
-    /* ==============================
-       SUPABASE CONFIGURATION
-    ============================== */
+    /* =====================================
+       SUPABASE
+    ===================================== */
 
     const SUPABASE_URL =
         "https://hisdjtixefaoocvlzaml.supabase.co";
@@ -291,33 +293,69 @@
         );
 
 
-    /* ==============================
-       LOAD MESSAGE FROM URL
-    ============================== */
+    /* =====================================
+       CLEAN CODE
+    ===================================== */
 
-    async function loadMessageFromURL() {
+    function cleanCode(value) {
 
-        const params =
-            new URLSearchParams(window.location.search);
+        return String(value || "")
+            .trim()
+            .replace(/\s+/g, "")
+            .toUpperCase();
 
-        const code =
-            params.get("code");
+    }
 
-        if (code) {
 
-            document.getElementById("codeInput").value =
-                code;
+    /* =====================================
+       ENTER KEY
+    ===================================== */
 
-            await revealMessage(code);
+    function handleEnter(event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            revealMessage();
 
         }
 
     }
 
 
-    /* ==============================
+    /* =====================================
+       LOAD CODE FROM URL
+    ===================================== */
+
+    async function loadMessageFromURL() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const urlCode =
+            params.get("code");
+
+        if (urlCode) {
+
+            const cleanURLCode =
+                cleanCode(urlCode);
+
+            document.getElementById("codeInput").value =
+                cleanURLCode;
+
+            await revealMessage(cleanURLCode);
+
+        }
+
+    }
+
+
+    /* =====================================
        REVEAL MESSAGE
-    ============================== */
+    ===================================== */
 
     async function revealMessage(codeFromURL = null) {
 
@@ -327,8 +365,13 @@
         const status =
             document.getElementById("status");
 
+        const rawCode =
+            codeFromURL !== null
+                ? codeFromURL
+                : input.value;
+
         const code =
-            (codeFromURL || input.value).trim().toUpperCase();
+            cleanCode(rawCode);
 
 
         if (!code) {
@@ -339,6 +382,9 @@
             return;
 
         }
+
+
+        input.value = code;
 
 
         status.textContent =
@@ -353,42 +399,49 @@
                     .select("*")
                     .eq("code", code)
                     .eq("active", true)
-                    .single();
+                    .maybeSingle();
+
+
+            console.log("KimasFootwear code:", code);
+            console.log("Database result:", data);
+            console.log("Database error:", error);
 
 
             if (error) {
 
-                console.error(error);
+                console.error(
+                    "Supabase error:",
+                    error
+                );
 
-                document.getElementById("messageTitle").textContent =
-                    "Message Not Found";
-
-                document.getElementById("messageText").textContent =
-                    "We couldn't find a message connected to this code. Please check the code and try again.";
-
-                document.getElementById("names").innerHTML = "";
-
-                document.getElementById("codeDisplay").textContent =
-                    "Code: " + code;
-
-                status.textContent =
-                    "Please check your code and try again.";
+                showNotFound(code);
 
                 return;
 
             }
 
 
-            /* ==============================
+            if (!data) {
+
+                showNotFound(code);
+
+                return;
+
+            }
+
+
+            /* =================================
                DISPLAY MESSAGE
-            ============================== */
+            ================================= */
 
-            document.getElementById("messageTitle").textContent =
-                data.title;
+            document.getElementById(
+                "messageTitle"
+            ).textContent = data.title;
 
 
-            document.getElementById("messageText").textContent =
-                data.message;
+            document.getElementById(
+                "messageText"
+            ).textContent = data.message;
 
 
             let namesHTML = "";
@@ -414,24 +467,31 @@
             }
 
 
-            document.getElementById("names").innerHTML =
-                namesHTML;
+            document.getElementById(
+                "names"
+            ).innerHTML = namesHTML;
 
 
-            document.getElementById("codeDisplay").textContent =
-                "KimasFootwear Code: " + data.code;
+            document.getElementById(
+                "codeDisplay"
+            ).textContent =
+                "KimasFootwear Code: " +
+                data.code;
 
 
             status.textContent =
                 "Your message has been revealed ❤️";
 
 
-            /* Update browser URL */
+            /* =================================
+               UPDATE URL
+            ================================= */
 
             const newURL =
                 window.location.pathname +
                 "?code=" +
                 encodeURIComponent(data.code);
+
 
             window.history.replaceState(
                 {},
@@ -440,17 +500,23 @@
             );
 
 
-            /* Scroll to message */
+            /* =================================
+               SCROLL TO MESSAGE
+            ================================= */
 
-            document.getElementById("message")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
+            document.getElementById(
+                "message"
+            ).scrollIntoView({
+                behavior: "smooth"
+            });
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Unexpected error:",
+                error
+            );
 
             status.textContent =
                 "Something went wrong. Please try again.";
@@ -460,9 +526,46 @@
     }
 
 
-    /* ==============================
+    /* =====================================
+       MESSAGE NOT FOUND
+    ===================================== */
+
+    function showNotFound(code) {
+
+        document.getElementById(
+            "messageTitle"
+        ).textContent =
+            "Message Not Found";
+
+
+        document.getElementById(
+            "messageText"
+        ).textContent =
+            "We couldn't find a message connected to this code. Please check the code and try again.";
+
+
+        document.getElementById(
+            "names"
+        ).innerHTML = "";
+
+
+        document.getElementById(
+            "codeDisplay"
+        ).textContent =
+            "Code: " + code;
+
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "Please check your code and try again.";
+
+    }
+
+
+    /* =====================================
        HTML ESCAPE
-    ============================== */
+    ===================================== */
 
     function escapeHTML(value) {
 
@@ -478,9 +581,9 @@
     }
 
 
-    /* ==============================
+    /* =====================================
        START
-    ============================== */
+    ===================================== */
 
     document.addEventListener(
         "DOMContentLoaded",
@@ -494,4 +597,4 @@
 </script>
 
 </body>
-                </html>
+    </html> 
