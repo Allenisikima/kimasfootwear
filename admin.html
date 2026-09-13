@@ -1,1 +1,812 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>KimasFootwear Admin</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #111;
+    color: #fff;
+}
+
+header {
+    background: #181818;
+    border-bottom: 1px solid #333;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    color: #d4af37;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.admin-label {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+h1,
+h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+h1 {
+    color: #d4af37;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 35px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.card {
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.card h2 {
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 15px 0 7px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #111;
+    color: white;
+    font-family: inherit;
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-weight: 700;
+}
+
+.primary {
+    background: #d4af37;
+    color: #111;
+    margin-top: 20px;
+}
+
+.primary:hover {
+    background: #f0cf62;
+}
+
+.secondary {
+    background: #333;
+    color: white;
+}
+
+.danger {
+    background: #8b2222;
+    color: white;
+}
+
+.code-list {
+    margin-top: 20px;
+}
+
+.code-item {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.code-item strong {
+    color: #d4af37;
+}
+
+.code-item p {
+    color: #aaa;
+    font-size: 13px;
+    margin: 5px 0 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.actions button {
+    padding: 8px 13px;
+    font-size: 12px;
+}
+
+.preview {
+    background: #f8f4ea;
+    color: #222;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 15px;
+}
+
+.preview h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.preview p {
+    line-height: 1.7;
+}
+
+.link-box {
+    margin-top: 20px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.link-box input {
+    margin-bottom: 10px;
+}
+
+.qr-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#qrcode {
+    background: white;
+    padding: 15px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.empty {
+    color: #777;
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.notice {
+    background: #27230f;
+    border: 1px solid #806d1c;
+    color: #e6d78a;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media(max-width: 800px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        padding: 15px 5%;
+    }
+
+    .container {
+        width: 92%;
+    }
+}
+</style></head><body><header>
+    <div class="logo">KimasFootwear</div>
+    <div class="admin-label">ADMIN DASHBOARD</div>
+</header><div class="container"><h1>Welcome to KimasFootwear Admin</h1>
+
+<p class="subtitle">
+    Create and manage the personal messages attached to your footwear.
+</p>
+
+<div class="notice">
+    <strong>Current stage:</strong>
+    This dashboard stores data in this browser for testing.
+    In the next stage, we'll connect it to a real online database so
+    your codes work from any device and your customers can receive
+    the messages through the live website.
+</div>
+
+<div class="dashboard">
+
+    <!-- CREATE MESSAGE -->
+
+    <div class="card">
+
+        <h2>Create Message</h2>
+
+        <label>Unique Kimas Code</label>
+
+        <input
+            type="text"
+            id="code"
+            placeholder="e.g. KIMAS-LOVE-002"
+        >
+
+        <label>Message Title</label>
+
+        <input
+            type="text"
+            id="title"
+            placeholder="A Message From the Heart"
+        >
+
+        <label>Personal Message</label>
+
+        <textarea
+            id="message"
+            placeholder="Write the personal message here..."
+        ></textarea>
+
+        <label>Sender Name (optional)</label>
+
+        <input
+            type="text"
+            id="sender"
+            placeholder="From Allen"
+        >
+
+        <label>Recipient Name (optional)</label>
+
+        <input
+            type="text"
+            id="recipient"
+            placeholder="For Pearl"
+        >
+
+        <button class="primary" onclick="saveMessage()">
+            Save Message
+        </button>
+
+    </div>
+
+
+    <!-- PREVIEW -->
+
+    <div class="card">
+
+        <h2>Preview</h2>
+
+        <div id="preview" class="preview">
+
+            <h3 id="previewTitle">
+                Your Message Title
+            </h3>
+
+            <p id="previewText">
+                Your personal message will appear here.
+            </p>
+
+            <br>
+
+            <p id="previewNames"></p>
+
+        </div>
+
+        <div class="link-box">
+
+            <label>Customer Link</label>
+
+            <input
+                type="text"
+                id="customerLink"
+                readonly
+                placeholder="Your link will appear here"
+            >
+
+            <button class="secondary" onclick="copyLink()">
+                Copy Link
+            </button>
+
+        </div>
+
+        <div class="qr-area">
+
+            <div id="qrcode"></div>
+
+            <br><br>
+
+            <button
+                class="secondary"
+                onclick="downloadQR()"
+            >
+                Download QR
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SAVED CODES -->
+
+<div class="card" style="margin-top:25px;">
+
+    <h2>Your Message Codes</h2>
+
+    <div id="codeList" class="code-list"></div>
+
+</div>
+
+</div><!-- QR CODE LIBRARY --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
+
+let messages =
+    JSON.parse(localStorage.getItem("kimasMessages")) || {};
+
+
+function saveMessage() {
+
+    const code =
+        document.getElementById("code").value
+        .trim()
+        .toUpperCase();
+
+    const title =
+        document.getElementById("title").value
+        .trim();
+
+    const message =
+        document.getElementById("message").value
+        .trim();
+
+    const sender =
+        document.getElementById("sender").value
+        .trim();
+
+    const recipient =
+        document.getElementById("recipient").value
+        .trim();
+
+
+    if (!code || !title || !message) {
+
+        alert(
+            "Please enter the code, title and message."
+        );
+
+        return;
+    }
+
+
+    messages[code] = {
+
+        title: title,
+
+        text: message,
+
+        sender: sender,
+
+        recipient: recipient
+
+    };
+
+
+    localStorage.setItem(
+        "kimasMessages",
+        JSON.stringify(messages)
+    );
+
+
+    generateLink(code);
+
+    displayMessages();
+
+    alert(
+        "Message saved successfully!"
+    );
+
+}
+
+
+function generateLink(code) {
+
+    const baseURL =
+        window.location.origin +
+        window.location.pathname
+        .replace("admin.html", "index.html");
+
+    const link =
+        baseURL +
+        "?code=" +
+        encodeURIComponent(code);
+
+
+    document.getElementById(
+        "customerLink"
+    ).value = link;
+
+
+    generateQR(link);
+
+}
+
+
+function generateQR(link) {
+
+    const qr =
+        document.getElementById("qrcode");
+
+    qr.innerHTML = "";
+
+
+    new QRCode(qr, {
+
+        text: link,
+
+        width: 180,
+
+        height: 180
+
+    });
+
+}
+
+
+function copyLink() {
+
+    const input =
+        document.getElementById("customerLink");
+
+
+    if (!input.value) {
+
+        alert("Create a message first.");
+
+        return;
+
+    }
+
+
+    navigator.clipboard.writeText(
+        input.value
+    );
+
+    alert(
+        "Customer link copied!"
+    );
+
+}
+
+
+function downloadQR() {
+
+    const qrImage =
+        document.querySelector(
+            "#qrcode img"
+        );
+
+
+    if (!qrImage) {
+
+        alert(
+            "Generate a QR code first."
+        );
+
+        return;
+
+    }
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href =
+        qrImage.src;
+
+    link.download =
+        "KimasFootwear-QR.png";
+
+    link.click();
+
+}
+
+
+function editMessage(code) {
+
+    const item =
+        messages[code];
+
+
+    document.getElementById(
+        "code"
+    ).value = code;
+
+
+    document.getElementById(
+        "title"
+    ).value = item.title;
+
+
+    document.getElementById(
+        "message"
+    ).value = item.text;
+
+
+    document.getElementById(
+        "sender"
+    ).value = item.sender || "";
+
+
+    document.getElementById(
+        "recipient"
+    ).value = item.recipient || "";
+
+
+    updatePreview();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+function deleteMessage(code) {
+
+    if (
+        !confirm(
+            "Delete " + code + "?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    delete messages[code];
+
+
+    localStorage.setItem(
+        "kimasMessages",
+        JSON.stringify(messages)
+    );
+
+
+    displayMessages();
+
+}
+
+
+function displayMessages() {
+
+    const list =
+        document.getElementById(
+            "codeList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    const codes =
+        Object.keys(messages);
+
+
+    if (!codes.length) {
+
+        list.innerHTML =
+            '<div class="empty">No messages created yet.</div>';
+
+        return;
+
+    }
+
+
+    codes.forEach(function(code) {
+
+        const item =
+            messages[code];
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "code-item";
+
+
+        div.innerHTML = `
+
+            <strong>${code}</strong>
+
+            <p>
+                ${item.title}
+            </p>
+
+            <div class="actions">
+
+                <button
+                    class="secondary"
+                    onclick="editMessage('${code}')"
+                >
+                    Edit
+                </button>
+
+                <button
+                    class="secondary"
+                    onclick="generateLink('${code}')"
+                >
+                    QR / Link
+                </button>
+
+                <button
+                    class="danger"
+                    onclick="deleteMessage('${code}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+function updatePreview() {
+
+    const title =
+        document.getElementById(
+            "title"
+        ).value;
+
+
+    const message =
+        document.getElementById(
+            "message"
+        ).value;
+
+
+    const sender =
+        document.getElementById(
+            "sender"
+        ).value;
+
+
+    const recipient =
+        document.getElementById(
+            "recipient"
+        ).value;
+
+
+    document.getElementById(
+        "previewTitle"
+    ).textContent =
+        title ||
+        "Your Message Title";
+
+
+    document.getElementById(
+        "previewText"
+    ).textContent =
+        message ||
+        "Your personal message will appear here.";
+
+
+    let names = "";
+
+
+    if (sender) {
+
+        names +=
+            "From: " +
+            sender;
+
+    }
+
+
+    if (recipient) {
+
+        if (names) {
+
+            names += " • ";
+
+        }
+
+
+        names +=
+            "To: " +
+            recipient;
+
+    }
+
+
+    document.getElementById(
+        "previewNames"
+    ).textContent =
+        names;
+
+}
+
+
+document
+    .getElementById("title")
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+
+document
+    .getElementById("message")
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+
+document
+    .getElementById("sender")
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+
+document
+    .getElementById("recipient")
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+
+displayMessages();
+
+</script></body>
+  </html>
