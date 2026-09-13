@@ -1,7 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>KimasFootwear Admin</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KimasFootwear Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
 * {
     margin: 0;
     padding: 0;
@@ -125,6 +132,25 @@ button {
     color: white;
 }
 
+.logout {
+    background: #333;
+    color: white;
+    padding: 8px 15px;
+    font-size: 12px;
+}
+
+.code-display {
+    background: #111;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .code-list {
     margin-top: 20px;
 }
@@ -217,6 +243,57 @@ button {
     line-height: 1.6;
 }
 
+.login-box {
+    width: 90%;
+    max-width: 450px;
+    margin: 80px auto;
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.login-box h1 {
+    text-align: center;
+}
+
+.login-box p {
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.login-box button {
+    width: 100%;
+}
+
+.error {
+    background: #3b1717;
+    border: 1px solid #8b2222;
+    color: #ffb0b0;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: none;
+    font-size: 13px;
+}
+
+.success {
+    background: #173b22;
+    border: 1px solid #287a43;
+    color: #9de4b1;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: none;
+    font-size: 13px;
+}
+
+.hidden {
+    display: none !important;
+}
+
 @media(max-width: 800px) {
     .dashboard {
         grid-template-columns: 1fr;
@@ -230,583 +307,487 @@ button {
         width: 92%;
     }
 }
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
     <div class="logo">KimasFootwear</div>
-    <div class="admin-label">ADMIN DASHBOARD</div>
-</header><div class="container"><h1>Welcome to KimasFootwear Admin</h1>
+
+    <div id="adminHeader" class="admin-label hidden">
+        ADMIN DASHBOARD
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+</header>
+
+
+<!-- LOGIN -->
+
+<div id="loginScreen" class="login-box">
+
+    <h1>KimasFootwear</h1>
+
+    <p>
+        Private Admin Dashboard<br>
+        Sign in to manage your customer messages.
+    </p>
+
+    <label>Email Address</label>
+
+    <input
+        type="email"
+        id="loginEmail"
+        placeholder="Your admin email"
+    >
+
+    <label>Password</label>
+
+    <input
+        type="password"
+        id="loginPassword"
+        placeholder="Your password"
+    >
+
+    <button class="primary" onclick="login()">
+        Sign In
+    </button>
+
+    <div id="loginError" class="error"></div>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+
+<div id="dashboardScreen" class="hidden">
+
+<div class="container">
+
+<h1>Welcome to KimasFootwear Admin</h1>
 
 <p class="subtitle">
     Create and manage the personal messages attached to your footwear.
 </p>
 
 <div class="notice">
-    <strong>Current stage:</strong>
-    This dashboard stores data in this browser for testing.
-    In the next stage, we'll connect it to a real online database so
-    your codes work from any device and your customers can receive
-    the messages through the live website.
+    <strong>Online database:</strong>
+    Your messages are now stored securely in Supabase.
+    You can access them from any device after signing in.
 </div>
+
 
 <div class="dashboard">
 
-    <!-- CREATE MESSAGE -->
 
-    <div class="card">
+<!-- CREATE MESSAGE -->
 
-        <h2>Create Message</h2>
+<div class="card">
 
-        <label>Unique Kimas Code</label>
+<h2 id="formHeading">Create Message</h2>
 
-        <input
-            type="text"
-            id="code"
-            placeholder="e.g. KIMAS-LOVE-002"
-        >
+<label>Generated Kimas Code</label>
 
-        <label>Message Title</label>
+<div id="generatedCode" class="code-display">
+    KIM-READY
+</div>
 
-        <input
-            type="text"
-            id="title"
-            placeholder="A Message From the Heart"
-        >
-
-        <label>Personal Message</label>
-
-        <textarea
-            id="message"
-            placeholder="Write the personal message here..."
-        ></textarea>
-
-        <label>Sender Name (optional)</label>
-
-        <input
-            type="text"
-            id="sender"
-            placeholder="From Allen"
-        >
-
-        <label>Recipient Name (optional)</label>
-
-        <input
-            type="text"
-            id="recipient"
-            placeholder="For Pearl"
-        >
-
-        <button class="primary" onclick="saveMessage()">
-            Save Message
-        </button>
-
-    </div>
+<button
+    class="secondary"
+    onclick="generateNewCode()"
+    style="width:100%;"
+>
+    Generate New Code
+</button>
 
 
-    <!-- PREVIEW -->
+<label>Message Title</label>
 
-    <div class="card">
+<input
+    type="text"
+    id="title"
+    placeholder="A Message From the Heart"
+>
 
-        <h2>Preview</h2>
 
-        <div id="preview" class="preview">
+<label>Personal Message</label>
 
-            <h3 id="previewTitle">
-                Your Message Title
-            </h3>
+<textarea
+    id="message"
+    placeholder="Write the personal message here..."
+></textarea>
 
-            <p id="previewText">
-                Your personal message will appear here.
-            </p>
 
-            <br>
+<label>Sender Name (optional)</label>
 
-            <p id="previewNames"></p>
+<input
+    type="text"
+    id="sender"
+    placeholder="From Allen"
+>
 
-        </div>
 
-        <div class="link-box">
+<label>Recipient Name (optional)</label>
 
-            <label>Customer Link</label>
+<input
+    type="text"
+    id="recipient"
+    placeholder="For Pearl"
+>
 
-            <input
-                type="text"
-                id="customerLink"
-                readonly
-                placeholder="Your link will appear here"
-            >
 
-            <button class="secondary" onclick="copyLink()">
-                Copy Link
-            </button>
+<button
+    id="saveButton"
+    class="primary"
+    onclick="saveMessage()"
+>
+    Save Message
+</button>
 
-        </div>
+<button
+    id="cancelEditButton"
+    class="secondary hidden"
+    onclick="cancelEdit()"
+    style="margin-top:10px;width:100%;"
+>
+    Cancel Edit
+</button>
 
-        <div class="qr-area">
+<div id="formError" class="error"></div>
 
-            <div id="qrcode"></div>
+<div id="formSuccess" class="success"></div>
 
-            <br><br>
+</div>
 
-            <button
-                class="secondary"
-                onclick="downloadQR()"
-            >
-                Download QR
-            </button>
 
-        </div>
+<!-- PREVIEW -->
 
-    </div>
+<div class="card">
+
+<h2>Preview</h2>
+
+<div id="preview" class="preview">
+
+<h3 id="previewTitle">
+    Your Message Title
+</h3>
+
+<p id="previewText">
+    Your personal message will appear here.
+</p>
+
+<br>
+
+<p id="previewNames"></p>
+
+</div>
+
+
+<div class="link-box">
+
+<label>Customer Link</label>
+
+<input
+    type="text"
+    id="customerLink"
+    readonly
+    placeholder="Your link will appear here"
+>
+
+<button
+    class="secondary"
+    onclick="copyLink()"
+>
+    Copy Link
+</button>
+
+</div>
+
+
+<div class="qr-area">
+
+<div id="qrcode"></div>
+
+<br><br>
+
+<button
+    class="secondary"
+    onclick="downloadQR()"
+>
+    Download QR
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 
 <!-- SAVED CODES -->
 
-<div class="card" style="margin-top:25px;">
+<div
+    class="card"
+    style="margin-top:25px;"
+>
 
-    <h2>Your Message Codes</h2>
+<h2>Your Message Codes</h2>
 
-    <div id="codeList" class="code-list"></div>
+<div id="codeList" class="code-list">
+
+<div class="empty">
+    Loading messages...
+</div>
 
 </div>
 
-</div><!-- QR CODE LIBRARY --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
+</div>
 
-let messages =
-    JSON.parse(localStorage.getItem("kimasMessages")) || {};
+</div>
+
+</div>
 
 
-function saveMessage() {
+<!-- SUPABASE -->
 
-    const code =
-        document.getElementById("code").value
-        .trim()
-        .toUpperCase();
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- QR CODE -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+<script>
+
+/* =========================================
+   SUPABASE CONFIGURATION
+========================================= */
+
+const SUPABASE_URL =
+    "https://hisdjtixefaoocvlzaml.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentCode = null;
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+async function login() {
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const errorBox =
+        document.getElementById("loginError");
+
+    errorBox.style.display = "none";
+
+    if (!email || !password) {
+
+        showLoginError(
+            "Please enter your email and password."
+        );
+
+        return;
+    }
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+
+        showLoginError(
+            error.message
+        );
+
+        return;
+    }
+
+    showDashboard();
+}
+
+
+function showLoginError(message) {
+
+    const box =
+        document.getElementById("loginError");
+
+    box.textContent = message;
+
+    box.style.display = "block";
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    document
+        .getElementById("dashboardScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("adminHeader")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginScreen")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================================
+   CHECK CURRENT SESSION
+========================================= */
+
+async function checkSession() {
+
+    const {
+        data: { session }
+    } =
+        await supabaseClient.auth.getSession();
+
+    if (session) {
+
+        showDashboard();
+
+    }
+
+}
+
+
+function showDashboard() {
+
+    document
+        .getElementById("loginScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("dashboardScreen")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("adminHeader")
+        .classList.remove("hidden");
+
+    generateNewCode();
+
+    loadMessages();
+
+}
+
+
+/* =========================================
+   GENERATE RANDOM CODE
+========================================= */
+
+function randomCharacters(length) {
+
+    const characters =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let result = "";
+
+    const array =
+        new Uint32Array(length);
+
+    crypto.getRandomValues(array);
+
+    for (let i = 0; i < length; i++) {
+
+        result +=
+            characters[
+                array[i] % characters.length
+            ];
+
+    }
+
+    return result;
+}
+
+
+async function generateNewCode() {
+
+    let code = "";
+
+    let exists = true;
+
+    while (exists) {
+
+        code =
+            "KIM-" +
+            randomCharacters(4);
+
+        const { data } =
+            await supabaseClient
+                .from("messages")
+                .select("id")
+                .eq("code", code)
+                .maybeSingle();
+
+        exists = !!data;
+    }
+
+    currentCode = code;
+
+    document
+        .getElementById("generatedCode")
+        .textContent = code;
+
+}
+
+
+/* =========================================
+   SAVE MESSAGE
+========================================= */
+
+async function saveMessage() {
 
     const title =
-        document.getElementById("title").value
-        .trim();
+        document
+            .getElementById("title")
+            .value
+            .trim();
 
     const message =
-        document.getElementById("message").value
-        .trim();
+        document
+            .getElementById("message")
+            .value
+            .trim();
 
     const sender =
-        document.getElementById("sender").value
-        .trim();
+        document
+            .getElementById("sender")
+            .value
+            .trim();
 
     const recipient =
-        document.getElementById("recipient").value
-        .trim();
-
-
-    if (!code || !title || !message) {
-
-        alert(
-            "Please enter the code, title and message."
-        );
-
-        return;
-    }
-
-
-    messages[code] = {
-
-        title: title,
-
-        text: message,
-
-        sender: sender,
-
-        recipient: recipient
-
-    };
-
-
-    localStorage.setItem(
-        "kimasMessages",
-        JSON.stringify(messages)
-    );
-
-
-    generateLink(code);
-
-    displayMessages();
-
-    alert(
-        "Message saved successfully!"
-    );
-
-}
-
-
-function generateLink(code) {
-
-    const baseURL =
-        window.location.origin +
-        window.location.pathname
-        .replace("admin.html", "index.html");
-
-    const link =
-        baseURL +
-        "?code=" +
-        encodeURIComponent(code);
-
-
-    document.getElementById(
-        "customerLink"
-    ).value = link;
-
-
-    generateQR(link);
-
-}
-
-
-function generateQR(link) {
-
-    const qr =
-        document.getElementById("qrcode");
-
-    qr.innerHTML = "";
-
-
-    new QRCode(qr, {
-
-        text: link,
-
-        width: 180,
-
-        height: 180
-
-    });
-
-}
-
-
-function copyLink() {
-
-    const input =
-        document.getElementById("customerLink");
-
-
-    if (!input.value) {
-
-        alert("Create a message first.");
-
-        return;
-
-    }
-
-
-    navigator.clipboard.writeText(
-        input.value
-    );
-
-    alert(
-        "Customer link copied!"
-    );
-
-}
-
-
-function downloadQR() {
-
-    const qrImage =
-        document.querySelector(
-            "#qrcode img"
-        );
-
-
-    if (!qrImage) {
-
-        alert(
-            "Generate a QR code first."
-        );
-
-        return;
-
-    }
-
-
-    const link =
-        document.createElement("a");
-
-
-    link.href =
-        qrImage.src;
-
-    link.download =
-        "KimasFootwear-QR.png";
-
-    link.click();
-
-}
-
-
-function editMessage(code) {
-
-    const item =
-        messages[code];
-
-
-    document.getElementById(
-        "code"
-    ).value = code;
-
-
-    document.getElementById(
-        "title"
-    ).value = item.title;
-
-
-    document.getElementById(
-        "message"
-    ).value = item.text;
-
-
-    document.getElementById(
-        "sender"
-    ).value = item.sender || "";
-
-
-    document.getElementById(
-        "recipient"
-    ).value = item.recipient || "";
-
-
-    updatePreview();
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-function deleteMessage(code) {
-
-    if (
-        !confirm(
-            "Delete " + code + "?"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    delete messages[code];
-
-
-    localStorage.setItem(
-        "kimasMessages",
-        JSON.stringify(messages)
-    );
-
-
-    displayMessages();
-
-}
-
-
-function displayMessages() {
-
-    const list =
-        document.getElementById(
-            "codeList"
-        );
-
-
-    list.innerHTML = "";
-
-
-    const codes =
-        Object.keys(messages);
-
-
-    if (!codes.length) {
-
-        list.innerHTML =
-            '<div class="empty">No messages created yet.</div>';
-
-        return;
-
-    }
-
-
-    codes.forEach(function(code) {
-
-        const item =
-            messages[code];
-
-
-        const div =
-            document.createElement("div");
-
-
-        div.className =
-            "code-item";
-
-
-        div.innerHTML = `
-
-            <strong>${code}</strong>
-
-            <p>
-                ${item.title}
-            </p>
-
-            <div class="actions">
-
-                <button
-                    class="secondary"
-                    onclick="editMessage('${code}')"
-                >
-                    Edit
-                </button>
-
-                <button
-                    class="secondary"
-                    onclick="generateLink('${code}')"
-                >
-                    QR / Link
-                </button>
-
-                <button
-                    class="danger"
-                    onclick="deleteMessage('${code}')"
-                >
-                    Delete
-                </button>
-
-            </div>
-
-        `;
-
-
-        list.appendChild(div);
-
-    });
-
-}
-
-
-function updatePreview() {
-
-    const title =
-        document.getElementById(
-            "title"
-        ).value;
-
-
-    const message =
-        document.getElementById(
-            "message"
-        ).value;
-
-
-    const sender =
-        document.getElementById(
-            "sender"
-        ).value;
-
-
-    const recipient =
-        document.getElementById(
-            "recipient"
-        ).value;
-
-
-    document.getElementById(
-        "previewTitle"
-    ).textContent =
-        title ||
-        "Your Message Title";
-
-
-    document.getElementById(
-        "previewText"
-    ).textContent =
-        message ||
-        "Your personal message will appear here.";
-
-
-    let names = "";
-
-
-    if (sender) {
-
-        names +=
-            "From: " +
-            sender;
-
-    }
-
-
-    if (recipient) {
-
-        if (names) {
-
-            names += " • ";
-
-        }
-
-
-        names +=
-            "To: " +
-            recipient;
-
-    }
-
-
-    document.getElementById(
-        "previewNames"
-    ).textContent =
-        names;
-
-}
-
-
-document
-    .getElementById("title")
-    .addEventListener(
-        "input",
-        updatePreview
-    );
-
-
-document
-    .getElementById("message")
-    .addEventListener(
-        "input",
-        updatePreview
-    );
-
-
-document
-    .getElementById("sender")
-    .addEventListener(
-        "input",
-        updatePreview
-    );
-
-
-document
-    .getElementById("recipient")
-    .addEventListener(
-        "input",
-        updatePreview
-    );
-
-
-displayMessages();
-
-</script></body>
-  </html>
+        document
+            .getElementById("recipient")
+            .
