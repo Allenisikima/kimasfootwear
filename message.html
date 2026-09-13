@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>KimasFootwear | A Special Message</title>
 
@@ -14,16 +15,8 @@
 
 <style>
 
-/* =====================================================
-   GLOBAL
-===================================================== */
-
 * {
     box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
@@ -33,809 +26,621 @@ body {
     min-height: 100vh;
 
     font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+        Arial,
+        Helvetica,
+        sans-serif;
 
     color: white;
 
     background:
-
         radial-gradient(
-            circle at 20% 15%,
-            rgba(212,175,55,0.16),
-            transparent 30%
+            circle at top left,
+            rgba(212,175,55,.18),
+            transparent 35%
         ),
 
         radial-gradient(
-            circle at 85% 20%,
-            rgba(255,105,180,0.12),
-            transparent 28%
-        ),
-
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(212,175,55,0.10),
+            circle at bottom right,
+            rgba(255,105,180,.16),
             transparent 35%
         ),
 
         linear-gradient(
             135deg,
             #050505,
-            #160b12,
-            #080808,
-            #140c0d
+            #120b10,
+            #050505
         );
-
-    overflow-x: hidden;
-
-}
-
-
-/* =====================================================
-   DECORATIVE BACKGROUND
-===================================================== */
-
-body::before {
-
-    content: "♡";
-
-    position: fixed;
-
-    top: 8%;
-
-    left: 8%;
-
-    font-size: 100px;
-
-    color:
-        rgba(212,175,55,0.05);
-
-    transform: rotate(-15deg);
-
-    pointer-events: none;
-
-}
-
-
-body::after {
-
-    content: "♡";
-
-    position: fixed;
-
-    bottom: 5%;
-
-    right: 8%;
-
-    font-size: 140px;
-
-    color:
-        rgba(255,105,180,0.04);
-
-    transform: rotate(15deg);
-
-    pointer-events: none;
-
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.page {
-
-    width: 100%;
-
-    min-height: 100vh;
 
     display: flex;
 
-    justify-content: center;
-
     align-items: center;
 
-    padding: 35px 18px;
+    justify-content: center;
 
+    padding: 25px;
+
+    overflow-x: hidden;
 }
 
 
-.container {
+/* DECORATIVE HEARTS */
+
+.heart {
+
+    position: fixed;
+
+    color: rgba(212,175,55,.18);
+
+    font-size: 40px;
+
+    pointer-events: none;
+
+    animation:
+        floatHeart 6s ease-in-out infinite;
+}
+
+.heart.one {
+
+    top: 10%;
+
+    left: 8%;
+}
+
+.heart.two {
+
+    top: 70%;
+
+    right: 8%;
+
+    font-size: 55px;
+
+    animation-delay: 2s;
+}
+
+.heart.three {
+
+    top: 35%;
+
+    right: 15%;
+
+    font-size: 25px;
+
+    animation-delay: 4s;
+}
+
+@keyframes floatHeart {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+
+/* MAIN */
+
+.wrapper {
 
     width: 100%;
 
-    max-width: 720px;
+    max-width: 650px;
 
+    position: relative;
+
+    z-index: 2;
 }
 
 
-/* =====================================================
-   BRAND
-===================================================== */
+/* BRAND */
 
 .brand {
 
     text-align: center;
 
-    margin-bottom: 28px;
-
+    margin-bottom: 25px;
 }
-
 
 .brand-name {
 
-    color: #d4af37;
+    font-size: 14px;
 
-    font-size: 32px;
+    letter-spacing: 5px;
+
+    color: #d4af37;
 
     font-weight: bold;
 
-    letter-spacing: 4px;
-
     text-transform: uppercase;
-
-    text-shadow:
-        0 0 20px
-        rgba(212,175,55,0.25);
-
 }
 
-
-.brand-tagline {
+.tagline {
 
     margin-top: 8px;
-
-    color: #c9c9c9;
-
-    font-size: 13px;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-}
-
-
-.gold-line {
-
-    width: 75px;
-
-    height: 2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #d4af37,
-            transparent
-        );
-
-    margin:
-        18px auto 0;
-
-}
-
-
-/* =====================================================
-   MESSAGE CARD
-===================================================== */
-
-.card {
-
-    position: relative;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(35,35,35,0.96),
-            rgba(12,12,12,0.98)
-        );
-
-    border:
-
-        1px solid
-        rgba(212,175,55,0.35);
-
-    border-radius: 28px;
-
-    padding: 45px 38px;
-
-    text-align: center;
-
-    box-shadow:
-
-        0 25px 80px
-        rgba(0,0,0,0.65),
-
-        0 0 50px
-        rgba(212,175,55,0.06);
-
-    overflow: hidden;
-
-}
-
-
-/* GOLD CORNERS */
-
-.card::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 120px;
-
-    height: 120px;
-
-    top: -65px;
-
-    right: -65px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(212,175,55,0.10);
-
-}
-
-
-.card::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 100px;
-
-    height: 100px;
-
-    bottom: -55px;
-
-    left: -55px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255,105,180,0.08);
-
-}
-
-
-/* =====================================================
-   LOVE ICON
-===================================================== */
-
-.heart {
-
-    width: 65px;
-
-    height: 65px;
-
-    margin:
-        0 auto 25px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 30px;
-
-    color: #d4af37;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(212,175,55,0.20),
-            rgba(212,175,55,0.03)
-        );
-
-    border:
-        1px solid
-        rgba(212,175,55,0.35);
-
-    box-shadow:
-        0 0 30px
-        rgba(212,175,55,0.12);
-
-}
-
-
-/* =====================================================
-   INTRO
-===================================================== */
-
-.intro {
 
     color: #aaa;
 
     font-size: 13px;
 
     letter-spacing: 2px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 14px;
-
 }
 
 
-/* =====================================================
-   MESSAGE TITLE
-===================================================== */
+/* CARD */
 
-.message-title {
+.message-card {
 
-    margin: 0 0 25px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(212,175,55,.35);
+
+    border-radius: 25px;
+
+    padding: 35px 28px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.65),
+
+        inset 0 1px 0
+        rgba(255,255,255,.08);
+
+    backdrop-filter: blur(12px);
+
+    text-align: center;
+}
+
+
+/* LOVE ICON */
+
+.love-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(212,175,55,.12);
+
+    border:
+        1px solid rgba(212,175,55,.35);
+
+    font-size: 28px;
+}
+
+
+/* PHOTO */
+
+.photo-container {
+
+    width: 100%;
+
+    margin: 0 auto 28px;
+
+    display: none;
+}
+
+.photo-container.show {
+
+    display: block;
+}
+
+.photo-container img {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 430px;
+
+    max-height: 500px;
+
+    object-fit: cover;
+
+    margin: 0 auto;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        rgba(212,175,55,.45);
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.5);
+}
+
+
+/* MESSAGE */
+
+.message-label {
 
     color: #d4af37;
 
-    font-size: 34px;
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+}
+
+.message-title {
+
+    margin: 0 0 20px;
+
+    font-size: 28px;
 
     line-height: 1.25;
 
-    font-weight: normal;
-
-    text-shadow:
-        0 0 20px
-        rgba(212,175,55,0.15);
-
+    color: white;
 }
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
 
 .message-text {
 
-    color: #f3f3f3;
+    color: #e5e5e5;
 
-    font-size: 19px;
+    font-size: 16px;
 
     line-height: 1.9;
 
     white-space: pre-wrap;
 
-    max-width: 570px;
-
-    margin:
-        0 auto;
-
+    margin-bottom: 28px;
 }
 
 
-/* =====================================================
-   DETAILS
-===================================================== */
+/* FROM / FOR */
 
 .details {
 
-    margin-top: 35px;
-
-    padding-top: 24px;
-
     border-top:
         1px solid
-        rgba(255,255,255,0.10);
+        rgba(255,255,255,.1);
 
+    padding-top: 22px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
 }
 
+.detail-box {
 
-.detail {
+    background:
+        rgba(255,255,255,.035);
 
-    margin: 9px 0;
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 12px;
+
+    padding: 14px;
+}
+
+.detail-label {
+
+    display: block;
 
     color: #999;
 
-    font-size: 14px;
+    font-size: 11px;
 
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
 }
 
-
-.detail strong {
+.detail-value {
 
     color: #d4af37;
 
-    font-weight: normal;
+    font-weight: bold;
 
-    margin-right: 5px;
-
+    font-size: 14px;
 }
 
 
-/* =====================================================
-   COLLECTION BUTTON
-===================================================== */
+/* FOOTER */
 
-.explore-section {
+.footer {
 
-    margin-top: 38px;
-
-}
-
-
-.explore-text {
+    margin-top: 28px;
 
     color: #888;
 
     font-size: 13px;
 
-    margin-bottom: 15px;
-
+    line-height: 1.6;
 }
 
+
+/* EXPLORE BUTTON */
 
 .explore-button {
 
     display: inline-block;
 
-    text-decoration: none;
+    margin-top: 18px;
 
-    padding: 15px 28px;
+    padding: 15px 24px;
 
-    border-radius: 50px;
+    border-radius: 30px;
 
     background:
         linear-gradient(
             135deg,
             #d4af37,
-            #f3d875,
-            #b89120
+            #f0d56a
         );
 
     color: #080808;
 
-    font-family: Arial, sans-serif;
-
-    font-size: 14px;
+    text-decoration: none;
 
     font-weight: bold;
 
-    letter-spacing: 1px;
+    font-size: 14px;
 
     box-shadow:
-
         0 10px 30px
-        rgba(212,175,55,0.18);
+        rgba(212,175,55,.2);
 
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-
+    transition: .25s;
 }
-
 
 .explore-button:hover {
 
     transform:
-        translateY(-3px);
+        translateY(-2px);
 
     box-shadow:
-
         0 15px 35px
-        rgba(212,175,55,0.30);
-
+        rgba(212,175,55,.3);
 }
 
 
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
-
-    text-align: center;
-
-    margin-top: 28px;
-
-    color: #666;
-
-    font-size: 12px;
-
-    letter-spacing: 1px;
-
-}
-
-
-.footer span {
-
-    color: #d4af37;
-
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
+/* LOADING */
 
 .loading {
 
     text-align: center;
 
-    padding: 35px 10px;
-
     color: #aaa;
 
-    font-family: Arial, sans-serif;
-
+    padding: 30px;
 }
 
 
-.loading-heart {
-
-    font-size: 32px;
-
-    color: #d4af37;
-
-    margin-bottom: 15px;
-
-    animation:
-        pulse 1.5s infinite;
-
-}
-
-
-@keyframes pulse {
-
-    0% {
-        transform: scale(1);
-        opacity: .6;
-    }
-
-    50% {
-        transform: scale(1.15);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: .6;
-    }
-
-}
-
-
-/* =====================================================
-   ERROR
-===================================================== */
+/* ERROR */
 
 .error {
 
-    display: none;
-
     text-align: center;
 
-}
-
-
-.error h2 {
-
-    color: #d4af37;
-
-    font-size: 27px;
-
-}
-
-
-.error p {
-
-    color: #aaa;
+    color: #ffaaaa;
 
     line-height: 1.7;
 
-    font-family: Arial, sans-serif;
-
+    padding: 20px;
 }
 
 
-.code {
+/* MOBILE */
 
-    margin-top: 20px;
+@media(max-width:600px) {
 
-    padding: 12px;
+    body {
 
-    background: #191919;
+        padding: 15px;
+    }
 
-    border-radius: 8px;
-
-    color: #777;
-
-    font-family: monospace;
-
-    font-size: 12px;
-
-    word-break: break-all;
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .page {
+    .message-card {
 
         padding:
-            25px 13px;
-
+            30px 20px;
     }
-
-
-    .brand-name {
-
-        font-size: 25px;
-
-        letter-spacing: 3px;
-
-    }
-
-
-    .brand-tagline {
-
-        font-size: 10px;
-
-        letter-spacing: 2px;
-
-    }
-
-
-    .card {
-
-        padding:
-            35px 20px;
-
-        border-radius: 22px;
-
-    }
-
 
     .message-title {
 
-        font-size: 27px;
-
+        font-size: 24px;
     }
-
 
     .message-text {
 
-        font-size: 17px;
+        font-size: 15px;
 
         line-height: 1.8;
-
     }
 
+    .details {
 
-    .explore-button {
-
-        width: 100%;
-
-        padding:
-            15px 20px;
-
+        grid-template-columns:
+            1fr;
     }
 
+    .photo-container img {
+
+        max-height: 400px;
+    }
 }
 
 </style>
 
 </head>
 
-
 <body>
 
 
-<div class="page">
+<div class="heart one">♡</div>
 
-<div class="container">
+<div class="heart two">♡</div>
 
-
-<!-- =================================================
-     BRAND
-================================================== -->
-
-<div class="brand">
-
-    <div class="brand-name">
-        KimasFootwear
-    </div>
-
-    <div class="brand-tagline">
-        Walk With Meaning
-    </div>
-
-    <div class="gold-line"></div>
-
-</div>
+<div class="heart three">♡</div>
 
 
-<!-- =================================================
-     MESSAGE CARD
-================================================== -->
-
-<div class="card">
+<div class="wrapper">
 
 
-    <!-- LOADING -->
+    <!-- BRAND -->
 
-    <div id="loading"
-         class="loading">
+    <div class="brand">
 
-        <div class="loading-heart">
-            ♡
+        <div class="brand-name">
+            KimasFootwear
         </div>
 
-        <div>
-            Opening something special...
+        <div class="tagline">
+            WALK WITH MEANING
         </div>
 
     </div>
 
 
-    <!-- MESSAGE -->
+    <!-- MESSAGE CARD -->
 
-    <div id="messageContent"
-         style="display:none;">
+    <div class="message-card">
 
-
-        <div class="heart">
+        <div class="love-icon">
             ♡
         </div>
 
 
-        <div class="intro">
-            A message made just for you
+        <div
+            id="loading"
+            class="loading"
+        >
+            Opening your special message...
         </div>
 
 
-        <h1
-            id="messageTitle"
-            class="message-title">
-        </h1>
-
-
         <div
-            id="messageText"
-            class="message-text">
-        </div>
+            id="messageContent"
+            class="hidden"
+        >
 
 
-        <!-- DETAILS -->
-
-        <div
-            id="details"
-            class="details">
-
+            <!-- PHOTO -->
 
             <div
-                id="senderRow"
-                class="detail">
+                id="photoContainer"
+                class="photo-container"
+            >
 
-                <strong>From:</strong>
-
-                <span
-                    id="sender">
-                </span>
+                <img
+                    id="messagePhoto"
+                    src=""
+                    alt="Personal photo"
+                >
 
             </div>
 
+
+            <!-- TITLE -->
+
+            <div class="message-label">
+                A Special Message For You
+            </div>
+
+            <h1
+                id="messageTitle"
+                class="message-title"
+            >
+                A Special Message
+            </h1>
+
+
+            <!-- MESSAGE -->
 
             <div
-                id="recipientRow"
-                class="detail">
+                id="messageText"
+                class="message-text"
+            ></div>
 
-                <strong>For:</strong>
 
-                <span
-                    id="recipient">
-                </span>
+            <!-- DETAILS -->
+
+            <div class="details">
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        From
+                    </span>
+
+                    <span
+                        id="messageSender"
+                        class="detail-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        For
+                    </span>
+
+                    <span
+                        id="messageRecipient"
+                        class="detail-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="footer">
+
+                A special message from
+                <strong>KimasFootwear</strong>.
+
+                <br>
+
+                Every step can carry a
+                beautiful meaning.
+
+                <br>
+
+
+                <a
+                    href="index.html"
+                    class="explore-button"
+                >
+                    ✦ Explore KimasFootwear Collections
+                </a>
 
             </div>
 
@@ -843,78 +648,15 @@ body::after {
         </div>
 
 
-        <!-- EXPLORE -->
-
-        <div class="explore-section">
-
-            <div class="explore-text">
-
-                Loved the experience?
-
-                Discover more from KimasFootwear.
-
-            </div>
-
-
-            <a
-                href="index.html"
-                class="explore-button">
-
-                ✦ Explore KimasFootwear Collections
-
-            </a>
-
-        </div>
-
-
-    </div>
-
-
-    <!-- ERROR -->
-
-    <div
-        id="error"
-        class="error">
-
-        <div class="heart">
-            ♡
-        </div>
-
-        <h2>
-            Message Not Found
-        </h2>
-
-        <p id="errorText">
-            We couldn't find this message.
-        </p>
+        <!-- ERROR -->
 
         <div
-            id="errorCode"
-            class="code">
-        </div>
+            id="error"
+            class="error hidden"
+        ></div>
 
     </div>
 
-
-</div>
-
-
-<!-- FOOTER -->
-
-<div class="footer">
-
-    Every step tells a story.
-
-    <br>
-
-    <span>
-        KimasFootwear
-    </span>
-
-</div>
-
-
-</div>
 
 </div>
 
@@ -932,7 +674,7 @@ const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
 
 
-let supabaseClient;
+let supabaseClient = null;
 
 
 /* =====================================================
@@ -941,12 +683,36 @@ let supabaseClient;
 
 function initializeSupabase() {
 
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_PUBLISHABLE_KEY
+    if (!window.supabase) {
+
+        showError(
+            "Unable to load the message system. Please refresh the page."
         );
 
+        return false;
+    }
+
+
+    try {
+
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+        return true;
+
+    } catch(error) {
+
+        console.log(error);
+
+        showError(
+            "Unable to connect to KimasFootwear."
+        );
+
+        return false;
+    }
 }
 
 
@@ -961,50 +727,8 @@ function getMessageCode() {
             window.location.search
         );
 
+
     return params.get("code");
-
-}
-
-
-/* =====================================================
-   SHOW ERROR
-===================================================== */
-
-function showError(
-    message,
-    code
-) {
-
-    document
-        .getElementById("loading")
-        .style.display = "none";
-
-
-    document
-        .getElementById("messageContent")
-        .style.display = "none";
-
-
-    document
-        .getElementById("error")
-        .style.display = "block";
-
-
-    document
-        .getElementById("errorText")
-        .textContent =
-            message;
-
-
-    if (code) {
-
-        document
-            .getElementById("errorCode")
-            .textContent =
-                "Code: " + code;
-
-    }
-
 }
 
 
@@ -1018,164 +742,227 @@ async function loadMessage() {
         getMessageCode();
 
 
-    /* NO CODE */
-
     if (!code) {
 
         showError(
-            "No message code was provided. Please use the link or QR code given to you.",
-            ""
+            "This message link is incomplete.<br><br>" +
+            "Please use the QR code or customer link provided by KimasFootwear."
         );
 
         return;
+    }
 
+
+    if (!initializeSupabase()) {
+
+        return;
     }
 
 
     try {
-
-        initializeSupabase();
-
 
         const {
             data,
             error
         } =
         await supabaseClient
-            .from("messages")
-            .select(
-                "title,message,sender,recipient,active"
-            )
-            .eq(
-                "code",
-                code
-            )
-            .eq(
-                "active",
-                true
-            )
-            .maybeSingle();
+
+        .from("messages")
+
+        .select(
+            "title,message,sender,recipient,active,photo_url"
+        )
+
+        .eq(
+            "code",
+            code
+        )
+
+        .eq(
+            "active",
+            true
+        )
+
+        .maybeSingle();
 
 
         if (error) {
 
-            console.error(error);
+            console.log(error);
 
             showError(
-                "We couldn't connect to the message service. Please try again.",
-                code
+                "We couldn't open this message right now.<br><br>" +
+                "Please try again."
             );
 
             return;
-
         }
 
 
         if (!data) {
 
             showError(
-                "This message does not exist, has been removed, or is no longer active.",
-                code
+                "This message could not be found.<br><br>" +
+                "Please check that your QR code or link is correct."
             );
 
             return;
-
         }
 
 
-        /* =============================================
-           DISPLAY
-        ============================================= */
+        /* TITLE */
 
         document
-            .getElementById("loading")
-            .style.display = "none";
+        .getElementById(
+            "messageTitle"
+        )
+        .textContent =
+            data.title ||
+            "A Special Message For You";
 
 
-        document
-            .getElementById("messageContent")
-            .style.display = "block";
-
-
-        document
-            .getElementById("messageTitle")
-            .textContent =
-                data.title ||
-                "A Special Message";
-
+        /* MESSAGE */
 
         document
-            .getElementById("messageText")
-            .textContent =
-                data.message ||
-                "";
+        .getElementById(
+            "messageText"
+        )
+        .textContent =
+            data.message || "";
 
 
         /* SENDER */
 
-        if (data.sender) {
-
-            document
-                .getElementById("sender")
-                .textContent =
-                    data.sender;
-
-        }
-
-        else {
-
-            document
-                .getElementById("senderRow")
-                .style.display =
-                    "none";
-
-        }
+        document
+        .getElementById(
+            "messageSender"
+        )
+        .textContent =
+            data.sender ||
+            "-";
 
 
         /* RECIPIENT */
 
-        if (data.recipient) {
-
-            document
-                .getElementById("recipient")
-                .textContent =
-                    data.recipient;
-
-        }
-
-        else {
-
-            document
-                .getElementById("recipientRow")
-                .style.display =
-                    "none";
-
-        }
+        document
+        .getElementById(
+            "messageRecipient"
+        )
+        .textContent =
+            data.recipient ||
+            "-";
 
 
-        /* PAGE TITLE */
+        /* =================================================
+           PHOTO
+        ================================================= */
 
-        document.title =
-            "KimasFootwear | " +
-            (
-                data.title ||
-                "A Special Message"
+        const photoContainer =
+            document.getElementById(
+                "photoContainer"
+            );
+
+        const photo =
+            document.getElementById(
+                "messagePhoto"
             );
 
 
-    }
+        if (
+            data.photo_url &&
+            data.photo_url.trim() !== ""
+        ) {
 
-    catch(error) {
+            photo.src =
+                data.photo_url;
 
-        console.error(error);
+
+            photo.onload =
+                function() {
+
+                    photoContainer
+                        .classList
+                        .add("show");
+                };
+
+
+            photo.onerror =
+                function() {
+
+                    console.log(
+                        "Could not load message photo."
+                    );
+
+                    photoContainer
+                        .classList
+                        .remove("show");
+                };
+
+
+        } else {
+
+            photoContainer
+                .classList
+                .remove("show");
+        }
+
+
+        /* SHOW MESSAGE */
+
+        document
+        .getElementById(
+            "loading"
+        )
+        .classList
+        .add("hidden");
+
+
+        document
+        .getElementById(
+            "messageContent"
+        )
+        .classList
+        .remove("hidden");
+
+
+    } catch(error) {
+
+        console.log(error);
 
         showError(
-            "Something went wrong while opening your message. Please try again.",
-            code
+            "Something went wrong while opening your message.<br><br>" +
+            "Please try again."
+        );
+    }
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message) {
+
+    document
+    .getElementById(
+        "loading"
+    )
+    .classList
+    .add("hidden");
+
+
+    const error =
+        document.getElementById(
+            "error"
         );
 
-    }
 
+    error.innerHTML =
+        message;
+
+
+    error.classList
+        .remove("hidden");
 }
 
 
@@ -1194,7 +981,5 @@ document.addEventListener(
 
 </script>
 
-
 </body>
-
 </html>
