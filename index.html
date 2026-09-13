@@ -1,336 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KimasFootwear | Every Step Tells a Story</title>
+<title>KimasFootwear | Every Step Tells a Story</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <style>
+<style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #111;
-            color: #f5f5f5;
-            line-height: 1.6;
-        }
+body {
+    background: #111;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+}
 
-        /* =========================
-           HEADER
-        ========================= */
+/* HEADER */
 
-        header {
-            background: #111;
-            padding: 18px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #111;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #d4af37;
-            text-decoration: none;
-        }
+.logo {
+    text-decoration: none;
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+}
 
-        nav {
-            display: flex;
-            gap: 25px;
-        }
+nav {
+    display: flex;
+    gap: 28px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 13px;
-            transition: 0.3s;
-        }
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
 
-        nav a:hover {
-            color: #d4af37;
-        }
+nav a:hover {
+    color: #d4af37;
+}
 
-        section {
-            padding: 80px 8%;
-        }
+/* HERO */
 
-        /* =========================
-           HERO
-        ========================= */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 8%;
 
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+        url('logo.png') center/contain no-repeat;
+}
 
-            background:
-                linear-gradient(
-                    rgba(0,0,0,.72),
-                    rgba(0,0,0,.82)
-                ),
-                url('logo.png') center/contain no-repeat;
-        }
+.hero-content {
+    max-width: 950px;
+}
 
-        .hero-content {
-            max-width: 800px;
-        }
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(45px, 8vw, 85px);
+    line-height: 1.1;
+    color: #d4af37;
+    margin-bottom: 25px;
+}
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(45px, 8vw, 85px);
-            color: #d4af37;
-            margin-bottom: 20px;
-        }
+.hero p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 27px;
+    max-width: 750px;
+    margin: auto;
+    color: #f2f2f2;
+}
 
-        .hero p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 27px;
-            color: #eee;
-        }
+/* GENERAL SECTIONS */
 
-        /* =========================
-           SECTION TITLES
-        ========================= */
+section {
+    padding: 100px 8%;
+}
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: 42px;
-            color: #d4af37;
-            margin-bottom: 20px;
-        }
+.section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: #d4af37;
+    margin-bottom: 15px;
+}
 
-        .section-subtitle {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 45px;
-            color: #ccc;
-        }
+.section-subtitle {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 50px;
+    color: #ccc;
+}
 
-        /* =========================
-           COLLECTION
-        ========================= */
+/* COLLECTION */
 
-        .collection-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 50px;
+}
 
-            gap: 25px;
-        }
+.collection-card {
+    background: #1b1b1b;
+    border: 1px solid #333;
+    padding: 35px 25px;
+    text-align: center;
+    transition: 0.3s;
+}
 
-        .collection-card {
-            background: #1b1b1b;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            transition: .3s;
-        }
+.collection-card:hover {
+    transform: translateY(-8px);
+    border-color: #d4af37;
+}
 
-        .collection-card:hover {
-            transform: translateY(-5px);
-            border-color: #d4af37;
-        }
+.collection-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 25px;
+    color: #d4af37;
+    margin-bottom: 15px;
+}
 
-        .collection-card h3 {
-            font-family: 'Playfair Display', serif;
-            color: #d4af37;
-            margin-bottom: 10px;
-        }
+.collection-card p {
+    color: #ccc;
+    font-size: 14px;
+}
 
-        .collection-card p {
-            color: #bbb;
-            font-size: 14px;
-        }
+/* MEANING */
 
-        /* =========================
-           MEANING
-        ========================= */
+.meaning {
+    text-align: center;
+    background: #151515;
+}
 
-        .meaning {
-            text-align: center;
-        }
+.meaning p {
+    max-width: 800px;
+    margin: auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    color: #ddd;
+}
 
-        /* =========================
-           ABOUT
-        ========================= */
+/* ABOUT */
 
-        .about {
-            max-width: 850px;
-            margin: auto;
-            text-align: center;
-        }
+.about {
+    text-align: center;
+}
 
-        .about p {
-            color: #ccc;
-            font-size: 16px;
-            margin-bottom: 18px;
-        }
+.about-content {
+    max-width: 850px;
+    margin: auto;
+}
 
-        /* =========================
-           CTA
-        ========================= */
+.about p {
+    color: #ccc;
+    margin-bottom: 20px;
+}
 
-        .cta {
-            text-align: center;
-            background: #181818;
-        }
+/* CTA */
 
-        .cta h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            color: #d4af37;
-            margin-bottom: 15px;
-        }
+.cta {
+    text-align: center;
+    background: #181818;
+}
 
-        .cta p {
-            color: #ccc;
-            margin-bottom: 25px;
-        }
+.cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 45px;
+    color: #d4af37;
+    margin-bottom: 15px;
+}
 
-        .gold-button {
-            display: inline-block;
-            padding: 14px 28px;
-            border: none;
-            border-radius: 30px;
-            background: #d4af37;
-            color: #111;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+.cta p {
+    color: #ccc;
+    margin-bottom: 30px;
+}
 
-        .gold-button:hover {
-            transform: translateY(-2px);
-            background: #f0cf62;
-        }
+/* GOLD BUTTON */
 
-        /* =========================
-           FOOTER
-        ========================= */
+.gold-button {
+    display: inline-block;
+    background: #d4af37;
+    color: #111;
+    padding: 14px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+}
 
-        footer {
-            padding: 30px 8%;
-            text-align: center;
-            border-top: 1px solid #333;
-            color: #888;
-            font-size: 13px;
-        }
+.gold-button:hover {
+    background: #fff;
+    color: #111;
+    transform: translateY(-2px);
+}
 
-        /* =========================
-           MOBILE
-        ========================= */
+/* FOOTER */
 
-        @media (max-width: 700px) {
+footer {
+    text-align: center;
+    padding: 30px 8%;
+    background: #111;
+    border-top: 1px solid #333;
+    color: #888;
+    font-size: 14px;
+}
 
-            header {
-                padding: 15px 5%;
-            }
+/* MOBILE */
 
-            nav {
-                gap: 12px;
-            }
+@media (max-width: 900px) {
 
-            nav a {
-                font-size: 11px;
-            }
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-            section {
-                padding: 60px 5%;
-            }
+}
 
-            .hero {
-                min-height: 80vh;
-            }
+@media (max-width: 600px) {
 
-            .hero p {
-                font-size: 22px;
-            }
+    header {
+        padding: 16px 5%;
+    }
 
-            .section-title {
-                font-size: 34px;
-            }
+    nav {
+        gap: 12px;
+    }
 
-        }
+    nav a {
+        font-size: 12px;
+    }
 
-    </style>
+    .hero {
+        min-height: 80vh;
+        padding: 50px 6%;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        font-size: 22px;
+    }
+
+    section {
+        padding: 75px 6%;
+    }
+
+    .section-title {
+        font-size: 34px;
+    }
+
+    .collection-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta h2 {
+        font-size: 36px;
+    }
+
+}
+
+</style>
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 
 <header>
 
-    <a href="#home" class="logo">
-        KimasFootwear
-    </a>
+    <a href="#home" class="logo">KimasFootwear</a>
 
     <nav>
-
-        <a href="#home">
-            Home
-        </a>
-
-        <a href="#collection">
-            Collection
-        </a>
-
-        <a href="#about">
-            About
-        </a>
-
+        <a href="#home">Home</a>
+        <a href="#collection">Collection</a>
+        <a href="#about">About</a>
     </nav>
 
 </header>
 
 
+<!-- HERO -->
 
-<!-- =========================
-     HERO
-========================= -->
-
-<section
-    class="hero"
-    id="home"
->
+<section class="hero" id="home">
 
     <div class="hero-content">
 
-        <h1>
-            Every Step Tells a Story.
-        </h1>
+        <h1>Every Step Tells a Story.</h1>
 
         <p>
-            Footwear made with meaning,
-            designed to carry more than
-            just your steps.
+            Footwear made with meaning, designed to carry more than just your steps.
         </p>
 
     </div>
@@ -338,40 +328,25 @@
 </section>
 
 
+<!-- COLLECTION -->
 
-<!-- =========================
-     COLLECTION
-========================= -->
+<section id="collection">
 
-<section
-    id="collection"
->
-
-    <h2 class="section-title">
-        Our Collection
-    </h2>
+    <h2 class="section-title">Our Collection</h2>
 
     <p class="section-subtitle">
-
-        Footwear created for people
-        who want comfort, style and
-        meaning in every step.
-
+        Footwear created for people who want comfort, style and meaning in every step.
     </p>
 
 
     <div class="collection-grid">
 
-
         <div class="collection-card">
 
-            <h3>
-                Classic
-            </h3>
+            <h3>Classic</h3>
 
             <p>
-                Timeless footwear designed
-                for everyday confidence.
+                Timeless footwear designed for everyday confidence.
             </p>
 
         </div>
@@ -379,13 +354,10 @@
 
         <div class="collection-card">
 
-            <h3>
-                Corporate
-            </h3>
+            <h3>Corporate</h3>
 
             <p>
-                Elegant footwear designed
-                to complement professional style.
+                Elegant footwear designed to complement professional style.
             </p>
 
         </div>
@@ -393,13 +365,10 @@
 
         <div class="collection-card">
 
-            <h3>
-                Couples
-            </h3>
+            <h3>Couples</h3>
 
             <p>
-                Matching footwear created
-                for shared journeys.
+                Matching footwear created for shared journeys.
             </p>
 
         </div>
@@ -407,78 +376,56 @@
 
         <div class="collection-card">
 
-            <h3>
-                Custom
-            </h3>
+            <h3>Custom</h3>
 
             <p>
-                Personalised designs created
-                around your story.
+                Personalised designs created around your story.
             </p>
 
         </div>
-
 
     </div>
 
 </section>
 
 
-
-<!-- =========================
-     A STEP WITH MEANING
-========================= -->
+<!-- MEANING -->
 
 <section class="meaning">
 
-    <h2 class="section-title">
-        A Step With Meaning
-    </h2>
+    <h2 class="section-title">A Step With Meaning</h2>
 
-    <p class="section-subtitle">
-
-        Your KimasFootwear isn't just
-        something you wear.
-
-        It can carry a memory,
-        a message or a special moment.
-
+    <p>
+        Your KimasFootwear isn't just something you wear.
+        It can carry a memory, a message or a special moment.
     </p>
 
 </section>
 
 
+<!-- ABOUT -->
 
-<!-- =========================
-     ABOUT
-========================= -->
+<section class="about" id="about">
 
-<section id="about">
+    <div class="about-content">
 
-    <div class="about">
-
-        <h2 class="section-title">
-            About KimasFootwear
-        </h2>
+        <h2 class="section-title">About KimasFootwear</h2>
 
         <p>
-            KimasFootwear is built around
-            a simple idea: footwear should
-            mean more than fashion.
+            KimasFootwear is built around a simple idea:
+            footwear should mean more than fashion.
         </p>
 
         <p>
-            We create footwear that combines
-            style, comfort and personal expression.
-            Every pair has the potential to become
-            part of someone's story.
+            We create footwear that combines style, comfort and
+            personal expression. Every pair has the potential to
+            become part of someone's story.
         </p>
 
         <p>
-            From a special gift to a personal
-            milestone, KimasFootwear is designed
-            to help people carry meaning wherever
-            they go.
+            From a special gift to a personal milestone,
+            KimasFootwear is designed to help people carry
+            meaning wherever they go.
         </p>
 
     </div>
@@ -486,44 +433,35 @@
 </section>
 
 
-
-<!-- =========================
-     CTA
-========================= -->
+<!-- CTA -->
 
 <section class="cta">
 
-    <h2>
-        Walk With Meaning.
-    </h2>
+    <h2>Walk With Meaning.</h2>
 
     <p>
-        Discover KimasFootwear and create
-        a pair with your own story.
+        Discover KimasFootwear and create a pair with your own story.
     </p>
 
     <a
-        href="#collection"
+        href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%27d%20like%20to%20make%20an%20order.%20Please%20I%27d%20like%20to%20know%20more%20about%20your%20available%20footwear."
         class="gold-button"
+        target="_blank"
+        rel="noopener noreferrer"
     >
-        Explore Our Collection
+        Order on WhatsApp
     </a>
 
 </section>
 
 
-
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- FOOTER -->
 
 <footer>
 
-    © 2026 KimasFootwear.
-    Every Step Tells a Story.
+    © 2026 KimasFootwear. Every Step Tells a Story.
 
 </footer>
-
 
 </body>
 </html>
