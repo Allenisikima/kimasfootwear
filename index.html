@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>KimasFootwear | Every Step Tells a Story</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -26,6 +26,7 @@
             min-height: 100vh;
             line-height: 1.6;
         }
+
 
         /* =========================
            HEADER
@@ -57,17 +58,15 @@
             color: #fff;
         }
 
-        /* =========================
-           MAIN HOMEPAGE
-        ========================= */
 
-        #homePage {
-            display: block;
-        }
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
             text-align: center;
             padding: 85px 20px 70px;
+
             background:
                 radial-gradient(
                     circle at center,
@@ -89,6 +88,11 @@
             margin: auto;
             line-height: 1.8;
         }
+
+
+        /* =========================
+           DISCOVER
+        ========================= */
 
         .discover {
             padding: 70px 20px;
@@ -116,11 +120,19 @@
         .discover a {
             display: inline-block;
             padding: 13px 24px;
+
             border: 1px solid #d4af37;
             border-radius: 10px;
+
             color: #d4af37;
             text-decoration: none;
         }
+
+        .discover a:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
 
         /* =========================
            COLLECTION
@@ -146,16 +158,39 @@
         .collection-grid {
             max-width: 950px;
             margin: 40px auto 0;
+
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
             gap: 20px;
         }
 
         .collection-card {
             background: #111;
+
             border: 1px solid #292929;
+
             border-radius: 18px;
+
             padding: 30px 20px;
+
+            transition: 0.3s;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+
+            border-color: #d4af37;
+
+            box-shadow:
+                0 10px 30px rgba(
+                    212,
+                    175,
+                    55,
+                    0.10
+                );
         }
 
         .collection-card h3 {
@@ -168,13 +203,16 @@
             font-size: 15px;
         }
 
+
         /* =========================
            MEANING
         ========================= */
 
         .meaning {
             text-align: center;
+
             padding: 70px 20px;
+
             background: #0d0d0d;
         }
 
@@ -193,12 +231,14 @@
             line-height: 1.9;
         }
 
+
         /* =========================
            ABOUT
         ========================= */
 
         .about {
             text-align: center;
+
             padding: 75px 20px;
         }
 
@@ -214,159 +254,73 @@
 
         .about p {
             color: #bbb;
+
             line-height: 1.9;
+
             margin-bottom: 15px;
         }
 
         .tagline {
             color: #d4af37 !important;
+
             font-size: 24px;
+
             font-weight: bold;
+
             margin-top: 25px;
         }
+
 
         /* =========================
-           CUSTOMER MESSAGE PAGE
+           EXPLORE BUTTON
         ========================= */
 
-        #messagePage {
-            display: none;
-        }
-
-        .message-page {
-            min-height: 100vh;
-            padding: 45px 20px 60px;
-            display: flex;
-            justify-content: center;
-            background:
-                radial-gradient(
-                    circle at top,
-                    rgba(212, 175, 55, 0.10),
-                    transparent 50%
-                );
-        }
-
-        .message-container {
-            width: 100%;
-            max-width: 700px;
+        .explore-section {
             text-align: center;
+
+            padding: 60px 20px;
+
+            background: #0d0d0d;
         }
 
-        .message-brand {
-            margin-bottom: 35px;
-        }
-
-        .message-brand img {
-            width: 85px;
-            margin-bottom: 15px;
-        }
-
-        .message-brand h1 {
+        .explore-section h2 {
             color: #d4af37;
-            font-size: 30px;
+
+            margin-bottom: 12px;
         }
 
-        .message-brand p {
-            color: #999;
-            font-size: 14px;
-        }
-
-        .message-card {
-            background: linear-gradient(
-                145deg,
-                #161616,
-                #0d0d0d
-            );
-            border: 1px solid #3b3b3b;
-            border-radius: 22px;
-            padding: 40px 28px;
-            box-shadow:
-                0 0 45px rgba(212, 175, 55, 0.10);
-        }
-
-        .message-heart {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: 1px solid #5a491f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 22px;
-            color: #d4af37;
-            font-size: 27px;
-        }
-
-        .message-card h2 {
-            color: #d4af37;
-            font-size: 30px;
-            margin-bottom: 22px;
-        }
-
-        .message-text {
-            color: #eee;
-            font-size: 19px;
-            line-height: 1.9;
-            white-space: pre-line;
-        }
-
-        .names {
-            margin-top: 25px;
+        .explore-section p {
             color: #aaa;
-            line-height: 1.9;
-        }
 
-        .names strong {
-            color: #d4af37;
-        }
+            max-width: 600px;
 
-        .message-code {
-            margin-top: 25px;
-            padding: 10px;
-            border-radius: 8px;
-            background: #191919;
-            color: #666;
-            font-size: 11px;
-            word-break: break-word;
-        }
-
-        .message-status {
-            margin-top: 18px;
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        .explore-box {
-            margin-top: 30px;
-            padding-top: 28px;
-            border-top: 1px solid #292929;
-        }
-
-        .explore-box h3 {
-            color: #d4af37;
-            font-size: 21px;
-            margin-bottom: 10px;
-        }
-
-        .explore-box p {
-            color: #aaa;
-            font-size: 15px;
-            margin-bottom: 22px;
+            margin: 0 auto 25px;
         }
 
         .explore-button {
             display: inline-block;
-            padding: 14px 25px;
+
+            padding: 14px 28px;
+
             background: #d4af37;
+
             color: #000;
+
             text-decoration: none;
+
             border-radius: 10px;
+
             font-weight: bold;
+
+            transition: 0.3s;
         }
 
         .explore-button:hover {
-            opacity: 0.9;
+            opacity: 0.85;
+
+            transform: translateY(-2px);
         }
+
 
         /* =========================
            FOOTER
@@ -374,15 +328,20 @@
 
         footer {
             text-align: center;
+
             padding: 28px 20px;
+
             color: #777;
+
             border-top: 1px solid #222;
+
             font-size: 13px;
         }
 
         footer strong {
             color: #d4af37;
         }
+
 
         /* =========================
            MOBILE
@@ -396,11 +355,13 @@
 
             nav a {
                 margin: 0 6px;
+
                 font-size: 13px;
             }
 
             .hero {
-                padding: 70px 20px 60px;
+                padding:
+                    70px 20px 60px;
             }
 
             .hero h1 {
@@ -415,119 +376,19 @@
                 grid-template-columns: 1fr;
             }
 
-            .message-card {
-                padding: 30px 18px;
-            }
-
-            .message-card h2 {
-                font-size: 25px;
-            }
-
-            .message-text {
-                font-size: 17px;
-            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- =====================================================
-     CUSTOMER MESSAGE PAGE
-===================================================== -->
 
-<section id="messagePage">
-
-    <div class="message-page">
-
-        <div class="message-container">
-
-            <div class="message-brand">
-
-                <img
-                    src="logo.png"
-                    alt="KimasFootwear Logo"
-                >
-
-                <h1>KimasFootwear</h1>
-
-                <p>
-                    Every Step Tells a Story.
-                </p>
-
-            </div>
-
-
-            <div class="message-card">
-
-                <div class="message-heart">
-                    ♥
-                </div>
-
-                <h2 id="customerMessageTitle">
-                    Your Special Message
-                </h2>
-
-                <div
-                    class="message-text"
-                    id="customerMessageText"
-                >
-                    Finding your special message...
-                </div>
-
-                <div
-                    class="names"
-                    id="customerNames"
-                ></div>
-
-                <div
-                    class="message-code"
-                    id="customerCode"
-                ></div>
-
-                <div
-                    class="message-status"
-                    id="customerStatus"
-                >
-                    Please wait...
-                </div>
-
-
-                <div class="explore-box">
-
-                    <h3>
-                        Discover KimasFootwear
-                    </h3>
-
-                    <p>
-                        Your message is part of a bigger story.
-                        Discover the footwear, creativity and
-                        meaning behind KimasFootwear.
-                    </p>
-
-                    <a
-                        href="index.html"
-                        class="explore-button"
-                    >
-                        Explore KimasFootwear
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     NORMAL KIMASFOOTWEAR HOMEPAGE
-===================================================== -->
-
-<section id="homePage">
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
 
     <header>
 
@@ -540,10 +401,6 @@
 
             <a href="#home">
                 Home
-            </a>
-
-            <a href="#message">
-                Message
             </a>
 
             <a href="#collection">
@@ -559,6 +416,11 @@
     </header>
 
 
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
     <section
         class="hero"
         id="home"
@@ -569,29 +431,31 @@
         </h1>
 
         <p>
-            Footwear made with meaning, designed
-            to carry more than just your steps.
+            Footwear made with meaning,
+            designed to carry more than
+            just your steps.
         </p>
 
     </section>
 
 
-    <section
-        class="discover"
-        id="message"
-    >
+
+    <!-- =====================================================
+         DISCOVER KIMASFOOTWEAR
+    ===================================================== -->
+
+    <section class="discover">
 
         <div class="discover-content">
 
             <h2>
-                Someone Left You a Message
+                Discover KimasFootwear
             </h2>
 
             <p>
-                Every KimasFootwear pair can carry
-                a personal message. Scan the QR code
-                attached to your pair or use your
-                unique message link.
+                While you're here, discover
+                the story behind KimasFootwear
+                and explore our collection.
             </p>
 
             <a href="#collection">
@@ -603,6 +467,11 @@
     </section>
 
 
+
+    <!-- =====================================================
+         COLLECTION
+    ===================================================== -->
+
     <section
         class="collection"
         id="collection"
@@ -613,12 +482,18 @@
         </h2>
 
         <p class="collection-intro">
-            Footwear created for people who want
-            comfort, style and meaning in every step.
+
+            Footwear created for people
+            who want comfort, style and
+            meaning in every step.
+
         </p>
 
 
         <div class="collection-grid">
+
+
+            <!-- CLASSIC -->
 
             <div class="collection-card">
 
@@ -627,12 +502,14 @@
                 </h3>
 
                 <p>
-                    Timeless footwear designed for
-                    everyday confidence.
+                    Timeless footwear designed
+                    for everyday confidence.
                 </p>
 
             </div>
 
+
+            <!-- CORPORATE -->
 
             <div class="collection-card">
 
@@ -641,12 +518,15 @@
                 </h3>
 
                 <p>
-                    Elegant footwear designed to
-                    complement professional style.
+                    Elegant footwear designed
+                    to complement professional
+                    style.
                 </p>
 
             </div>
 
+
+            <!-- COUPLES -->
 
             <div class="collection-card">
 
@@ -655,12 +535,14 @@
                 </h3>
 
                 <p>
-                    Matching footwear created for
-                    shared journeys.
+                    Matching footwear created
+                    for shared journeys.
                 </p>
 
             </div>
 
+
+            <!-- CUSTOM -->
 
             <div class="collection-card">
 
@@ -675,10 +557,16 @@
 
             </div>
 
+
         </div>
 
     </section>
 
+
+
+    <!-- =====================================================
+         MEANING
+    ===================================================== -->
 
     <section class="meaning">
 
@@ -689,15 +577,24 @@
             </h2>
 
             <p>
-                Your KimasFootwear isn't just something
-                you wear. It can carry a memory, a message
-                or a special moment.
+
+                Your KimasFootwear isn't
+                just something you wear.
+
+                It can carry a memory,
+                a message or a special moment.
+
             </p>
 
         </div>
 
     </section>
 
+
+
+    <!-- =====================================================
+         ABOUT
+    ===================================================== -->
 
     <section
         class="about"
@@ -710,26 +607,42 @@
                 About KimasFootwear
             </h2>
 
-            <p>
-                KimasFootwear is built around a simple idea:
-                footwear should mean more than fashion.
-            </p>
 
             <p>
-                We create footwear that combines style,
-                comfort and personal expression.
-                Every pair has the potential to become
-                part of someone's story.
+
+                KimasFootwear is built around
+                a simple idea: footwear should
+                mean more than fashion.
+
             </p>
 
+
             <p>
-                From a special gift to a personal milestone,
-                KimasFootwear is designed to help people
-                carry meaning wherever they go.
+
+                We create footwear that combines
+                style, comfort and personal
+                expression.
+
+                Every pair has the potential
+                to become part of someone's story.
+
             </p>
+
+
+            <p>
+
+                From a special gift to a personal
+                milestone, KimasFootwear is
+                designed to help people carry
+                meaning wherever they go.
+
+            </p>
+
 
             <p class="tagline">
+
                 Walk With Meaning.
+
             </p>
 
         </div>
@@ -737,351 +650,55 @@
     </section>
 
 
+
+    <!-- =====================================================
+         EXPLORE
+    ===================================================== -->
+
+    <section class="explore-section">
+
+        <h2>
+            Discover KimasFootwear
+        </h2>
+
+        <p>
+
+            Explore our collection and
+            discover footwear created
+            with style, comfort and meaning.
+
+        </p>
+
+        <a
+            href="#collection"
+            class="explore-button"
+        >
+
+            Explore Our Collection
+
+        </a>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
     <footer>
 
         © 2026
-        <strong>KimasFootwear</strong>.
+
+        <strong>
+            KimasFootwear
+        </strong>.
+
         Every Step Tells a Story.
 
     </footer>
 
-</section>
-
-
-<script>
-
-    /* =====================================================
-       SUPABASE CONFIGURATION
-    ===================================================== */
-
-    const SUPABASE_URL =
-        "https://hisdjtixefaoocvlzaml.supabase.co";
-
-    const SUPABASE_KEY =
-        "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
-
-    const supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
-
-
-    /* =====================================================
-       CLEAN MESSAGE CODE
-    ===================================================== */
-
-    function cleanCode(value) {
-
-        return String(value || "")
-            .trim()
-            .replace(/\s+/g, "")
-            .toUpperCase();
-
-    }
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
-
-    function escapeHTML(value) {
-
-        if (!value) {
-            return "";
-        }
-
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* =====================================================
-       SHOW HOMEPAGE
-    ===================================================== */
-
-    function showHomePage() {
-
-        document.getElementById(
-            "messagePage"
-        ).style.display = "none";
-
-        document.getElementById(
-            "homePage"
-        ).style.display = "block";
-
-    }
-
-
-    /* =====================================================
-       SHOW MESSAGE PAGE
-    ===================================================== */
-
-    function showMessagePage() {
-
-        document.getElementById(
-            "homePage"
-        ).style.display = "none";
-
-        document.getElementById(
-            "messagePage"
-        ).style.display = "block";
-
-    }
-
-
-    /* =====================================================
-       LOAD CUSTOMER MESSAGE
-    ===================================================== */
-
-    async function loadCustomerMessage(code) {
-
-        showMessagePage();
-
-
-        const title =
-            document.getElementById(
-                "customerMessageTitle"
-            );
-
-        const message =
-            document.getElementById(
-                "customerMessageText"
-            );
-
-        const names =
-            document.getElementById(
-                "customerNames"
-            );
-
-        const codeDisplay =
-            document.getElementById(
-                "customerCode"
-            );
-
-        const status =
-            document.getElementById(
-                "customerStatus"
-            );
-
-
-        title.textContent =
-            "Your Special Message";
-
-        message.textContent =
-            "Finding your special message...";
-
-        names.innerHTML = "";
-
-        codeDisplay.textContent =
-            "Code: " + code;
-
-        status.textContent =
-            "Please wait...";
-
-
-        try {
-
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from("messages")
-                .select("*")
-                .eq("code", code)
-                .eq("active", true)
-                .maybeSingle();
-
-
-            console.log(
-                "KimasFootwear code:",
-                code
-            );
-
-            console.log(
-                "KimasFootwear data:",
-                data
-            );
-
-            console.log(
-                "KimasFootwear error:",
-                error
-            );
-
-
-            if (error) {
-
-                console.error(
-                    "Supabase error:",
-                    error
-                );
-
-                title.textContent =
-                    "Message Not Found";
-
-                message.textContent =
-                    "We couldn't find a message connected to this code. Please check your link and try again.";
-
-                names.innerHTML = "";
-
-                codeDisplay.textContent =
-                    "Code: " + code;
-
-                status.textContent =
-                    "Please check your message link.";
-
-                return;
-
-            }
-
-
-            if (!data) {
-
-                title.textContent =
-                    "Message Not Found";
-
-                message.textContent =
-                    "We couldn't find a message connected to this code.";
-
-                names.innerHTML = "";
-
-                codeDisplay.textContent =
-                    "Code: " + code;
-
-                status.textContent =
-                    "Please check your message link.";
-
-                return;
-
-            }
-
-
-            /* =========================================
-               DISPLAY MESSAGE
-            ========================================= */
-
-            title.textContent =
-                data.title ||
-                "A Special Message";
-
-
-            message.textContent =
-                data.message ||
-                "";
-
-
-            let namesHTML = "";
-
-
-            if (data.sender) {
-
-                namesHTML +=
-                    "<div>From: <strong>" +
-                    escapeHTML(
-                        data.sender
-                    ) +
-                    "</strong></div>";
-
-            }
-
-
-            if (data.recipient) {
-
-                namesHTML +=
-                    "<div>To: <strong>" +
-                    escapeHTML(
-                        data.recipient
-                    ) +
-                    "</strong></div>";
-
-            }
-
-
-            names.innerHTML =
-                namesHTML;
-
-
-            codeDisplay.textContent =
-                "KimasFootwear Code: " +
-                data.code;
-
-
-            status.textContent =
-                "Your message has been revealed ❤️";
-
-
-        } catch (error) {
-
-            console.error(
-                "Unexpected error:",
-                error
-            );
-
-
-            title.textContent =
-                "Something Went Wrong";
-
-
-            message.textContent =
-                "We couldn't load your message right now. Please try again.";
-
-
-            status.textContent =
-                "Please try again later.";
-
-        }
-
-    }
-
-
-    /* =====================================================
-       START WEBSITE
-    ===================================================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function() {
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-            const code =
-                cleanCode(
-                    params.get("code")
-                );
-
-
-            if (code) {
-
-                /*
-                 * Customer link/QR:
-                 * show only the message page.
-                 */
-
-                loadCustomerMessage(code);
-
-            } else {
-
-                /*
-                 * Normal website:
-                 * show the KimasFootwear homepage.
-                 */
-
-                showHomePage();
-
-            }
-
-        }
-    );
-
-</script>
 
 </body>
+
 </html>
