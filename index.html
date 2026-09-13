@@ -7,8 +7,9 @@
 
     <title>KimasFootwear | Every Step Tells a Story</title>
 
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -20,685 +21,659 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #080808;
-            color: #fff;
-            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            background: #111;
+            color: #f5f5f5;
             line-height: 1.6;
         }
 
-
-        /* =========================
-           HEADER
-        ========================= */
-
         header {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #292929;
+            background: #111;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
         }
 
-        header img {
-            width: 95px;
-            max-width: 30%;
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
         }
 
         nav {
-            margin-top: 15px;
+            display: flex;
+            gap: 25px;
         }
 
         nav a {
-            color: #d4af37;
+            color: white;
             text-decoration: none;
-            margin: 0 10px;
-            font-size: 14px;
+            font-size: 13px;
+            transition: 0.3s;
         }
 
         nav a:hover {
-            color: #fff;
+            color: #d4af37;
         }
 
-
-        /* =========================
-           HERO
-        ========================= */
+        section {
+            padding: 80px 8%;
+        }
 
         .hero {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 85px 20px 70px;
-
             background:
-                radial-gradient(
-                    circle at center,
-                    rgba(212, 175, 55, 0.10),
-                    transparent 55%
-                );
+                linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.82)),
+                url('logo.png') center/contain no-repeat;
+        }
+
+        .hero-content {
+            max-width: 800px;
         }
 
         .hero h1 {
-            font-size: clamp(38px, 8vw, 60px);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(45px, 8vw, 85px);
             color: #d4af37;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .hero p {
-            color: #ccc;
-            font-size: 18px;
-            max-width: 650px;
-            margin: auto;
-            line-height: 1.8;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 27px;
+            color: #eee;
         }
 
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 42px;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
 
-        /* =========================
-           DISCOVER
-        ========================= */
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 45px;
+            color: #ccc;
+        }
 
-        .discover {
-            padding: 70px 20px;
-            background: #0d0d0d;
+        .message-box {
+            max-width: 650px;
+            margin: auto;
+            background: #1b1b1b;
+            padding: 40px;
+            border: 1px solid #444;
+            border-radius: 15px;
             text-align: center;
         }
 
-        .discover-content {
-            max-width: 700px;
-            margin: auto;
+        .message-box input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 15px;
+            background: #111;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
         }
 
-        .discover h2 {
-            color: #d4af37;
-            font-size: 32px;
+        .gold-button,
+        .discover-button {
+            display: inline-block;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 30px;
+            background: #d4af37;
+            color: #111;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .gold-button:hover,
+        .discover-button:hover {
+            transform: translateY(-2px);
+            background: #f0cf62;
+        }
+
+        #revealedMessage {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .letter {
+            background: #f8f4ea;
+            color: #222;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.3);
+        }
+
+        .letter h3 {
+            font-family: 'Allura', cursive;
+            font-size: 48px;
+            color: #222;
             margin-bottom: 15px;
         }
 
-        .discover p {
-            color: #bbb;
-            line-height: 1.8;
-            margin-bottom: 25px;
+        .letter p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 23px;
+            line-height: 1.7;
         }
 
-        .discover a {
-            display: inline-block;
-            padding: 13px 24px;
+        .discover-brand {
+            margin-top: 30px;
+            padding: 25px;
+            background: #111;
+            color: white;
+            border-radius: 12px;
+        }
 
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-
+        .discover-brand h4 {
+            font-family: 'Playfair Display', serif;
             color: #d4af37;
-            text-decoration: none;
+            font-size: 25px;
+            margin-bottom: 10px;
         }
 
-        .discover a:hover {
-            background: #d4af37;
-            color: #000;
-        }
-
-
-        /* =========================
-           COLLECTION
-        ========================= */
-
-        .collection {
-            padding: 75px 20px;
-            text-align: center;
-        }
-
-        .collection h2 {
-            color: #d4af37;
-            font-size: 33px;
-            margin-bottom: 12px;
-        }
-
-        .collection-intro {
-            color: #aaa;
-            max-width: 650px;
-            margin: auto;
+        .discover-brand p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .collection-grid {
-            max-width: 950px;
-            margin: 40px auto 0;
-
             display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
         }
 
         .collection-card {
-            background: #111;
-
-            border: 1px solid #292929;
-
-            border-radius: 18px;
-
-            padding: 30px 20px;
-
-            transition: 0.3s;
+            background: #1b1b1b;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: .3s;
         }
 
         .collection-card:hover {
             transform: translateY(-5px);
-
             border-color: #d4af37;
-
-            box-shadow:
-                0 10px 30px rgba(
-                    212,
-                    175,
-                    55,
-                    0.10
-                );
         }
 
         .collection-card h3 {
+            font-family: 'Playfair Display', serif;
             color: #d4af37;
             margin-bottom: 10px;
         }
 
         .collection-card p {
-            color: #aaa;
-            font-size: 15px;
-        }
-
-
-        /* =========================
-           MEANING
-        ========================= */
-
-        .meaning {
-            text-align: center;
-
-            padding: 70px 20px;
-
-            background: #0d0d0d;
-        }
-
-        .meaning-container {
-            max-width: 700px;
-            margin: auto;
-        }
-
-        .meaning h2 {
-            color: #d4af37;
-            margin-bottom: 18px;
-        }
-
-        .meaning p {
             color: #bbb;
-            line-height: 1.9;
+            font-size: 14px;
         }
-
-
-        /* =========================
-           ABOUT
-        ========================= */
 
         .about {
-            text-align: center;
-
-            padding: 75px 20px;
-        }
-
-        .about-container {
-            max-width: 700px;
+            max-width: 850px;
             margin: auto;
-        }
-
-        .about h2 {
-            color: #d4af37;
-            margin-bottom: 18px;
+            text-align: center;
         }
 
         .about p {
-            color: #bbb;
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
 
-            line-height: 1.9;
+        .cta {
+            text-align: center;
+            background: #181818;
+        }
 
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #d4af37;
             margin-bottom: 15px;
         }
 
-        .tagline {
-            color: #d4af37 !important;
-
-            font-size: 24px;
-
-            font-weight: bold;
-
-            margin-top: 25px;
+        .cta p {
+            color: #ccc;
+            margin-bottom: 25px;
         }
-
-
-        /* =========================
-           EXPLORE BUTTON
-        ========================= */
-
-        .explore-section {
-            text-align: center;
-
-            padding: 60px 20px;
-
-            background: #0d0d0d;
-        }
-
-        .explore-section h2 {
-            color: #d4af37;
-
-            margin-bottom: 12px;
-        }
-
-        .explore-section p {
-            color: #aaa;
-
-            max-width: 600px;
-
-            margin: 0 auto 25px;
-        }
-
-        .explore-button {
-            display: inline-block;
-
-            padding: 14px 28px;
-
-            background: #d4af37;
-
-            color: #000;
-
-            text-decoration: none;
-
-            border-radius: 10px;
-
-            font-weight: bold;
-
-            transition: 0.3s;
-        }
-
-        .explore-button:hover {
-            opacity: 0.85;
-
-            transform: translateY(-2px);
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================= */
 
         footer {
+            padding: 30px 8%;
             text-align: center;
-
-            padding: 28px 20px;
-
-            color: #777;
-
-            border-top: 1px solid #222;
-
+            border-top: 1px solid #333;
+            color: #888;
             font-size: 13px;
         }
 
-        footer strong {
-            color: #d4af37;
+        .error {
+            color: #d9534f;
+            margin-top: 15px;
         }
 
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
 
             header {
-                padding: 16px;
+                padding: 15px 5%;
+            }
+
+            nav {
+                gap: 12px;
             }
 
             nav a {
-                margin: 0 6px;
+                font-size: 11px;
+            }
 
-                font-size: 13px;
+            section {
+                padding: 60px 5%;
             }
 
             .hero {
-                padding:
-                    70px 20px 60px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
+                min-height: 80vh;
             }
 
             .hero p {
-                font-size: 16px;
+                font-size: 22px;
             }
 
-            .collection-grid {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 34px;
             }
 
+            .message-box {
+                padding: 25px 18px;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<header>
+    <a href="#home" class="logo">KimasFootwear</a>
 
-    <!-- =====================================================
-         HEADER
-    ===================================================== -->
-
-    <header>
-
-        <img
-            src="logo.png"
-            alt="KimasFootwear Logo"
-        >
-
-        <nav>
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#collection">
-                Collection
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-        </nav>
-
-    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#message">Message</a>
+        <a href="#collection">Collection</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
 
 
+<!-- HERO -->
+<section class="hero" id="home">
 
-    <!-- =====================================================
-         HERO
-    ===================================================== -->
+    <div class="hero-content">
 
-    <section
-        class="hero"
-        id="home"
-    >
-
-        <h1>
-            Every Step Tells a Story.
-        </h1>
+        <h1>Every Step Tells a Story.</h1>
 
         <p>
-            Footwear made with meaning,
-            designed to carry more than
-            just your steps.
+            Footwear made with meaning, designed to carry more than just your steps.
         </p>
 
-    </section>
+    </div>
 
+</section>
 
 
-    <!-- =====================================================
-         DISCOVER KIMASFOOTWEAR
-    ===================================================== -->
+<!-- MESSAGE -->
+<section id="message">
 
-    <section class="discover">
+    <h2 class="section-title">Someone Left You a Message</h2>
 
-        <div class="discover-content">
+    <p class="section-subtitle">
+        Every KimasFootwear pair can carry a personal message.
+        Enter your unique code or scan the QR code attached to your pair.
+    </p>
 
-            <h2>
-                Discover KimasFootwear
-            </h2>
+    <div class="message-box">
 
-            <p>
-                While you're here, discover
-                the story behind KimasFootwear
-                and explore our collection.
-            </p>
-
-            <a href="#collection">
-                Explore Our Collection
-            </a>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         COLLECTION
-    ===================================================== -->
-
-    <section
-        class="collection"
-        id="collection"
-    >
-
-        <h2>
-            Our Collection
-        </h2>
-
-        <p class="collection-intro">
-
-            Footwear created for people
-            who want comfort, style and
-            meaning in every step.
-
-        </p>
-
-
-        <div class="collection-grid">
-
-
-            <!-- CLASSIC -->
-
-            <div class="collection-card">
-
-                <h3>
-                    Classic
-                </h3>
-
-                <p>
-                    Timeless footwear designed
-                    for everyday confidence.
-                </p>
-
-            </div>
-
-
-            <!-- CORPORATE -->
-
-            <div class="collection-card">
-
-                <h3>
-                    Corporate
-                </h3>
-
-                <p>
-                    Elegant footwear designed
-                    to complement professional
-                    style.
-                </p>
-
-            </div>
-
-
-            <!-- COUPLES -->
-
-            <div class="collection-card">
-
-                <h3>
-                    Couples
-                </h3>
-
-                <p>
-                    Matching footwear created
-                    for shared journeys.
-                </p>
-
-            </div>
-
-
-            <!-- CUSTOM -->
-
-            <div class="collection-card">
-
-                <h3>
-                    Custom
-                </h3>
-
-                <p>
-                    Personalised designs created
-                    around your story.
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         MEANING
-    ===================================================== -->
-
-    <section class="meaning">
-
-        <div class="meaning-container">
-
-            <h2>
-                A Step With Meaning
-            </h2>
-
-            <p>
-
-                Your KimasFootwear isn't
-                just something you wear.
-
-                It can carry a memory,
-                a message or a special moment.
-
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ABOUT
-    ===================================================== -->
-
-    <section
-        class="about"
-        id="about"
-    >
-
-        <div class="about-container">
-
-            <h2>
-                About KimasFootwear
-            </h2>
-
-
-            <p>
-
-                KimasFootwear is built around
-                a simple idea: footwear should
-                mean more than fashion.
-
-            </p>
-
-
-            <p>
-
-                We create footwear that combines
-                style, comfort and personal
-                expression.
-
-                Every pair has the potential
-                to become part of someone's story.
-
-            </p>
-
-
-            <p>
-
-                From a special gift to a personal
-                milestone, KimasFootwear is
-                designed to help people carry
-                meaning wherever they go.
-
-            </p>
-
-
-            <p class="tagline">
-
-                Walk With Meaning.
-
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         EXPLORE
-    ===================================================== -->
-
-    <section class="explore-section">
-
-        <h2>
-            Discover KimasFootwear
-        </h2>
-
-        <p>
-
-            Explore our collection and
-            discover footwear created
-            with style, comfort and meaning.
-
-        </p>
-
-        <a
-            href="#collection"
-            class="explore-button"
+        <input
+            type="text"
+            id="messageCode"
+            placeholder="Enter your Kimas code"
         >
 
-            Explore Our Collection
+        <button class="gold-button" onclick="revealMessage()">
+            Reveal My Message
+        </button>
 
-        </a>
+        <div id="revealedMessage"></div>
 
-    </section>
+    </div>
+
+</section>
 
 
+<!-- COLLECTION -->
+<section id="collection">
 
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
+    <h2 class="section-title">Our Collection</h2>
 
-    <footer>
+    <p class="section-subtitle">
+        Footwear created for people who want comfort, style and meaning in every step.
+    </p>
 
-        © 2026
+    <div class="collection-grid">
 
-        <strong>
-            KimasFootwear
-        </strong>.
+        <div class="collection-card">
+            <h3>Classic</h3>
+            <p>
+                Timeless footwear designed for everyday confidence.
+            </p>
+        </div>
 
-        Every Step Tells a Story.
+        <div class="collection-card">
+            <h3>Corporate</h3>
+            <p>
+                Elegant footwear designed to complement professional style.
+            </p>
+        </div>
 
-    </footer>
+        <div class="collection-card">
+            <h3>Couples</h3>
+            <p>
+                Matching footwear created for shared journeys.
+            </p>
+        </div>
 
+        <div class="collection-card">
+            <h3>Custom</h3>
+            <p>
+                Personalised designs created around your story.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SECRET MESSAGE -->
+<section id="secret-message">
+
+    <h2 class="section-title">A Step With Meaning</h2>
+
+    <p class="section-subtitle">
+        Your KimasFootwear isn't just something you wear.
+        It can carry a memory, a message or a special moment.
+    </p>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+
+    <div class="about">
+
+        <h2 class="section-title">About KimasFootwear</h2>
+
+        <p>
+            KimasFootwear is built around a simple idea:
+            footwear should mean more than fashion.
+        </p>
+
+        <p>
+            We create footwear that combines style, comfort and personal expression.
+            Every pair has the potential to become part of someone's story.
+        </p>
+
+        <p>
+            From a special gift to a personal milestone,
+            KimasFootwear is designed to help people carry meaning wherever they go.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+<section class="cta">
+
+    <h2>Walk With Meaning.</h2>
+
+    <p>
+        Discover KimasFootwear and create a pair with your own story.
+    </p>
+
+    <a href="#collection" class="gold-button">
+        Explore Our Collection
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026 KimasFootwear. Every Step Tells a Story.
+
+</footer>
+
+
+<script>
+
+    /*
+    ==========================================
+    KIMASFOOTWEAR MESSAGE SYSTEM
+    ==========================================
+    */
+
+    const messages = {
+
+        "KIMAS-LOVE-001": {
+            title: "A Message From the Heart",
+            text: "Every step you take, remember that you are deeply loved. May these shoes remind you that someone is always thinking of you."
+        },
+
+        "KIMAS-APPRECIATION-001": {
+            title: "You Are Appreciated",
+            text: "Thank you for being an amazing person. Your presence, kindness and support mean more than words can explain."
+        },
+
+        "KIMAS-SMILE-001": {
+            title: "Keep Smiling",
+            text: "Wherever life takes you, never forget to smile. Your smile has the power to brighten someone's day."
+        },
+
+        "KIMAS-SPECIAL-001": {
+            title: "You Are Special",
+            text: "There are many people in this world, but there is only one you. Never forget how special you are."
+        },
+
+        "KIMAS-SURPRISE-001": {
+            title: "A Little Surprise",
+            text: "Surprise! This pair was chosen especially for you. May every step bring you happiness."
+        },
+
+        "KIMAS-COUPLES-001": {
+            title: "Two Hearts, One Journey",
+            text: "May we continue walking through life together, supporting each other through every step and every season."
+        },
+
+        "KIMAS-FRIEND-001": {
+            title: "For A True Friend",
+            text: "Good friends make the journey of life better. Thank you for being one of the people who makes the journey worthwhile."
+        },
+
+        "KIMAS-CHAMPION-001": {
+            title: "Keep Going",
+            text: "Never stop moving forward. Every step is another opportunity to become the person you were created to be."
+        },
+
+        "KIMAS-CELEBRATE-001": {
+            title: "Celebrate This Moment",
+            text: "Today is worth celebrating. May this moment become one of many beautiful memories you will carry with you."
+        },
+
+        "KIMAS-STORY-001": {
+            title: "Your Story Matters",
+            text: "Every journey has a story. Every step adds another chapter. Keep walking and keep writing yours."
+        }
+
+    };
+
+
+    function revealMessage() {
+
+        const urlCode =
+            new URLSearchParams(window.location.search).get("code");
+
+        const input =
+            document.getElementById("messageCode");
+
+        const code =
+            (urlCode || input.value)
+            .trim()
+            .toUpperCase();
+
+
+        if (urlCode) {
+            input.value = urlCode;
+        }
+
+
+        const result =
+            document.getElementById("revealedMessage");
+
+
+        if (messages[code]) {
+
+            result.style.display = "block";
+
+            result.innerHTML = `
+
+                <div class="letter">
+
+                    <h3>${messages[code].title}</h3>
+
+                    <p>
+                        ${messages[code].text}
+                    </p>
+
+                    <div class="discover-brand">
+
+                        <h4>
+                            Discover KimasFootwear
+                        </h4>
+
+                        <p>
+                            Your journey doesn't end with this message.
+                            Discover our footwear, our work and the stories
+                            behind every step.
+                        </p>
+
+                        <a href="#home" class="discover-button">
+                            Explore KimasFootwear
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        } else {
+
+            result.style.display = "block";
+
+            result.innerHTML = `
+
+                <div class="letter">
+
+                    <h3>Message Not Found</h3>
+
+                    <p>
+                        We couldn't find a message connected to that code.
+                        Please check the code and try again.
+                    </p>
+
+                    <div class="discover-brand">
+
+                        <h4>
+                            Discover KimasFootwear
+                        </h4>
+
+                        <p>
+                            While you're here, discover the story behind
+                            KimasFootwear and explore our collection.
+                        </p>
+
+                        <a href="#home" class="discover-button">
+                            Explore KimasFootwear
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+    }
+
+
+    /*
+    ==========================================
+    AUTOMATIC QR MESSAGE
+    ==========================================
+    */
+
+    window.addEventListener("DOMContentLoaded", function () {
+
+        const urlCode =
+            new URLSearchParams(window.location.search).get("code");
+
+        if (urlCode) {
+
+            document.getElementById("messageCode").value = urlCode;
+
+            setTimeout(function () {
+
+                revealMessage();
+
+            }, 700);
+
+        }
+
+    });
+
+</script>
 
 </body>
-
 </html>
