@@ -1,1205 +1,1997 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>KimasFootwear | Every Step Tells a Story</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #080808;
-            color: #fff;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(8, 8, 8, 0.96);
-            backdrop-filter: blur(10px);
-            padding: 18px 20px;
-            text-align: center;
-            border-bottom: 1px solid #252525;
-        }
-
-        header img {
-            width: 95px;
-            max-width: 30%;
-            display: block;
-            margin: 0 auto;
-        }
-
-        nav {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        nav a {
-            color: #d4af37;
-            text-decoration: none;
-            padding: 7px 10px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #fff;
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            text-align: center;
-            padding: 90px 20px 85px;
-            min-height: 520px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(212, 175, 55, 0.10),
-                    transparent 55%
-                );
-        }
-
-        .hero-badge {
-            color: #d4af37;
-            border: 1px solid #5a4920;
-            padding: 7px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 {
-            font-size: clamp(40px, 8vw, 70px);
-            color: #d4af37;
-            margin-bottom: 18px;
-            letter-spacing: -1px;
-        }
-
-        .hero h2 {
-            font-size: clamp(24px, 5vw, 40px);
-            color: #fff;
-            margin-bottom: 18px;
-            font-weight: 500;
-        }
-
-        .hero p {
-            color: #ccc;
-            font-size: 18px;
-            max-width: 650px;
-            line-height: 1.8;
-        }
-
-        .hero-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 27px;
-            background: #d4af37;
-            color: #000;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .hero-button:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        /* =========================
-           MESSAGE SECTION
-        ========================= */
-
-        .message-section {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 75px 20px;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .section-heading h2 {
-            color: #d4af37;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .section-heading p {
-            color: #aaa;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .message-card {
-            background: linear-gradient(
-                145deg,
-                #151515,
-                #0e0e0e
-            );
-            border: 1px solid #3a3a3a;
-            border-radius: 22px;
-            padding: 40px 28px;
-            text-align: center;
-            box-shadow:
-                0 0 40px rgba(212, 175, 55, 0.08);
-        }
-
-        .message-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            border: 1px solid #5c4a1d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4af37;
-            font-size: 25px;
-        }
-
-        .message-card h2 {
-            color: #d4af37;
-            margin-bottom: 20px;
-            font-size: 29px;
-        }
-
-        .message-card p {
-            color: #eee;
-            font-size: 18px;
-            line-height: 1.9;
-            white-space: pre-line;
-        }
-
-        .names {
-            margin-top: 25px;
-            color: #aaa;
-            line-height: 1.9;
-        }
-
-        .names strong {
-            color: #d4af37;
-        }
-
-        .code-box {
-            margin-top: 30px;
-            padding: 12px;
-            background: #191919;
-            border-radius: 10px;
-            color: #777;
-            font-size: 12px;
-            word-break: break-word;
-        }
-
-        .input-area {
-            margin-top: 30px;
-        }
-
-        .input-area input {
-            width: 100%;
-            padding: 16px;
-            border-radius: 10px;
-            border: 1px solid #444;
-            background: #151515;
-            color: white;
-            outline: none;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        .input-area input:focus {
-            border-color: #d4af37;
-        }
-
-        .input-area button {
-            margin-top: 12px;
-            padding: 15px 28px;
-            border: none;
-            border-radius: 10px;
-            background: #d4af37;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .input-area button:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        .status {
-            margin-top: 20px;
-            color: #aaa;
-            min-height: 24px;
-        }
-
-        /* =========================
-           DISCOVER SECTION
-        ========================= */
-
-        .discover {
-            padding: 75px 20px;
-            background: #0d0d0d;
-            text-align: center;
-        }
-
-        .discover-content {
-            max-width: 750px;
-            margin: auto;
-        }
-
-        .discover h2 {
-            color: #d4af37;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .discover p {
-            color: #bbb;
-            line-height: 1.9;
-            margin-bottom: 28px;
-        }
-
-        .discover-button {
-            display: inline-block;
-            padding: 13px 25px;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            color: #d4af37;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .discover-button:hover {
-            background: #d4af37;
-            color: #000;
-        }
-
-        /* =========================
-           COLLECTION
-        ========================= */
-
-        .collection {
-            padding: 80px 20px;
-            background: #080808;
-        }
-
-        .collection-container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .collection-heading {
-            text-align: center;
-            margin-bottom: 45px;
-        }
-
-        .collection-heading h2 {
-            color: #d4af37;
-            font-size: 34px;
-            margin-bottom: 12px;
-        }
-
-        .collection-heading p {
-            color: #aaa;
-            max-width: 650px;
-            margin: auto;
-        }
-
-        .collection-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .collection-card {
-            background: #111;
-            border: 1px solid #292929;
-            border-radius: 18px;
-            padding: 30px 22px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .collection-card:hover {
-            transform: translateY(-5px);
-            border-color: #d4af37;
-        }
-
-        .collection-card .icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .collection-card h3 {
-            color: #d4af37;
-            margin-bottom: 10px;
-            font-size: 21px;
-        }
-
-        .collection-card p {
-            color: #aaa;
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        /* =========================
-           MEANING SECTION
-        ========================= */
-
-        .meaning {
-            padding: 80px 20px;
-            background: #0d0d0d;
-            text-align: center;
-        }
-
-        .meaning-container {
-            max-width: 750px;
-            margin: auto;
-        }
-
-        .meaning h2 {
-            color: #d4af37;
-            font-size: 33px;
-            margin-bottom: 20px;
-        }
-
-        .meaning p {
-            color: #bbb;
-            line-height: 1.9;
-            font-size: 17px;
-        }
-
-        /* =========================
-           ABOUT
-        ========================= */
-
-        .about {
-            text-align: center;
-            padding: 80px 20px;
-            background: #080808;
-        }
-
-        .about-container {
-            max-width: 750px;
-            margin: auto;
-        }
-
-        .about h2 {
-            color: #d4af37;
-            margin-bottom: 20px;
-            font-size: 33px;
-        }
-
-        .about p {
-            color: #bbb;
-            line-height: 1.9;
-            margin-bottom: 18px;
-        }
-
-        .about-tagline {
-            color: #d4af37 !important;
-            font-size: 25px;
-            font-weight: bold;
-            margin-top: 30px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: #777;
-            border-top: 1px solid #222;
-            font-size: 13px;
-            background: #050505;
-        }
-
-        footer strong {
-            color: #d4af37;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            header {
-                padding: 15px;
-            }
-
-            header img {
-                width: 85px;
-            }
-
-            nav {
-                gap: 2px;
-            }
-
-            nav a {
-                font-size: 13px;
-                padding: 6px 7px;
-            }
-
-            .hero {
-                padding: 70px 20px;
-                min-height: 480px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .message-section,
-            .collection,
-            .about,
-            .discover,
-            .meaning {
-                padding: 60px 18px;
-            }
-
-            .message-card {
-                padding: 30px 18px;
-            }
-
-            .message-card h2 {
-                font-size: 25px;
-            }
-
-            .message-card p {
-                font-size: 17px;
-            }
-
-            .collection-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .collection-heading h2,
-            .about h2,
-            .meaning h2,
-            .discover h2 {
-                font-size: 28px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KimasFootwear Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #080808;
+    color: white;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 430px;
+    background: #111;
+    padding: 35px;
+    border-radius: 15px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
+
+.login-box h1 {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    text-align: center;
+    color: #aaa;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 14px;
+    margin-top: 7px;
+    margin-bottom: 18px;
+    background: #1c1c1c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #d4af37;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+label {
+    color: #ddd;
+    font-size: 14px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 13px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.gold-btn {
+    background: #d4af37;
+    color: #080808;
+}
+
+.gold-btn:hover {
+    background: #f0d56a;
+}
+
+.dark-btn {
+    background: #292929;
+    color: white;
+}
+
+.danger-btn {
+    background: #8b2020;
+    color: white;
+}
+
+.danger-btn:hover {
+    background: #b52a2a;
+}
+
+.full {
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.dashboard {
+    padding-bottom: 50px;
+}
+
+header {
+    padding: 25px 0;
+    border-bottom: 1px solid #333;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    margin: 0;
+    color: #d4af37;
+}
+
+header p {
+    color: #aaa;
+    margin: 7px 0 0;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #111;
+    border: 1px solid #2d2d2d;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    color: #d4af37;
+    margin-top: 0;
+}
+
+.code-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.generated-code {
+    flex: 1;
+    padding: 15px;
+    background: #191919;
+    border: 1px solid #555;
+    border-radius: 8px;
+    color: #d4af37;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.status {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    display: none;
+}
+
+.status.success {
+    display: block;
+    background: #12351d;
+    border: 1px solid #276b39;
+    color: #8df0a2;
+}
+
+.status.error {
+    display: block;
+    background: #3a1515;
+    border: 1px solid #7d3030;
+    color: #ff9b9b;
+}
+
+.status.info {
+    display: block;
+    background: #171f32;
+    border: 1px solid #334b7a;
+    color: #a9c7ff;
+}
+
+.message-list {
+    display: grid;
+    gap: 15px;
+}
+
+.message-item {
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.message-item h3 {
+    margin: 0 0 8px;
+    color: #d4af37;
+}
+
+.message-item p {
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.message-code {
+    color: #d4af37;
+    font-family: monospace;
+}
+
+.message-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.preview {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.preview h3 {
+    color: #d4af37;
+}
+
+.customer-link {
+    word-break: break-all;
+    color: #d4af37;
+    background: #191919;
+    padding: 12px;
+    border-radius: 7px;
+    margin: 10px 0;
+}
+
+#qrcode {
+    margin-top: 15px;
+    background: white;
+    padding: 10px;
+    width: fit-content;
+}
+
+.loading {
+    text-align: center;
+    color: #aaa;
+    padding: 20px;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    padding: 25px;
+}
+
+@media (max-width: 600px) {
+
+    .login-box {
+        padding: 25px;
+    }
+
+    .code-box {
+        flex-direction: column;
+    }
+
+    .generated-code {
+        width: 100%;
+    }
+
+    .top-bar {
+        align-items: flex-start;
+    }
+
+    button {
+        width: 100%;
+        margin-right: 0;
+    }
+
+}
+</style>
 </head>
 
 <body>
 
 <!-- =========================
-     HEADER
+     LOGIN
 ========================= -->
+
+<div id="loginScreen" class="login-container">
+
+    <div class="login-box">
+
+        <h1>KimasFootwear</h1>
+
+        <p>
+            Private Admin Dashboard<br>
+            Sign in to manage your customer messages.
+        </p>
+
+        <div id="loginStatus" class="status"></div>
+
+        <form id="loginForm" onsubmit="login(event)">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                autocomplete="username"
+                required
+            >
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button
+                type="submit"
+                id="loginButton"
+                class="gold-btn full"
+            >
+                Sign In
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<div id="dashboard" class="dashboard hidden">
+
+<div class="container">
 
 <header>
 
-    <img src="logo.png" alt="KimasFootwear Logo">
+<div class="top-bar">
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#message">Message</a>
-        <a href="#collection">Collection</a>
-        <a href="#about">About</a>
-    </nav>
+<div>
+
+<h1>KimasFootwear</h1>
+
+<p>
+Private Message Management Dashboard
+</p>
+
+</div>
+
+<button
+class="dark-btn"
+type="button"
+onclick="logout()"
+>
+Logout
+</button>
+
+</div>
 
 </header>
 
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- CREATE MESSAGE -->
 
-<section class="hero" id="home">
+<div class="card">
 
-    <div class="hero-badge">
-        KimasFootwear
-    </div>
+<h2 id="formHeading">
+Create Customer Message
+</h2>
 
-    <h1>Every Step Tells a Story.</h1>
+<div id="saveStatus" class="status"></div>
 
-    <h2>Walk With Meaning.</h2>
 
-    <p>
-        Footwear made with meaning, designed to carry
-        more than just your steps.
-        <br>
-        Every pair can carry a story, a memory,
-        a message or a special moment.
-    </p>
+<label>Unique Kimas Code</label>
 
-    <a href="#message" class="hero-button">
-        Someone Left You a Message
-    </a>
+<div class="code-box">
 
-</section>
+<div
+id="generatedCode"
+class="generated-code"
+>
+Click Generate
+</div>
 
+<button
+type="button"
+class="gold-btn"
+onclick="generateNewCode()"
+>
+Generate Code
+</button>
 
-<!-- =========================
-     MESSAGE
-========================= -->
+</div>
 
-<section class="message-section" id="message">
 
-    <div class="section-heading">
+<label>Message Title</label>
 
-        <h2>Someone Left You a Message</h2>
+<input
+type="text"
+id="messageTitle"
+placeholder="Example: A Special Message For You"
+>
 
-        <p>
-            Every KimasFootwear pair can carry a personal
-            message. Enter your unique code or scan the
-            QR code attached to your pair.
-        </p>
 
-    </div>
+<label>Personal Message</label>
 
+<textarea
+id="personalMessage"
+placeholder="Write the message the receiver will see..."
+></textarea>
 
-    <div class="message-card">
 
-        <div class="message-icon">
-            ♥
-        </div>
+<label>Sender Name</label>
 
-        <h2 id="messageTitle">
-            Your Special Message
-        </h2>
+<input
+type="text"
+id="senderName"
+placeholder="Example: Allen"
+>
 
-        <p id="messageText">
-            Enter your unique KimasFootwear code below
-            to reveal your message.
-        </p>
 
-        <div class="names" id="names"></div>
+<label>Recipient Name</label>
 
-        <div class="code-box" id="codeDisplay">
-            No message code entered
-        </div>
+<input
+type="text"
+id="recipientName"
+placeholder="Example: Pearl"
+>
 
-        <div class="input-area">
 
-            <input
-                type="text"
-                id="codeInput"
-                placeholder="Enter your Kimas code e.g. KIM-AQC257"
-                autocomplete="off"
-                onkeydown="handleEnter(event)"
-            >
+<button
+type="button"
+id="saveButton"
+class="gold-btn"
+onclick="saveMessage()"
+>
+Save Message
+</button>
 
-            <button
-                type="button"
-                onclick="revealMessage()"
-            >
-                Reveal My Message
-            </button>
+<button
+type="button"
+class="dark-btn"
+onclick="previewMessage()"
+>
+Preview
+</button>
 
-        </div>
+<button
+type="button"
+id="cancelEditButton"
+class="dark-btn hidden"
+onclick="cancelEdit()"
+>
+Cancel Edit
+</button>
 
-        <div class="status" id="status"></div>
+</div>
 
-    </div>
 
-</section>
+<!-- PREVIEW -->
 
+<div
+id="previewCard"
+class="card hidden"
+>
 
-<!-- =========================
-     DISCOVER
-========================= -->
+<h2>Preview</h2>
 
-<section class="discover">
+<div class="preview">
 
-    <div class="discover-content">
+<h3 id="previewTitle">
+Message Title
+</h3>
 
-        <h2>Discover KimasFootwear</h2>
+<p id="previewMessage">
+Your message will appear here.
+</p>
 
-        <p>
-            While you're here, discover the story behind
-            KimasFootwear and explore footwear created
-            for people who want comfort, style and
-            meaning in every step.
-        </p>
+<p>
+<strong>From:</strong>
+<span id="previewSender"></span>
+</p>
 
-        <a href="#collection" class="discover-button">
-            Explore Our Collection
-        </a>
+<p>
+<strong>For:</strong>
+<span id="previewRecipient"></span>
+</p>
 
-    </div>
+</div>
 
-</section>
+</div>
 
 
-<!-- =========================
-     COLLECTION
-========================= -->
+<!-- LINK + QR -->
 
-<section class="collection" id="collection">
+<div
+id="linkCard"
+class="card hidden"
+>
 
-    <div class="collection-container">
+<h2>
+Customer Link & QR Code
+</h2>
 
-        <div class="collection-heading">
+<p>
+Give this link or QR code to the customer.
+</p>
 
-            <h2>Our Collection</h2>
+<div
+id="customerLink"
+class="customer-link"
+></div>
 
-            <p>
-                Footwear created for people who want
-                comfort, style and meaning in every step.
-            </p>
+<button
+type="button"
+class="gold-btn"
+onclick="copyCustomerLink()"
+>
+Copy Link
+</button>
 
-        </div>
+<div id="qrcode"></div>
 
+<br>
 
-        <div class="collection-grid">
+<button
+type="button"
+class="gold-btn"
+onclick="downloadQR()"
+>
+Download QR
+</button>
 
-            <div class="collection-card">
+</div>
 
-                <div class="icon">◈</div>
 
-                <h3>Classic</h3>
+<!-- MESSAGE LIST -->
 
-                <p>
-                    Timeless footwear designed for
-                    everyday confidence.
-                </p>
+<div class="card">
 
-            </div>
+<h2>
+Your Message Codes
+</h2>
 
+<div
+id="messageList"
+class="message-list"
+>
 
-            <div class="collection-card">
+<div class="loading">
+Loading messages...
+</div>
 
-                <div class="icon">◆</div>
+</div>
 
-                <h3>Corporate</h3>
+</div>
 
-                <p>
-                    Elegant footwear designed to
-                    complement professional style.
-                </p>
+</div>
 
-            </div>
-
-
-            <div class="collection-card">
-
-                <div class="icon">♥</div>
-
-                <h3>Couples</h3>
-
-                <p>
-                    Matching footwear created for
-                    shared journeys.
-                </p>
-
-            </div>
-
-
-            <div class="collection-card">
-
-                <div class="icon">✦</div>
-
-                <h3>Custom</h3>
-
-                <p>
-                    Personalised designs created
-                    around your story.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     MEANING
-========================= -->
-
-<section class="meaning">
-
-    <div class="meaning-container">
-
-        <h2>A Step With Meaning</h2>
-
-        <p>
-            Your KimasFootwear isn't just something you wear.
-            It can carry a memory, a message or a special
-            moment.
-
-            <br><br>
-
-            From a gift to someone special, a celebration,
-            an expression of love, appreciation or
-            encouragement, every pair can become part
-            of someone's story.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section class="about" id="about">
-
-    <div class="about-container">
-
-        <h2>About KimasFootwear</h2>
-
-        <p>
-            KimasFootwear is built around a simple idea:
-            footwear should mean more than fashion.
-        </p>
-
-        <p>
-            We create footwear that combines style,
-            comfort and personal expression.
-            Every pair has the potential to become
-            part of someone's story.
-        </p>
-
-        <p>
-            From a special gift to a personal milestone,
-            KimasFootwear is designed to help people
-            carry meaning wherever they go.
-        </p>
-
-        <p class="about-tagline">
-            Walk With Meaning.
-        </p>
-
-        <p>
-            Discover KimasFootwear and create a pair
-            with your own story.
-        </p>
-
-        <a href="#collection" class="discover-button">
-            Explore Our Collection
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    © 2026 <strong>KimasFootwear</strong>.
-    Every Step Tells a Story.
-
-</footer>
+</div>
 
 
 <script>
 
-    /* =====================================
-       SUPABASE CONFIGURATION
-    ===================================== */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
-    const SUPABASE_URL =
-        "https://hisdjtixefaoocvlzaml.supabase.co";
+const SUPABASE_URL =
+"https://hisdjtixefaoocvlzaml.supabase.co";
 
-    const SUPABASE_KEY =
-        "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
 
-    const supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
+let supabaseClient = null;
+
+let currentCode = "";
+
+let editingId = null;
+
+let currentCustomerLink = "";
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeSupabase() {
+
+    if (!window.supabase) {
+
+        showStatus(
+            "loginStatus",
+            "Supabase library could not load. Please refresh the page.",
+            "error"
+        );
+
+        return false;
+    }
+
+    try {
+
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+        return true;
+
+    } catch(error) {
+
+        showStatus(
+            "loginStatus",
+            "Could not connect to Supabase: " + error.message,
+            "error"
+        );
+
+        return false;
+    }
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(
+    elementId,
+    message,
+    type
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) return;
+
+    element.textContent = message;
+
+    element.className =
+        "status " + type;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(event) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    const button =
+        document.getElementById("loginButton");
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+
+    if (!email || !password) {
+
+        showStatus(
+            "loginStatus",
+            "Please enter your email and password.",
+            "error"
+        );
+
+        return false;
+    }
+
+
+    if (!supabaseClient) {
+
+        if (!initializeSupabase()) {
+
+            return false;
+        }
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Signing in...";
+
+
+    showStatus(
+        "loginStatus",
+        "Connecting to KimasFootwear...",
+        "info"
+    );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+        if (error) {
+
+            showStatus(
+                "loginStatus",
+                "Login failed: " + error.message,
+                "error"
+            );
+
+            button.disabled = false;
+
+            button.textContent =
+                "Sign In";
+
+            return false;
+        }
+
+
+        if (!data || !data.session) {
+
+            showStatus(
+                "loginStatus",
+                "Login did not create a session. Please check your Supabase account.",
+                "error"
+            );
+
+            button.disabled = false;
+
+            button.textContent =
+                "Sign In";
+
+            return false;
+        }
+
+
+        showStatus(
+            "loginStatus",
+            "Login successful!",
+            "success"
         );
 
 
-    /* =====================================
-       CLEAN CODE
-    ===================================== */
+        document
+        .getElementById("loginScreen")
+        .classList
+        .add("hidden");
 
-    function cleanCode(value) {
 
-        return String(value || "")
-            .trim()
-            .replace(/\s+/g, "")
-            .toUpperCase();
+        document
+        .getElementById("dashboard")
+        .classList
+        .remove("hidden");
 
+
+        button.disabled = false;
+
+        button.textContent =
+            "Sign In";
+
+
+        generateNewCode();
+
+        loadMessages();
+
+
+    } catch(error) {
+
+        showStatus(
+            "loginStatus",
+            "Connection error: " + error.message,
+            "error"
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "Sign In";
     }
 
 
-    /* =====================================
-       ENTER KEY
-    ===================================== */
+    return false;
+}
 
-    function handleEnter(event) {
 
-        if (event.key === "Enter") {
+/* =====================================================
+   CHECK LOGIN
+===================================================== */
 
-            event.preventDefault();
+async function checkLogin() {
 
-            revealMessage();
+    if (!supabaseClient) return;
 
+    try {
+
+        const {
+            data
+        } =
+        await supabaseClient.auth.getSession();
+
+
+        if (
+            data &&
+            data.session
+        ) {
+
+            document
+            .getElementById("loginScreen")
+            .classList
+            .add("hidden");
+
+
+            document
+            .getElementById("dashboard")
+            .classList
+            .remove("hidden");
+
+
+            generateNewCode();
+
+            loadMessages();
         }
 
+    } catch(error) {
+
+        console.log(
+            "Session check:",
+            error
+        );
     }
+}
 
 
-    /* =====================================
-       LOAD MESSAGE FROM URL
-    ===================================== */
+/* =====================================================
+   RANDOM CODE
+===================================================== */
 
-    async function loadMessageFromURL() {
+function createRandomCode() {
 
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
+    const characters =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-        const urlCode =
-            params.get("code");
+    let code =
+        "KIM-";
 
-
-        if (urlCode) {
-
-            const cleanURLCode =
-                cleanCode(urlCode);
-
-            document.getElementById(
-                "codeInput"
-            ).value = cleanURLCode;
-
-            await revealMessage(
-                cleanURLCode
-            );
-
-        }
-
-    }
-
-
-    /* =====================================
-       REVEAL MESSAGE
-    ===================================== */
-
-    async function revealMessage(
-        codeFromURL = null
+    for (
+        let i = 0;
+        i < 6;
+        i++
     ) {
 
-        const input =
-            document.getElementById(
-                "codeInput"
+        code +=
+            characters.charAt(
+                Math.floor(
+                    Math.random() *
+                    characters.length
+                )
+            );
+    }
+
+    return code;
+}
+
+
+/* =====================================================
+   GENERATE NEW CODE
+===================================================== */
+
+async function generateNewCode() {
+
+    if (!supabaseClient) {
+
+        if (!initializeSupabase()) {
+            return;
+        }
+    }
+
+
+    let code = "";
+
+    let exists = true;
+
+
+    while (exists) {
+
+        code =
+            createRandomCode();
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("messages")
+        .select("id")
+        .eq("code", code)
+        .limit(1);
+
+
+        if (error) {
+
+            console.log(
+                "Code check:",
+                error
             );
 
-        const status =
-            document.getElementById(
-                "status"
+            exists = false;
+
+        } else {
+
+            exists =
+                data &&
+                data.length > 0;
+        }
+    }
+
+
+    currentCode = code;
+
+
+    document
+    .getElementById("generatedCode")
+    .textContent = code;
+}
+
+
+/* =====================================================
+   SAVE MESSAGE
+===================================================== */
+
+async function saveMessage() {
+
+    if (!supabaseClient) {
+
+        if (!initializeSupabase()) {
+            return;
+        }
+    }
+
+
+    const title =
+        document
+        .getElementById("messageTitle")
+        .value
+        .trim();
+
+
+    const message =
+        document
+        .getElementById("personalMessage")
+        .value
+        .trim();
+
+
+    const sender =
+        document
+        .getElementById("senderName")
+        .value
+        .trim();
+
+
+    const recipient =
+        document
+        .getElementById("recipientName")
+        .value
+        .trim();
+
+
+    if (!currentCode) {
+
+        showStatus(
+            "saveStatus",
+            "Please generate a Kimas Code first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!title) {
+
+        showStatus(
+            "saveStatus",
+            "Please enter a message title.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!message) {
+
+        showStatus(
+            "saveStatus",
+            "Please write the personal message.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Saving...";
+
+
+    try {
+
+        let result;
+
+
+        if (editingId) {
+
+            result =
+            await supabaseClient
+            .from("messages")
+            .update({
+
+                code: currentCode,
+
+                title: title,
+
+                message: message,
+
+                sender: sender,
+
+                recipient: recipient
+
+            })
+            .eq("id", editingId);
+
+        } else {
+
+            result =
+            await supabaseClient
+            .from("messages")
+            .insert({
+
+                code: currentCode,
+
+                title: title,
+
+                message: message,
+
+                sender: sender,
+
+                recipient: recipient,
+
+                active: true
+
+            });
+        }
+
+
+        if (result.error) {
+
+            showStatus(
+                "saveStatus",
+                "Could not save message: " +
+                result.error.message,
+                "error"
             );
 
+            button.disabled = false;
 
-        const rawCode =
-            codeFromURL !== null
-                ? codeFromURL
-                : input.value;
-
-
-        const code =
-            cleanCode(rawCode);
-
-
-        if (!code) {
-
-            status.textContent =
-                "Please enter your KimasFootwear code.";
+            button.textContent =
+                editingId
+                ? "Update Message"
+                : "Save Message";
 
             return;
-
         }
 
 
-        input.value = code;
+        const wasEditing =
+            Boolean(editingId);
 
 
-        status.textContent =
-            "Finding your special message...";
+        showStatus(
+            "saveStatus",
+            wasEditing
+            ? "Message updated successfully!"
+            : "Message saved successfully!",
+            "success"
+        );
 
 
-        try {
-
-            const { data, error } =
-                await supabaseClient
-                    .from("messages")
-                    .select("*")
-                    .eq("code", code)
-                    .eq("active", true)
-                    .maybeSingle();
+        createCustomerLink(currentCode);
 
 
-            console.log(
-                "KimasFootwear code:",
-                code
-            );
+        clearForm();
 
-            console.log(
-                "Database result:",
-                data
-            );
+        editingId = null;
 
-            console.log(
-                "Database error:",
-                error
-            );
+        document
+        .getElementById(
+            "formHeading"
+        )
+        .textContent =
+            "Create Customer Message";
 
 
-            if (error) {
-
-                console.error(
-                    "Supabase error:",
-                    error
-                );
-
-                showNotFound(code);
-
-                return;
-
-            }
+        document
+        .getElementById(
+            "cancelEditButton"
+        )
+        .classList
+        .add("hidden");
 
 
-            if (!data) {
+        button.disabled = false;
 
-                showNotFound(code);
-
-                return;
-
-            }
+        button.textContent =
+            "Save Message";
 
 
-            /* =================================
-               DISPLAY MESSAGE
-            ================================= */
-
-            document.getElementById(
-                "messageTitle"
-            ).textContent =
-                data.title;
+        await loadMessages();
 
 
-            document.getElementById(
-                "messageText"
-            ).textContent =
-                data.message;
+        await generateNewCode();
 
 
-            let namesHTML = "";
+    } catch(error) {
 
+        showStatus(
+            "saveStatus",
+            "Error: " + error.message,
+            "error"
+        );
 
-            if (data.sender) {
+        button.disabled = false;
 
-                namesHTML +=
-                    "<div>From: <strong>" +
-                    escapeHTML(
-                        data.sender
-                    ) +
-                    "</strong></div>";
-
-            }
-
-
-            if (data.recipient) {
-
-                namesHTML +=
-                    "<div>To: <strong>" +
-                    escapeHTML(
-                        data.recipient
-                    ) +
-                    "</strong></div>";
-
-            }
-
-
-            document.getElementById(
-                "names"
-            ).innerHTML =
-                namesHTML;
-
-
-            document.getElementById(
-                "codeDisplay"
-            ).textContent =
-                "KimasFootwear Code: " +
-                data.code;
-
-
-            status.textContent =
-                "Your message has been revealed ❤️";
-
-
-            /* =================================
-               UPDATE URL
-            ================================= */
-
-            const newURL =
-                window.location.pathname +
-                "?code=" +
-                encodeURIComponent(
-                    data.code
-                );
-
-
-            window.history.replaceState(
-                {},
-                "",
-                newURL
-            );
-
-
-            /* =================================
-               SCROLL TO MESSAGE
-            ================================= */
-
-            document.getElementById(
-                "message"
-            ).scrollIntoView({
-                behavior: "smooth"
-            });
-
-
-        } catch (error) {
-
-            console.error(
-                "Unexpected error:",
-                error
-            );
-
-            status.textContent =
-                "Something went wrong. Please try again.";
-
-        }
-
+        button.textContent =
+            "Save Message";
     }
+}
 
 
-    /* =====================================
-       MESSAGE NOT FOUND
-    ===================================== */
+/* =====================================================
+   LOAD MESSAGES
+===================================================== */
 
-    function showNotFound(code) {
+async function loadMessages() {
 
+    if (!supabaseClient) return;
+
+
+    const list =
         document.getElementById(
+            "messageList"
+        );
+
+
+    list.innerHTML =
+        '<div class="loading">Loading messages...</div>';
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("messages")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+        if (error) {
+
+            list.innerHTML =
+                '<div class="empty">Unable to load messages: ' +
+                escapeHtml(error.message) +
+                '</div>';
+
+            return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            list.innerHTML =
+                '<div class="empty">No customer messages yet.</div>';
+
+            return;
+        }
+
+
+        list.innerHTML = "";
+
+
+        data.forEach(function(item) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "message-item";
+
+
+            div.innerHTML = `
+
+                <h3>
+                    ${escapeHtml(item.title)}
+                </h3>
+
+                <div class="message-code">
+                    ${escapeHtml(item.code)}
+                </div>
+
+                <p>
+                    ${escapeHtml(item.message)}
+                </p>
+
+                <p>
+                    <strong>From:</strong>
+                    ${escapeHtml(item.sender || "-")}
+                    <br>
+
+                    <strong>For:</strong>
+                    ${escapeHtml(item.recipient || "-")}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    ${item.active ? "Active" : "Inactive"}
+                </p>
+
+                <div class="message-actions">
+
+                    <button
+                        type="button"
+                        class="gold-btn"
+                        onclick="editMessage(${item.id})"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        type="button"
+                        class="dark-btn"
+                        onclick="showMessageLink('${escapeJs(item.code)}')"
+                    >
+                        Link / QR
+                    </button>
+
+                    <button
+                        type="button"
+                        class="danger-btn"
+                        onclick="deleteMessage(${item.id})"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+            `;
+
+
+            list.appendChild(div);
+
+        });
+
+
+    } catch(error) {
+
+        list.innerHTML =
+            '<div class="empty">Error loading messages.</div>';
+
+        console.log(error);
+    }
+}
+
+
+/* =====================================================
+   EDIT MESSAGE
+===================================================== */
+
+async function editMessage(id) {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("messages")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+
+        if (error) {
+
+            showStatus(
+                "saveStatus",
+                "Could not load message: " +
+                error.message,
+                "error"
+            );
+
+            return;
+        }
+
+
+        editingId = id;
+
+        currentCode =
+            data.code;
+
+
+        document
+        .getElementById(
+            "generatedCode"
+        )
+        .textContent =
+            data.code;
+
+
+        document
+        .getElementById(
             "messageTitle"
-        ).textContent =
-            "Message Not Found";
+        )
+        .value =
+            data.title || "";
 
 
-        document.getElementById(
-            "messageText"
-        ).textContent =
-            "We couldn't find a message connected to this code. Please check the code and try again.";
+        document
+        .getElementById(
+            "personalMessage"
+        )
+        .value =
+            data.message || "";
 
 
-        document.getElementById(
-            "names"
-        ).innerHTML = "";
+        document
+        .getElementById(
+            "senderName"
+        )
+        .value =
+            data.sender || "";
 
 
-        document.getElementById(
-            "codeDisplay"
-        ).textContent =
-            "Code: " + code;
+        document
+        .getElementById(
+            "recipientName"
+        )
+        .value =
+            data.recipient || "";
 
 
-        document.getElementById(
-            "status"
-        ).textContent =
-            "Please check your code and try again.";
+        document
+        .getElementById(
+            "formHeading"
+        )
+        .textContent =
+            "Edit Customer Message";
 
+
+        document
+        .getElementById(
+            "saveButton"
+        )
+        .textContent =
+            "Update Message";
+
+
+        document
+        .getElementById(
+            "cancelEditButton"
+        )
+        .classList
+        .remove("hidden");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch(error) {
+
+        console.log(error);
     }
+}
 
 
-    /* =====================================
-       HTML SECURITY
-    ===================================== */
+/* =====================================================
+   CANCEL EDIT
+===================================================== */
 
-    function escapeHTML(value) {
+function cancelEdit() {
 
-        if (!value) return "";
+    editingId = null;
 
-        return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
+    clearForm();
+
+
+    document
+    .getElementById(
+        "formHeading"
+    )
+    .textContent =
+        "Create Customer Message";
+
+
+    document
+    .getElementById(
+        "saveButton"
+    )
+    .textContent =
+        "Save Message";
+
+
+    document
+    .getElementById(
+        "cancelEditButton"
+    )
+    .classList
+    .add("hidden");
+
+
+    generateNewCode();
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+async function deleteMessage(id) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this customer message?"
+        );
+
+
+    if (!confirmed) return;
+
+
+    try {
+
+        const {
+            error
+        } =
+        await supabaseClient
+        .from("messages")
+        .delete()
+        .eq("id", id);
+
+
+        if (error) {
+
+            showStatus(
+                "saveStatus",
+                "Could not delete message: " +
+                error.message,
+                "error"
             );
 
+            return;
+        }
+
+
+        showStatus(
+            "saveStatus",
+            "Message deleted successfully.",
+            "success"
+        );
+
+
+        loadMessages();
+
+
+    } catch(error) {
+
+        showStatus(
+            "saveStatus",
+            "Delete error: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+function previewMessage() {
+
+    const title =
+        document
+        .getElementById(
+            "messageTitle"
+        )
+        .value
+        .trim();
+
+
+    const message =
+        document
+        .getElementById(
+            "personalMessage"
+        )
+        .value
+        .trim();
+
+
+    const sender =
+        document
+        .getElementById(
+            "senderName"
+        )
+        .value
+        .trim();
+
+
+    const recipient =
+        document
+        .getElementById(
+            "recipientName"
+        )
+        .value
+        .trim();
+
+
+    document
+    .getElementById(
+        "previewTitle"
+    )
+    .textContent =
+        title || "Message Title";
+
+
+    document
+    .getElementById(
+        "previewMessage"
+    )
+    .textContent =
+        message ||
+        "Your message will appear here.";
+
+
+    document
+    .getElementById(
+        "previewSender"
+    )
+    .textContent =
+        sender || "-";
+
+
+    document
+    .getElementById(
+        "previewRecipient"
+    )
+    .textContent =
+        recipient || "-";
+
+
+    document
+    .getElementById(
+        "previewCard"
+    )
+    .classList
+    .remove("hidden");
+}
+
+
+/* =====================================================
+   CUSTOMER LINK
+===================================================== */
+
+function createCustomerLink(code) {
+
+    const baseUrl =
+        window.location.origin +
+        window.location.pathname
+        .replace(
+            "admin.html",
+            "index.html"
+        );
+
+
+    currentCustomerLink =
+        baseUrl +
+        "?code=" +
+        encodeURIComponent(code);
+
+
+    document
+    .getElementById(
+        "customerLink"
+    )
+    .textContent =
+        currentCustomerLink;
+
+
+    document
+    .getElementById(
+        "linkCard"
+    )
+    .classList
+    .remove("hidden");
+
+
+    generateQR(
+        currentCustomerLink
+    );
+}
+
+
+/* =====================================================
+   SHOW EXISTING LINK
+===================================================== */
+
+function showMessageLink(code) {
+
+    currentCode = code;
+
+    createCustomerLink(code);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =====================================================
+   QR CODE
+===================================================== */
+
+function generateQR(url) {
+
+    const qr =
+        document.getElementById(
+            "qrcode"
+        );
+
+
+    qr.innerHTML = "";
+
+
+    if (
+        typeof QRCode ===
+        "undefined"
+    ) {
+
+        qr.innerHTML =
+            "<p style='color:#111'>QR library unavailable.</p>";
+
+        return;
     }
 
 
-    /* =====================================
-       START WEBSITE
-    ===================================== */
+    new QRCode(qr, {
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function() {
+        text: url,
 
-            loadMessageFromURL();
+        width: 220,
 
-        }
+        height: 220,
+
+        colorDark: "#000000",
+
+        colorLight: "#ffffff",
+
+        correctLevel:
+            QRCode.CorrectLevel.H
+
+    });
+}
+
+
+/* =====================================================
+   COPY LINK
+===================================================== */
+
+async function copyCustomerLink() {
+
+    if (!currentCustomerLink) {
+
+        showStatus(
+            "saveStatus",
+            "No customer link available.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            currentCustomerLink
+        );
+
+
+        showStatus(
+            "saveStatus",
+            "Customer link copied!",
+            "success"
+        );
+
+
+    } catch(error) {
+
+        showStatus(
+            "saveStatus",
+            "Could not copy automatically. Please copy the link manually.",
+            "error"
+        );
+    }
+}
+
+
+/* =====================================================
+   DOWNLOAD QR
+===================================================== */
+
+function downloadQR() {
+
+    const qr =
+        document.getElementById(
+            "qrcode"
+        );
+
+
+    const image =
+        qr.querySelector("img");
+
+
+    if (!image) {
+
+        showStatus(
+            "saveStatus",
+            "QR code is not ready yet.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href =
+        image.src;
+
+
+    link.download =
+        "KimasFootwear-" +
+        currentCode +
+        "-QR.png";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm() {
+
+    document
+    .getElementById(
+        "messageTitle"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "personalMessage"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "senderName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "recipientName"
+    )
+    .value = "";
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout() {
+
+    if (supabaseClient) {
+
+        await supabaseClient.auth.signOut();
+    }
+
+
+    document
+    .getElementById(
+        "dashboard"
+    )
+    .classList
+    .add("hidden");
+
+
+    document
+    .getElementById(
+        "loginScreen"
+    )
+    .classList
+    .remove("hidden");
+
+
+    document
+    .getElementById(
+        "loginEmail"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "loginPassword"
+    )
+    .value = "";
+
+
+    showStatus(
+        "loginStatus",
+        "You have been logged out.",
+        "success"
     );
+}
+
+
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function escapeJs(value) {
+
+    return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        const ready =
+            initializeSupabase();
+
+
+        if (ready) {
+
+            await checkLogin();
+        }
+
+    }
+);
 
 </script>
 
