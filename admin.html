@@ -365,6 +365,11 @@ header p {
     border-radius: 5px;
 }
 
+#qrcode canvas,
+#qrcode img {
+    display: block;
+}
+
 .loading {
     text-align: center;
     color: #aaa;
@@ -1176,6 +1181,8 @@ function removeSelectedPhoto() {
 
     selectedPhotoFile = null;
 
+    currentPhotoUrl = "";
+
 
     document
     .getElementById(
@@ -1389,8 +1396,6 @@ async function saveMessage() {
 
     try {
 
-        /* UPLOAD NEW PHOTO IF ONE WAS SELECTED */
-
         if (selectedPhotoFile) {
 
             showStatus(
@@ -1426,7 +1431,8 @@ async function saveMessage() {
 
                 recipient: recipient,
 
-                photo_url: currentPhotoUrl || null
+                photo_url:
+                    currentPhotoUrl || null
 
             })
             .eq("id", editingId);
@@ -1448,7 +1454,8 @@ async function saveMessage() {
 
                 recipient: recipient,
 
-                photo_url: currentPhotoUrl || null,
+                photo_url:
+                    currentPhotoUrl || null,
 
                 active: true
 
@@ -2179,9 +2186,9 @@ function generateQR(url) {
 
         text: url,
 
-        width: 220,
+        width: 300,
 
-        height: 220,
+        height: 300,
 
         colorDark: "#000000",
 
@@ -2238,7 +2245,7 @@ async function copyCustomerLink() {
 
 
 /* =====================================================
-   DOWNLOAD QR
+   DOWNLOAD QR - FIXED
 ===================================================== */
 
 function downloadQR() {
@@ -2249,15 +2256,11 @@ function downloadQR() {
         );
 
 
-    const image =
-        qr.querySelector("img");
-
-
-    if (!image) {
+    if (!qr) {
 
         showStatus(
             "saveStatus",
-            "QR code is not ready yet.",
+            "QR code area was not found.",
             "error"
         );
 
@@ -2265,27 +2268,184 @@ function downloadQR() {
     }
 
 
-    const link =
-        document.createElement(
-            "a"
+    /* FIRST TRY CANVAS */
+
+    const canvas =
+        qr.querySelector("canvas");
+
+
+    if (canvas) {
+
+        canvas.toBlob(
+            function(blob) {
+
+                if (!blob) {
+
+                    showStatus(
+                        "saveStatus",
+                        "Could not create QR image.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                const url =
+                    URL.createObjectURL(
+                        blob
+                    );
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href = url;
+
+
+                link.download =
+                    "KimasFootwear-" +
+                    currentCode +
+                    "-QR.png";
+
+
+                document.body.appendChild(
+                    link
+                );
+
+
+                link.click();
+
+
+                document.body.removeChild(
+                    link
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        URL.revokeObjectURL(
+                            url
+                        );
+
+                    },
+                    1000
+                );
+
+
+                showStatus(
+                    "saveStatus",
+                    "QR code downloaded successfully!",
+                    "success"
+                );
+
+            },
+            "image/png"
         );
 
 
-    link.href =
-        image.src;
+        return;
+    }
 
 
-    link.download =
-        "KimasFootwear-" +
-        currentCode +
-        "-QR.png";
+    /* FALLBACK FOR IMAGE QR */
+
+    const image =
+        qr.querySelector("img");
 
 
-    document.body.appendChild(link);
+    if (
+        image &&
+        image.src
+    ) {
 
-    link.click();
+        fetch(image.src)
+        .then(function(response) {
 
-    document.body.removeChild(link);
+            return response.blob();
+
+        })
+        .then(function(blob) {
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href = url;
+
+
+            link.download =
+                "KimasFootwear-" +
+                currentCode +
+                "-QR.png";
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            document.body.removeChild(
+                link
+            );
+
+
+            setTimeout(
+                function() {
+
+                    URL.revokeObjectURL(
+                        url
+                    );
+
+                },
+                1000
+            );
+
+
+            showStatus(
+                "saveStatus",
+                "QR code downloaded successfully!",
+                "success"
+            );
+
+        })
+        .catch(function(error) {
+
+            console.log(error);
+
+            showStatus(
+                "saveStatus",
+                "Could not download the QR code.",
+                "error"
+            );
+
+        });
+
+
+        return;
+    }
+
+
+    showStatus(
+        "saveStatus",
+        "QR code is not ready yet.",
+        "error"
+    );
 }
 
 
