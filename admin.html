@@ -15,84 +15,200 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #080808;
             color: #fff;
             min-height: 100vh;
+            line-height: 1.6;
         }
 
+        /* =========================
+           HEADER
+        ========================= */
+
         header {
-            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 8, 8, 0.96);
+            backdrop-filter: blur(10px);
+            padding: 18px 20px;
             text-align: center;
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid #252525;
         }
 
         header img {
-            width: 100px;
+            width: 95px;
             max-width: 30%;
+            display: block;
+            margin: 0 auto;
         }
 
         nav {
             margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         nav a {
             color: #d4af37;
             text-decoration: none;
-            margin: 0 10px;
+            padding: 7px 10px;
             font-size: 14px;
+            transition: 0.3s;
         }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 90px 20px 85px;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(212, 175, 55, 0.10),
+                    transparent 55%
+                );
+        }
+
+        .hero-badge {
+            color: #d4af37;
+            border: 1px solid #5a4920;
+            padding: 7px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
         }
 
         .hero h1 {
-            font-size: 42px;
+            font-size: clamp(40px, 8vw, 70px);
             color: #d4af37;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            letter-spacing: -1px;
+        }
+
+        .hero h2 {
+            font-size: clamp(24px, 5vw, 40px);
+            color: #fff;
+            margin-bottom: 18px;
+            font-weight: 500;
         }
 
         .hero p {
             color: #ccc;
             font-size: 18px;
-            line-height: 1.6;
+            max-width: 650px;
+            line-height: 1.8;
         }
 
+        .hero-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 27px;
+            background: #d4af37;
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* =========================
+           MESSAGE SECTION
+        ========================= */
+
         .message-section {
-            max-width: 700px;
-            margin: 20px auto 60px;
-            padding: 20px;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 75px 20px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            color: #d4af37;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: #aaa;
+            max-width: 600px;
+            margin: auto;
         }
 
         .message-card {
-            background: #111;
+            background: linear-gradient(
+                145deg,
+                #151515,
+                #0e0e0e
+            );
             border: 1px solid #3a3a3a;
-            border-radius: 18px;
-            padding: 35px 25px;
+            border-radius: 22px;
+            padding: 40px 28px;
             text-align: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.08);
+            box-shadow:
+                0 0 40px rgba(212, 175, 55, 0.08);
+        }
+
+        .message-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 1px solid #5c4a1d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 25px;
         }
 
         .message-card h2 {
             color: #d4af37;
             margin-bottom: 20px;
-            font-size: 28px;
+            font-size: 29px;
         }
 
         .message-card p {
             color: #eee;
             font-size: 18px;
-            line-height: 1.8;
+            line-height: 1.9;
             white-space: pre-line;
         }
 
         .names {
             margin-top: 25px;
             color: #aaa;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .names strong {
@@ -106,6 +222,7 @@
             border-radius: 10px;
             color: #777;
             font-size: 12px;
+            word-break: break-word;
         }
 
         .input-area {
@@ -114,78 +231,303 @@
 
         .input-area input {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             border-radius: 10px;
             border: 1px solid #444;
             background: #151515;
             color: white;
             outline: none;
             font-size: 16px;
+            text-align: center;
+        }
+
+        .input-area input:focus {
+            border-color: #d4af37;
         }
 
         .input-area button {
             margin-top: 12px;
-            padding: 14px 25px;
+            padding: 15px 28px;
             border: none;
             border-radius: 10px;
             background: #d4af37;
             color: #000;
             font-weight: bold;
             cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
         }
 
         .input-area button:hover {
-            opacity: 0.85;
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
 
         .status {
             margin-top: 20px;
             color: #aaa;
+            min-height: 24px;
         }
+
+        /* =========================
+           DISCOVER SECTION
+        ========================= */
+
+        .discover {
+            padding: 75px 20px;
+            background: #0d0d0d;
+            text-align: center;
+        }
+
+        .discover-content {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .discover h2 {
+            color: #d4af37;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .discover p {
+            color: #bbb;
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .discover-button {
+            display: inline-block;
+            padding: 13px 25px;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            color: #d4af37;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .discover-button:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        /* =========================
+           COLLECTION
+        ========================= */
+
+        .collection {
+            padding: 80px 20px;
+            background: #080808;
+        }
+
+        .collection-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .collection-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .collection-heading h2 {
+            color: #d4af37;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .collection-heading p {
+            color: #aaa;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .collection-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 18px;
+            padding: 30px 22px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+        }
+
+        .collection-card .icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .collection-card h3 {
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
+
+        .collection-card p {
+            color: #aaa;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           MEANING SECTION
+        ========================= */
+
+        .meaning {
+            padding: 80px 20px;
+            background: #0d0d0d;
+            text-align: center;
+        }
+
+        .meaning-container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .meaning h2 {
+            color: #d4af37;
+            font-size: 33px;
+            margin-bottom: 20px;
+        }
+
+        .meaning p {
+            color: #bbb;
+            line-height: 1.9;
+            font-size: 17px;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
 
         .about {
             text-align: center;
-            padding: 60px 20px;
-            background: #0d0d0d;
+            padding: 80px 20px;
+            background: #080808;
+        }
+
+        .about-container {
+            max-width: 750px;
+            margin: auto;
         }
 
         .about h2 {
             color: #d4af37;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 33px;
         }
 
         .about p {
-            max-width: 650px;
-            margin: auto;
             color: #bbb;
-            line-height: 1.8;
+            line-height: 1.9;
+            margin-bottom: 18px;
         }
+
+        .about-tagline {
+            color: #d4af37 !important;
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 30px 20px;
             color: #777;
             border-top: 1px solid #222;
             font-size: 13px;
+            background: #050505;
         }
 
+        footer strong {
+            color: #d4af37;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
         @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 32px;
+
+            header {
+                padding: 15px;
+            }
+
+            header img {
+                width: 85px;
+            }
+
+            nav {
+                gap: 2px;
+            }
+
+            nav a {
+                font-size: 13px;
+                padding: 6px 7px;
+            }
+
+            .hero {
+                padding: 70px 20px;
+                min-height: 480px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .message-section,
+            .collection,
+            .about,
+            .discover,
+            .meaning {
+                padding: 60px 18px;
             }
 
             .message-card {
-                padding: 28px 18px;
+                padding: 30px 18px;
             }
 
             .message-card h2 {
-                font-size: 24px;
+                font-size: 25px;
+            }
+
+            .message-card p {
+                font-size: 17px;
+            }
+
+            .collection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .collection-heading h2,
+            .about h2,
+            .meaning h2,
+            .discover h2 {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 
 <body>
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
@@ -194,35 +536,74 @@
     <nav>
         <a href="#home">Home</a>
         <a href="#message">Message</a>
+        <a href="#collection">Collection</a>
         <a href="#about">About</a>
     </nav>
 
 </header>
 
 
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero" id="home">
 
-    <h1>KimasFootwear</h1>
+    <div class="hero-badge">
+        KimasFootwear
+    </div>
+
+    <h1>Every Step Tells a Story.</h1>
+
+    <h2>Walk With Meaning.</h2>
 
     <p>
-        Every Step Tells a Story.
+        Footwear made with meaning, designed to carry
+        more than just your steps.
         <br>
-        Every Pair Carries a Message.
+        Every pair can carry a story, a memory,
+        a message or a special moment.
     </p>
+
+    <a href="#message" class="hero-button">
+        Someone Left You a Message
+    </a>
 
 </section>
 
 
+<!-- =========================
+     MESSAGE
+========================= -->
+
 <section class="message-section" id="message">
 
+    <div class="section-heading">
+
+        <h2>Someone Left You a Message</h2>
+
+        <p>
+            Every KimasFootwear pair can carry a personal
+            message. Enter your unique code or scan the
+            QR code attached to your pair.
+        </p>
+
+    </div>
+
+
     <div class="message-card">
+
+        <div class="message-icon">
+            ♥
+        </div>
 
         <h2 id="messageTitle">
             Your Special Message
         </h2>
 
         <p id="messageText">
-            Enter your unique KimasFootwear code below to reveal your message.
+            Enter your unique KimasFootwear code below
+            to reveal your message.
         </p>
 
         <div class="names" id="names"></div>
@@ -241,7 +622,10 @@
                 onkeydown="handleEnter(event)"
             >
 
-            <button type="button" onclick="revealMessage()">
+            <button
+                type="button"
+                onclick="revealMessage()"
+            >
                 Reveal My Message
             </button>
 
@@ -254,30 +638,206 @@
 </section>
 
 
-<section class="about" id="about">
+<!-- =========================
+     DISCOVER
+========================= -->
 
-    <h2>About KimasFootwear</h2>
+<section class="discover">
 
-    <p>
-        KimasFootwear is more than footwear.
-        We believe every step should carry meaning.
-        Our unique message experience allows every pair
-        to carry a personal story, appreciation, love,
-        encouragement or unforgettable memory.
-    </p>
+    <div class="discover-content">
+
+        <h2>Discover KimasFootwear</h2>
+
+        <p>
+            While you're here, discover the story behind
+            KimasFootwear and explore footwear created
+            for people who want comfort, style and
+            meaning in every step.
+        </p>
+
+        <a href="#collection" class="discover-button">
+            Explore Our Collection
+        </a>
+
+    </div>
 
 </section>
 
 
+<!-- =========================
+     COLLECTION
+========================= -->
+
+<section class="collection" id="collection">
+
+    <div class="collection-container">
+
+        <div class="collection-heading">
+
+            <h2>Our Collection</h2>
+
+            <p>
+                Footwear created for people who want
+                comfort, style and meaning in every step.
+            </p>
+
+        </div>
+
+
+        <div class="collection-grid">
+
+            <div class="collection-card">
+
+                <div class="icon">◈</div>
+
+                <h3>Classic</h3>
+
+                <p>
+                    Timeless footwear designed for
+                    everyday confidence.
+                </p>
+
+            </div>
+
+
+            <div class="collection-card">
+
+                <div class="icon">◆</div>
+
+                <h3>Corporate</h3>
+
+                <p>
+                    Elegant footwear designed to
+                    complement professional style.
+                </p>
+
+            </div>
+
+
+            <div class="collection-card">
+
+                <div class="icon">♥</div>
+
+                <h3>Couples</h3>
+
+                <p>
+                    Matching footwear created for
+                    shared journeys.
+                </p>
+
+            </div>
+
+
+            <div class="collection-card">
+
+                <div class="icon">✦</div>
+
+                <h3>Custom</h3>
+
+                <p>
+                    Personalised designs created
+                    around your story.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MEANING
+========================= -->
+
+<section class="meaning">
+
+    <div class="meaning-container">
+
+        <h2>A Step With Meaning</h2>
+
+        <p>
+            Your KimasFootwear isn't just something you wear.
+            It can carry a memory, a message or a special
+            moment.
+
+            <br><br>
+
+            From a gift to someone special, a celebration,
+            an expression of love, appreciation or
+            encouragement, every pair can become part
+            of someone's story.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about" id="about">
+
+    <div class="about-container">
+
+        <h2>About KimasFootwear</h2>
+
+        <p>
+            KimasFootwear is built around a simple idea:
+            footwear should mean more than fashion.
+        </p>
+
+        <p>
+            We create footwear that combines style,
+            comfort and personal expression.
+            Every pair has the potential to become
+            part of someone's story.
+        </p>
+
+        <p>
+            From a special gift to a personal milestone,
+            KimasFootwear is designed to help people
+            carry meaning wherever they go.
+        </p>
+
+        <p class="about-tagline">
+            Walk With Meaning.
+        </p>
+
+        <p>
+            Discover KimasFootwear and create a pair
+            with your own story.
+        </p>
+
+        <a href="#collection" class="discover-button">
+            Explore Our Collection
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
-    © 2026 KimasFootwear. Every Step Tells a Story.
+
+    © 2026 <strong>KimasFootwear</strong>.
+    Every Step Tells a Story.
+
 </footer>
 
 
 <script>
 
     /* =====================================
-       SUPABASE
+       SUPABASE CONFIGURATION
     ===================================== */
 
     const SUPABASE_URL =
@@ -325,7 +885,7 @@
 
 
     /* =====================================
-       LOAD CODE FROM URL
+       LOAD MESSAGE FROM URL
     ===================================== */
 
     async function loadMessageFromURL() {
@@ -338,15 +898,19 @@
         const urlCode =
             params.get("code");
 
+
         if (urlCode) {
 
             const cleanURLCode =
                 cleanCode(urlCode);
 
-            document.getElementById("codeInput").value =
-                cleanURLCode;
+            document.getElementById(
+                "codeInput"
+            ).value = cleanURLCode;
 
-            await revealMessage(cleanURLCode);
+            await revealMessage(
+                cleanURLCode
+            );
 
         }
 
@@ -357,18 +921,26 @@
        REVEAL MESSAGE
     ===================================== */
 
-    async function revealMessage(codeFromURL = null) {
+    async function revealMessage(
+        codeFromURL = null
+    ) {
 
         const input =
-            document.getElementById("codeInput");
+            document.getElementById(
+                "codeInput"
+            );
 
         const status =
-            document.getElementById("status");
+            document.getElementById(
+                "status"
+            );
+
 
         const rawCode =
             codeFromURL !== null
                 ? codeFromURL
                 : input.value;
+
 
         const code =
             cleanCode(rawCode);
@@ -402,9 +974,20 @@
                     .maybeSingle();
 
 
-            console.log("KimasFootwear code:", code);
-            console.log("Database result:", data);
-            console.log("Database error:", error);
+            console.log(
+                "KimasFootwear code:",
+                code
+            );
+
+            console.log(
+                "Database result:",
+                data
+            );
+
+            console.log(
+                "Database error:",
+                error
+            );
 
 
             if (error) {
@@ -436,12 +1019,14 @@
 
             document.getElementById(
                 "messageTitle"
-            ).textContent = data.title;
+            ).textContent =
+                data.title;
 
 
             document.getElementById(
                 "messageText"
-            ).textContent = data.message;
+            ).textContent =
+                data.message;
 
 
             let namesHTML = "";
@@ -451,7 +1036,9 @@
 
                 namesHTML +=
                     "<div>From: <strong>" +
-                    escapeHTML(data.sender) +
+                    escapeHTML(
+                        data.sender
+                    ) +
                     "</strong></div>";
 
             }
@@ -461,7 +1048,9 @@
 
                 namesHTML +=
                     "<div>To: <strong>" +
-                    escapeHTML(data.recipient) +
+                    escapeHTML(
+                        data.recipient
+                    ) +
                     "</strong></div>";
 
             }
@@ -469,7 +1058,8 @@
 
             document.getElementById(
                 "names"
-            ).innerHTML = namesHTML;
+            ).innerHTML =
+                namesHTML;
 
 
             document.getElementById(
@@ -490,7 +1080,9 @@
             const newURL =
                 window.location.pathname +
                 "?code=" +
-                encodeURIComponent(data.code);
+                encodeURIComponent(
+                    data.code
+                );
 
 
             window.history.replaceState(
@@ -564,7 +1156,7 @@
 
 
     /* =====================================
-       HTML ESCAPE
+       HTML SECURITY
     ===================================== */
 
     function escapeHTML(value) {
@@ -572,17 +1164,32 @@
         if (!value) return "";
 
         return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
     }
 
 
     /* =====================================
-       START
+       START WEBSITE
     ===================================== */
 
     document.addEventListener(
@@ -597,4 +1204,4 @@
 </script>
 
 </body>
-    </html> 
+</html>
