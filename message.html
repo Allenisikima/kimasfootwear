@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>KimasFootwear | Your Message</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at top,
+            #252525 0%,
+            #0a0a0a 55%,
+            #000000 100%
+        );
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+}
+
+.card {
+    background: rgba(17,17,17,.96);
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.6);
+}
+
+.logo {
+    text-align: center;
+    color: #d4af37;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.brand-line {
+    width: 70px;
+    height: 2px;
+    background: #d4af37;
+    margin: 0 auto 30px;
+}
+
+.loading {
+    text-align: center;
+    color: #aaa;
+    padding: 30px 0;
+}
+
+.message-content {
+    display: none;
+}
+
+.message-title {
+    text-align: center;
+    color: #d4af37;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.message-text {
+    color: #eee;
+    font-size: 18px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    text-align: center;
+}
+
+.details {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.detail {
+    margin: 10px 0;
+    color: #aaa;
+}
+
+.detail strong {
+    color: #d4af37;
+}
+
+.error {
+    display: none;
+    text-align: center;
+}
+
+.error h2 {
+    color: #d4af37;
+}
+
+.error p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.code {
+    margin-top: 20px;
+    padding: 12px;
+    background: #191919;
+    border-radius: 8px;
+    color: #777;
+    font-family: monospace;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 25px 18px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .message-title {
+        font-size: 23px;
+    }
+
+    .message-text {
+        font-size: 17px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            KimasFootwear
+        </div>
+
+        <div class="brand-line"></div>
+
+
+        <!-- LOADING -->
+
+        <div id="loading" class="loading">
+
+            <p>Opening your special message...</p>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div id="messageContent"
+             class="message-content">
+
+            <div
+                id="messageTitle"
+                class="message-title">
+            </div>
+
+            <div
+                id="messageText"
+                class="message-text">
+            </div>
+
+
+            <div
+                id="details"
+                class="details">
+
+                <div
+                    id="senderRow"
+                    class="detail">
+
+                    <strong>From:</strong>
+
+                    <span id="sender"></span>
+
+                </div>
+
+
+                <div
+                    id="recipientRow"
+                    class="detail">
+
+                    <strong>For:</strong>
+
+                    <span id="recipient"></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="error"
+            class="error">
+
+            <h2>
+                Message Not Found
+            </h2>
+
+            <p id="errorText">
+                We couldn't find this message.
+            </p>
+
+            <div
+                id="errorCode"
+                class="code">
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+
+            A special message from KimasFootwear.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+"https://hisdjtixefaoocvlzaml.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+
+
+let supabaseClient;
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeSupabase() {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+}
+
+
+/* =====================================================
+   GET CODE FROM URL
+===================================================== */
+
+function getMessageCode() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    return params.get("code");
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showError(message, code) {
+
+    document
+        .getElementById("loading")
+        .style.display = "none";
+
+
+    document
+        .getElementById("messageContent")
+        .style.display = "none";
+
+
+    document
+        .getElementById("error")
+        .style.display = "block";
+
+
+    document
+        .getElementById("errorText")
+        .textContent = message;
+
+
+    if (code) {
+
+        document
+            .getElementById("errorCode")
+            .textContent =
+                "Code: " + code;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD MESSAGE
+===================================================== */
+
+async function loadMessage() {
+
+    const code =
+        getMessageCode();
+
+
+    /* NO CODE */
+
+    if (!code) {
+
+        showError(
+            "No message code was provided. Please use the link or QR code given to you.",
+            ""
+        );
+
+        return;
+    }
+
+
+    try {
+
+        initializeSupabase();
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("messages")
+            .select(
+                "title,message,sender,recipient,active"
+            )
+            .eq("code", code)
+            .eq("active", true)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            showError(
+                "We couldn't connect to the message service. Please try again.",
+                code
+            );
+
+            return;
+        }
+
+
+        /* MESSAGE DOES NOT EXIST */
+
+        if (!data) {
+
+            showError(
+                "This message does not exist, has been removed, or is no longer active.",
+                code
+            );
+
+            return;
+        }
+
+
+        /* =================================================
+           DISPLAY MESSAGE
+        ================================================= */
+
+
+        document
+            .getElementById("loading")
+            .style.display = "none";
+
+
+        document
+            .getElementById("messageContent")
+            .style.display = "block";
+
+
+        document
+            .getElementById("messageTitle")
+            .textContent =
+                data.title || "A Special Message";
+
+
+        document
+            .getElementById("messageText")
+            .textContent =
+                data.message || "";
+
+
+        /* SENDER */
+
+        if (data.sender) {
+
+            document
+                .getElementById("sender")
+                .textContent =
+                    data.sender;
+
+        } else {
+
+            document
+                .getElementById("senderRow")
+                .style.display =
+                    "none";
+        }
+
+
+        /* RECIPIENT */
+
+        if (data.recipient) {
+
+            document
+                .getElementById("recipient")
+                .textContent =
+                    data.recipient;
+
+        } else {
+
+            document
+                .getElementById("recipientRow")
+                .style.display =
+                    "none";
+        }
+
+
+        /* CHANGE BROWSER TITLE */
+
+        document.title =
+            "KimasFootwear | " +
+            (data.title ||
+             "Your Special Message");
+
+
+    } catch(error) {
+
+        console.error(error);
+
+        showError(
+            "Something went wrong while opening your message. Please try again.",
+            code
+        );
+    }
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadMessage();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
