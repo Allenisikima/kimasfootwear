@@ -90,6 +90,10 @@ textarea {
     resize: vertical;
 }
 
+input[type="file"] {
+    padding: 12px;
+}
+
 label {
     color: #ddd;
     font-size: 14px;
@@ -240,6 +244,30 @@ header p {
     text-align: center;
 }
 
+/* PHOTO */
+
+.photo-preview {
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+.photo-preview img {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #444;
+}
+
+.photo-note {
+    color: #888;
+    font-size: 13px;
+    margin-top: -8px;
+    margin-bottom: 15px;
+}
+
 /* PREVIEW */
 
 .preview {
@@ -257,6 +285,16 @@ header p {
 .preview p {
     color: #ccc;
     line-height: 1.6;
+}
+
+.preview img {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 0 auto 20px;
 }
 
 /* MESSAGE LIST */
@@ -281,6 +319,16 @@ header p {
 .message-item p {
     color: #ccc;
     line-height: 1.5;
+}
+
+.message-item img {
+    width: 100%;
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 10px 0;
+    border: 1px solid #444;
 }
 
 .message-code {
@@ -363,9 +411,7 @@ header p {
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div id="loginScreen" class="login-container">
 
@@ -417,9 +463,7 @@ header p {
 </div>
 
 
-<!-- =========================
-     DASHBOARD
-========================= -->
+<!-- DASHBOARD -->
 
 <div id="dashboard" class="dashboard hidden">
 
@@ -519,6 +563,41 @@ placeholder="Example: Pearl"
 >
 
 
+<label>Photo for the Receiver</label>
+
+<input
+type="file"
+id="messagePhoto"
+accept="image/*"
+onchange="previewPhoto(event)"
+>
+
+<div class="photo-note">
+Optional. Add a personal photo that the receiver will see with the message.
+</div>
+
+<div
+id="photoPreviewContainer"
+class="photo-preview hidden"
+>
+
+<img
+id="photoPreview"
+src=""
+alt="Photo preview"
+>
+
+<button
+type="button"
+class="dark-btn"
+onclick="removeSelectedPhoto()"
+>
+Remove Photo
+</button>
+
+</div>
+
+
 <button
 type="button"
 id="saveButton"
@@ -558,6 +637,13 @@ class="card hidden"
 <h2>Preview</h2>
 
 <div class="preview">
+
+<img
+id="previewPhoto"
+src=""
+alt="Message photo"
+class="hidden"
+>
 
 <h3 id="previewTitle">
 Message Title
@@ -670,6 +756,10 @@ let currentCode = "";
 let editingId = null;
 
 let currentCustomerLink = "";
+
+let currentPhotoUrl = "";
+
+let selectedPhotoFile = null;
 
 
 /* =====================================================
@@ -1020,6 +1110,188 @@ async function generateNewCode() {
 
 
 /* =====================================================
+   PHOTO PREVIEW
+===================================================== */
+
+function previewPhoto(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+
+    if (!file.type.startsWith("image/")) {
+
+        showStatus(
+            "saveStatus",
+            "Please select an image file.",
+            "error"
+        );
+
+        removeSelectedPhoto();
+
+        return;
+    }
+
+
+    selectedPhotoFile = file;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(e) {
+
+        const preview =
+            document.getElementById(
+                "photoPreview"
+            );
+
+        preview.src =
+            e.target.result;
+
+
+        document
+        .getElementById(
+            "photoPreviewContainer"
+        )
+        .classList
+        .remove("hidden");
+    };
+
+
+    reader.readAsDataURL(file);
+}
+
+
+/* =====================================================
+   REMOVE SELECTED PHOTO
+===================================================== */
+
+function removeSelectedPhoto() {
+
+    selectedPhotoFile = null;
+
+
+    document
+    .getElementById(
+        "messagePhoto"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "photoPreview"
+    )
+    .src = "";
+
+
+    document
+    .getElementById(
+        "photoPreviewContainer"
+    )
+    .classList
+    .add("hidden");
+}
+
+
+/* =====================================================
+   UPLOAD PHOTO
+===================================================== */
+
+async function uploadPhoto(file) {
+
+    if (!file) {
+        return currentPhotoUrl || "";
+    }
+
+
+    const {
+        data: userData,
+        error: userError
+    } =
+    await supabaseClient.auth.getUser();
+
+
+    if (userError || !userData.user) {
+
+        throw new Error(
+            "Your admin session has expired. Please log in again."
+        );
+    }
+
+
+    const userId =
+        userData.user.id;
+
+
+    const safeName =
+        file.name
+        .replace(/[^a-zA-Z0-9._-]/g, "-");
+
+
+    const filePath =
+        userId +
+        "/" +
+        currentCode +
+        "-" +
+        Date.now() +
+        "-" +
+        safeName;
+
+
+    const {
+        error
+    } =
+    await supabaseClient
+    .storage
+    .from("message-photos")
+    .upload(
+        filePath,
+        file,
+        {
+            cacheControl: "3600",
+            upsert: false
+        }
+    );
+
+
+    if (error) {
+
+        throw new Error(
+            "Photo upload failed: " +
+            error.message
+        );
+    }
+
+
+    const {
+        data
+    } =
+    supabaseClient
+    .storage
+    .from("message-photos")
+    .getPublicUrl(filePath);
+
+
+    if (!data || !data.publicUrl) {
+
+        throw new Error(
+            "Could not create the photo URL."
+        );
+    }
+
+
+    return data.publicUrl;
+}
+
+
+/* =====================================================
    SAVE MESSAGE
 ===================================================== */
 
@@ -1117,6 +1389,23 @@ async function saveMessage() {
 
     try {
 
+        /* UPLOAD NEW PHOTO IF ONE WAS SELECTED */
+
+        if (selectedPhotoFile) {
+
+            showStatus(
+                "saveStatus",
+                "Uploading photo...",
+                "info"
+            );
+
+            currentPhotoUrl =
+                await uploadPhoto(
+                    selectedPhotoFile
+                );
+        }
+
+
         let result;
 
 
@@ -1135,7 +1424,9 @@ async function saveMessage() {
 
                 sender: sender,
 
-                recipient: recipient
+                recipient: recipient,
+
+                photo_url: currentPhotoUrl || null
 
             })
             .eq("id", editingId);
@@ -1156,6 +1447,8 @@ async function saveMessage() {
                 sender: sender,
 
                 recipient: recipient,
+
+                photo_url: currentPhotoUrl || null,
 
                 active: true
 
@@ -1192,14 +1485,16 @@ async function saveMessage() {
         );
 
 
-        /* CREATE THE CORRECT CUSTOMER LINK */
-
         createCustomerLink(currentCode);
 
 
         clearForm();
 
         editingId = null;
+
+        currentPhotoUrl = "";
+
+        selectedPhotoFile = null;
 
 
         document
@@ -1226,7 +1521,6 @@ async function saveMessage() {
 
         await loadMessages();
 
-
         await generateNewCode();
 
 
@@ -1241,7 +1535,9 @@ async function saveMessage() {
         button.disabled = false;
 
         button.textContent =
-            "Save Message";
+            wasEditing
+            ? "Update Message"
+            : "Save Message";
     }
 }
 
@@ -1317,6 +1613,19 @@ async function loadMessages() {
                 "message-item";
 
 
+            const photoHtml =
+                item.photo_url
+                ?
+                `
+                <img
+                    src="${escapeHtml(item.photo_url)}"
+                    alt="Message photo"
+                >
+                `
+                :
+                "";
+
+
             div.innerHTML = `
 
                 <h3>
@@ -1326,6 +1635,8 @@ async function loadMessages() {
                 <div class="message-code">
                     ${escapeHtml(item.code)}
                 </div>
+
+                ${photoHtml}
 
                 <p>
                     ${escapeHtml(item.message)}
@@ -1427,6 +1738,11 @@ async function editMessage(id) {
         currentCode =
             data.code;
 
+        currentPhotoUrl =
+            data.photo_url || "";
+
+        selectedPhotoFile = null;
+
 
         document
         .getElementById(
@@ -1466,6 +1782,41 @@ async function editMessage(id) {
         )
         .value =
             data.recipient || "";
+
+
+        document
+        .getElementById(
+            "messagePhoto"
+        )
+        .value = "";
+
+
+        if (data.photo_url) {
+
+            document
+            .getElementById(
+                "photoPreview"
+            )
+            .src =
+                data.photo_url;
+
+
+            document
+            .getElementById(
+                "photoPreviewContainer"
+            )
+            .classList
+            .remove("hidden");
+
+        } else {
+
+            document
+            .getElementById(
+                "photoPreviewContainer"
+            )
+            .classList
+            .add("hidden");
+        }
 
 
         document
@@ -1512,6 +1863,10 @@ async function editMessage(id) {
 function cancelEdit() {
 
     editingId = null;
+
+    currentPhotoUrl = "";
+
+    selectedPhotoFile = null;
 
     clearForm();
 
@@ -1680,6 +2035,50 @@ function previewMessage() {
         recipient || "-";
 
 
+    const previewPhoto =
+        document.getElementById(
+            "previewPhoto"
+        );
+
+
+    if (selectedPhotoFile) {
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(e) {
+
+                previewPhoto.src =
+                    e.target.result;
+
+                previewPhoto.classList
+                    .remove("hidden");
+            };
+
+
+        reader.readAsDataURL(
+            selectedPhotoFile
+        );
+
+    } else if (currentPhotoUrl) {
+
+        previewPhoto.src =
+            currentPhotoUrl;
+
+        previewPhoto.classList
+            .remove("hidden");
+
+    } else {
+
+        previewPhoto.src = "";
+
+        previewPhoto.classList
+            .add("hidden");
+    }
+
+
     document
     .getElementById(
         "previewCard"
@@ -1694,18 +2093,6 @@ function previewMessage() {
 ===================================================== */
 
 function createCustomerLink(code) {
-
-    /*
-       THIS IS THE IMPORTANT FIX.
-
-       The customer must go to:
-
-       message.html?code=XXXXXX
-
-       NOT:
-
-       index.html?code=XXXXXX
-    */
 
     const baseUrl =
         window.location.origin +
@@ -1934,6 +2321,28 @@ function clearForm() {
         "recipientName"
     )
     .value = "";
+
+
+    document
+    .getElementById(
+        "messagePhoto"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "photoPreview"
+    )
+    .src = "";
+
+
+    document
+    .getElementById(
+        "photoPreviewContainer"
+    )
+    .classList
+    .add("hidden");
 }
 
 
