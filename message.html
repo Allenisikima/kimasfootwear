@@ -1,771 +1,651 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
-
-<title>KimasFootwear | A Special Message</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>A Special Message | KimasFootwear</title>
 
 <style>
-
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-
-    margin: 0;
-
     min-height: 100vh;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    color: white;
-
+    font-family: Georgia, "Times New Roman", serif;
     background:
-        radial-gradient(
-            circle at top left,
-            rgba(212,175,55,.18),
-            transparent 35%
-        ),
-
-        radial-gradient(
-            circle at bottom right,
-            rgba(255,105,180,.16),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #050505,
-            #120b10,
-            #050505
-        );
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 25px;
-
+        radial-gradient(circle at top, rgba(255, 215, 120, 0.10), transparent 35%),
+        linear-gradient(145deg, #050505, #120a0f 55%, #050505);
+    color: #fff;
     overflow-x: hidden;
 }
 
+/* =========================
+   OPENING SCREEN
+========================= */
 
-/* DECORATIVE HEARTS */
-
-.heart {
-
+.opening-screen {
     position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background:
+        radial-gradient(circle at center, rgba(212, 175, 55, 0.13), transparent 35%),
+        linear-gradient(145deg, #030303, #12070d, #030303);
+    transition: opacity 1s ease, visibility 1s ease;
+}
 
-    color: rgba(212,175,55,.18);
-
-    font-size: 40px;
-
+.opening-screen.hide {
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-
-    animation:
-        floatHeart 6s ease-in-out infinite;
 }
 
-.heart.one {
-
-    top: 10%;
-
-    left: 8%;
+.opening-content {
+    width: 100%;
+    max-width: 430px;
+    text-align: center;
+    animation: openingAppear 1.4s ease;
 }
 
-.heart.two {
-
-    top: 70%;
-
-    right: 8%;
-
-    font-size: 55px;
-
-    animation-delay: 2s;
-}
-
-.heart.three {
-
-    top: 35%;
-
-    right: 15%;
-
-    font-size: 25px;
-
-    animation-delay: 4s;
-}
-
-@keyframes floatHeart {
-
-    0%,100% {
+@keyframes openingAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
         transform: translateY(0);
     }
-
-    50% {
-        transform: translateY(-15px);
-    }
 }
 
-
-/* MAIN */
-
-.wrapper {
-
-    width: 100%;
-
-    max-width: 650px;
-
-    position: relative;
-
-    z-index: 2;
-}
-
-
-/* BRAND */
-
-.brand {
-
-    text-align: center;
-
-    margin-bottom: 25px;
+.brand-mark {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #d4af37;
+    margin-bottom: 12px;
 }
 
 .brand-name {
-
-    font-size: 14px;
-
-    letter-spacing: 5px;
-
-    color: #d4af37;
-
+    font-size: 34px;
     font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
 
+.brand-tagline {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #d4af37;
+    margin-bottom: 55px;
+}
+
+.gift-icon {
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 30px;
+    border: 1px solid rgba(212, 175, 55, 0.65);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    animation: gentlePulse 2.2s infinite;
+    box-shadow:
+        0 0 25px rgba(212, 175, 55, 0.12),
+        inset 0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 25px rgba(212, 175, 55, 0.12);
+    }
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+    }
+}
+
+.opening-title {
+    font-size: 28px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.opening-subtitle {
+    font-family: Arial, sans-serif;
+    color: #c9c9c9;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.reveal-button {
+    border: 1px solid #d4af37;
+    background: linear-gradient(135deg, #d4af37, #f3d77a);
+    color: #090909;
+    padding: 15px 30px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.18);
+}
+
+.reveal-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.30);
+}
+
+.opening-footer {
+    margin-top: 55px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #777;
     text-transform: uppercase;
 }
 
-.tagline {
+/* =========================
+   MAIN MESSAGE
+========================= */
 
-    margin-top: 8px;
-
-    color: #aaa;
-
-    font-size: 13px;
-
-    letter-spacing: 2px;
+.main-page {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    padding: 35px 20px 60px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
+.main-page.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-/* CARD */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-brand {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #d4af37;
+    text-transform: uppercase;
+}
+
+.header-logo {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.header-tagline {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #c9a83e;
+    margin-top: 5px;
+}
+
+.divider {
+    width: 70px;
+    height: 1px;
+    margin: 22px auto;
+    background: linear-gradient(
+        to right,
+        transparent,
+        #d4af37,
+        transparent
+    );
+}
+
+/* MESSAGE CARD */
 
 .message-card {
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.07),
-            rgba(255,255,255,.025)
-        );
-
-    border: 1px solid rgba(212,175,55,.35);
-
+    position: relative;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(212,175,55,0.25);
     border-radius: 25px;
-
-    padding: 35px 28px;
-
+    padding: 28px 22px 35px;
     box-shadow:
-        0 25px 80px rgba(0,0,0,.65),
-
-        inset 0 1px 0
-        rgba(255,255,255,.08);
-
+        0 25px 70px rgba(0,0,0,0.45),
+        inset 0 1px rgba(255,255,255,0.05);
     backdrop-filter: blur(12px);
-
-    text-align: center;
+    overflow: hidden;
 }
 
-
-/* LOVE ICON */
-
-.love-icon {
-
-    width: 65px;
-
-    height: 65px;
-
-    margin: 0 auto 20px;
-
+.message-card::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 220px;
+    height: 220px;
+    background: rgba(212,175,55,0.07);
     border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        rgba(212,175,55,.12);
-
-    border:
-        1px solid rgba(212,175,55,.35);
-
-    font-size: 28px;
 }
 
+.message-label {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #d4af37;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
 
-/* PHOTO */
+.message-title {
+    text-align: center;
+    font-size: 29px;
+    line-height: 1.35;
+    margin-bottom: 25px;
+}
 
 .photo-container {
-
-    width: 100%;
-
-    margin: 0 auto 28px;
-
     display: none;
+    width: 100%;
+    margin: 0 auto 28px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.35);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.45);
 }
 
 .photo-container.show {
-
     display: block;
 }
 
 .photo-container img {
-
     display: block;
-
     width: 100%;
-
-    max-width: 430px;
-
     max-height: 500px;
-
     object-fit: cover;
-
-    margin: 0 auto;
-
-    border-radius: 18px;
-
-    border:
-        1px solid
-        rgba(212,175,55,.45);
-
-    box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.5);
-}
-
-
-/* MESSAGE */
-
-.message-label {
-
-    color: #d4af37;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 10px;
-}
-
-.message-title {
-
-    margin: 0 0 20px;
-
-    font-size: 28px;
-
-    line-height: 1.25;
-
-    color: white;
 }
 
 .message-text {
-
-    color: #e5e5e5;
-
-    font-size: 16px;
-
+    font-size: 18px;
     line-height: 1.9;
-
+    color: #eeeeee;
+    text-align: center;
     white-space: pre-wrap;
-
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 }
 
-
-/* FROM / FOR */
-
 .details {
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.1);
-
-    padding-top: 22px;
-
     display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 15px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .detail-box {
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-radius: 12px;
-
-    padding: 14px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
 }
 
 .detail-label {
-
-    display: block;
-
-    color: #999;
-
-    font-size: 11px;
-
+    font-family: Arial, sans-serif;
+    color: #d4af37;
+    font-size: 9px;
     letter-spacing: 2px;
-
     text-transform: uppercase;
-
     margin-bottom: 6px;
 }
 
 .detail-value {
+    font-size: 16px;
+    color: #fff;
+}
 
+.brand-note {
+    text-align: center;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    color: #999;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.brand-note strong {
     color: #d4af37;
-
-    font-weight: bold;
-
-    font-size: 14px;
 }
-
-
-/* FOOTER */
-
-.footer {
-
-    margin-top: 28px;
-
-    color: #888;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-}
-
-
-/* EXPLORE BUTTON */
 
 .explore-button {
-
-    display: inline-block;
-
-    margin-top: 18px;
-
-    padding: 15px 24px;
-
+    display: block;
+    width: fit-content;
+    margin: 25px auto 0;
+    padding: 14px 25px;
     border-radius: 30px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #d4af37,
-            #f0d56a
-        );
-
-    color: #080808;
-
+    border: 1px solid #d4af37;
+    color: #d4af37;
     text-decoration: none;
-
+    font-family: Arial, sans-serif;
+    font-size: 11px;
     font-weight: bold;
-
-    font-size: 14px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(212,175,55,.2);
-
-    transition: .25s;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
 }
 
 .explore-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 15px 35px
-        rgba(212,175,55,.3);
+    background: #d4af37;
+    color: #080808;
+    transform: translateY(-2px);
 }
 
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 2px;
+}
 
-/* LOADING */
+/* LOADING / ERROR */
 
 .loading {
-
     text-align: center;
-
     color: #aaa;
-
-    padding: 30px;
+    padding: 50px 20px;
+    font-family: Arial, sans-serif;
 }
-
-
-/* ERROR */
 
 .error {
-
     text-align: center;
-
-    color: #ffaaaa;
-
-    line-height: 1.7;
-
-    padding: 20px;
+    padding: 50px 20px;
+    color: #ffb6b6;
+    font-family: Arial, sans-serif;
 }
 
+@media (max-width: 480px) {
 
-/* MOBILE */
-
-@media(max-width:600px) {
-
-    body {
-
-        padding: 15px;
+    .brand-name {
+        font-size: 29px;
     }
 
-    .message-card {
+    .brand-tagline {
+        letter-spacing: 3px;
+    }
 
-        padding:
-            30px 20px;
+    .opening-title {
+        font-size: 25px;
     }
 
     .message-title {
-
-        font-size: 24px;
+        font-size: 25px;
     }
 
     .message-text {
-
-        font-size: 15px;
-
-        line-height: 1.8;
+        font-size: 17px;
     }
 
-    .details {
-
-        grid-template-columns:
-            1fr;
-    }
-
-    .photo-container img {
-
-        max-height: 400px;
+    .main-page {
+        padding-left: 14px;
+        padding-right: 14px;
     }
 }
-
 </style>
-
 </head>
 
 <body>
 
+<!-- =========================
+     PREMIUM OPENING
+========================= -->
 
-<div class="heart one">♡</div>
+<div class="opening-screen" id="openingScreen">
 
-<div class="heart two">♡</div>
+    <div class="opening-content">
 
-<div class="heart three">♡</div>
-
-
-<div class="wrapper">
-
-
-    <!-- BRAND -->
-
-    <div class="brand">
+        <div class="brand-mark">
+            A KimasFootwear Experience
+        </div>
 
         <div class="brand-name">
             KimasFootwear
         </div>
 
-        <div class="tagline">
+        <div class="brand-tagline">
             WALK WITH MEANING
         </div>
 
-    </div>
-
-
-    <!-- MESSAGE CARD -->
-
-    <div class="message-card">
-
-        <div class="love-icon">
+        <div class="gift-icon">
             ♡
         </div>
 
+        <h1 class="opening-title">
+            Something Special<br>
+            Is Waiting For You
+        </h1>
 
-        <div
-            id="loading"
-            class="loading"
-        >
-            Opening your special message...
+        <p class="opening-subtitle">
+            Someone chose to leave you a message.<br>
+            Take a moment and open it.
+        </p>
+
+        <button class="reveal-button" onclick="revealMessage()">
+            ✦ TAP TO REVEAL ✦
+        </button>
+
+        <div class="opening-footer">
+            Every step carries a meaning
         </div>
-
-
-        <div
-            id="messageContent"
-            class="hidden"
-        >
-
-
-            <!-- PHOTO -->
-
-            <div
-                id="photoContainer"
-                class="photo-container"
-            >
-
-                <img
-                    id="messagePhoto"
-                    src=""
-                    alt="Personal photo"
-                >
-
-            </div>
-
-
-            <!-- TITLE -->
-
-            <div class="message-label">
-                A Special Message For You
-            </div>
-
-            <h1
-                id="messageTitle"
-                class="message-title"
-            >
-                A Special Message
-            </h1>
-
-
-            <!-- MESSAGE -->
-
-            <div
-                id="messageText"
-                class="message-text"
-            ></div>
-
-
-            <!-- DETAILS -->
-
-            <div class="details">
-
-                <div class="detail-box">
-
-                    <span class="detail-label">
-                        From
-                    </span>
-
-                    <span
-                        id="messageSender"
-                        class="detail-value"
-                    >
-                        -
-                    </span>
-
-                </div>
-
-
-                <div class="detail-box">
-
-                    <span class="detail-label">
-                        For
-                    </span>
-
-                    <span
-                        id="messageRecipient"
-                        class="detail-value"
-                    >
-                        -
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- FOOTER -->
-
-            <div class="footer">
-
-                A special message from
-                <strong>KimasFootwear</strong>.
-
-                <br>
-
-                Every step can carry a
-                beautiful meaning.
-
-                <br>
-
-
-                <a
-                    href="index.html"
-                    class="explore-button"
-                >
-                    ✦ Explore KimasFootwear Collections
-                </a>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- ERROR -->
-
-        <div
-            id="error"
-            class="error hidden"
-        ></div>
 
     </div>
-
 
 </div>
 
 
+<!-- =========================
+     MAIN MESSAGE PAGE
+========================= -->
+
+<main class="main-page" id="mainPage">
+
+    <div class="header">
+
+        <div class="header-brand">
+            A Special KimasFootwear Experience
+        </div>
+
+        <div class="header-logo">
+            KimasFootwear
+        </div>
+
+        <div class="header-tagline">
+            WALK WITH MEANING
+        </div>
+
+        <div class="divider"></div>
+
+    </div>
+
+
+    <section class="message-card">
+
+        <div class="message-label">
+            A Special Message For You
+        </div>
+
+        <h1 class="message-title" id="messageTitle">
+            Loading...
+        </h1>
+
+
+        <!-- PERSONAL PHOTO -->
+
+        <div class="photo-container" id="photoContainer">
+
+            <img
+                id="messagePhoto"
+                src=""
+                alt="Personal photo"
+            >
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div class="message-text" id="messageText">
+            Loading your message...
+        </div>
+
+
+        <!-- FROM / FOR -->
+
+        <div class="details">
+
+            <div class="detail-box" id="fromBox">
+
+                <div class="detail-label">
+                    From
+                </div>
+
+                <div class="detail-value" id="messageSender">
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="detail-box" id="toBox">
+
+                <div class="detail-label">
+                    For
+                </div>
+
+                <div class="detail-value" id="messageRecipient">
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="brand-note">
+            A special message from <strong>KimasFootwear</strong>.<br>
+            Every step can carry a beautiful meaning.
+        </div>
+
+
+        <a
+            class="explore-button"
+            href="index.html"
+        >
+            ✦ EXPLORE KIMASFOOTWEAR COLLECTIONS
+        </a>
+
+    </section>
+
+
+    <div class="footer">
+        KimasFootwear © 2026
+    </div>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
-
 const SUPABASE_URL =
-"https://hisdjtixefaoocvlzaml.supabase.co";
+    "https://hisdjtixefaoocvlzaml.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+const SUPABASE_KEY =
+    "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-let supabaseClient = null;
+/* =========================
+   GET MESSAGE CODE
+========================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const code =
+    params.get("code");
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+/* =========================
+   REVEAL MESSAGE
+========================= */
 
-function initializeSupabase() {
+function revealMessage() {
 
-    if (!window.supabase) {
-
-        showError(
-            "Unable to load the message system. Please refresh the page."
+    const openingScreen =
+        document.getElementById(
+            "openingScreen"
         );
 
-        return false;
-    }
-
-
-    try {
-
-        supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
-
-        return true;
-
-    } catch(error) {
-
-        console.log(error);
-
-        showError(
-            "Unable to connect to KimasFootwear."
+    const mainPage =
+        document.getElementById(
+            "mainPage"
         );
 
-        return false;
-    }
+    openingScreen.classList.add("hide");
+
+    setTimeout(function() {
+
+        mainPage.classList.add("show");
+
+    }, 350);
+
 }
 
 
-/* =====================================================
-   GET CODE
-===================================================== */
-
-function getMessageCode() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    return params.get("code");
-}
-
-
-/* =====================================================
+/* =========================
    LOAD MESSAGE
-===================================================== */
+========================= */
 
 async function loadMessage() {
 
-    const code =
-        getMessageCode();
-
-
     if (!code) {
 
-        showError(
-            "This message link is incomplete.<br><br>" +
-            "Please use the QR code or customer link provided by KimasFootwear."
-        );
+        document.getElementById("messageTitle").textContent =
+            "Message Not Found";
+
+        document.getElementById("messageText").textContent =
+            "This message link does not contain a valid code.";
 
         return;
     }
 
 
-    if (!initializeSupabase()) {
-
-        return;
-    }
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
+    const {
+        data,
+        error
+    } = await supabaseClient
 
         .from("messages")
 
@@ -773,211 +653,133 @@ async function loadMessage() {
             "title,message,sender,recipient,active,photo_url"
         )
 
-        .eq(
-            "code",
-            code
-        )
+        .eq("code", code)
 
-        .eq(
-            "active",
-            true
-        )
+        .eq("active", true)
 
         .maybeSingle();
 
 
-        if (error) {
-
-            console.log(error);
-
-            showError(
-                "We couldn't open this message right now.<br><br>" +
-                "Please try again."
-            );
-
-            return;
-        }
-
-
-        if (!data) {
-
-            showError(
-                "This message could not be found.<br><br>" +
-                "Please check that your QR code or link is correct."
-            );
-
-            return;
-        }
-
-
-        /* TITLE */
-
-        document
-        .getElementById(
-            "messageTitle"
-        )
-        .textContent =
-            data.title ||
-            "A Special Message For You";
-
-
-        /* MESSAGE */
-
-        document
-        .getElementById(
-            "messageText"
-        )
-        .textContent =
-            data.message || "";
-
-
-        /* SENDER */
-
-        document
-        .getElementById(
-            "messageSender"
-        )
-        .textContent =
-            data.sender ||
-            "-";
-
-
-        /* RECIPIENT */
-
-        document
-        .getElementById(
-            "messageRecipient"
-        )
-        .textContent =
-            data.recipient ||
-            "-";
-
-
-        /* =================================================
-           PHOTO
-        ================================================= */
-
-        const photoContainer =
-            document.getElementById(
-                "photoContainer"
-            );
-
-        const photo =
-            document.getElementById(
-                "messagePhoto"
-            );
-
-
-        if (
-            data.photo_url &&
-            data.photo_url.trim() !== ""
-        ) {
-
-            photo.src =
-                data.photo_url;
-
-
-            photo.onload =
-                function() {
-
-                    photoContainer
-                        .classList
-                        .add("show");
-                };
-
-
-            photo.onerror =
-                function() {
-
-                    console.log(
-                        "Could not load message photo."
-                    );
-
-                    photoContainer
-                        .classList
-                        .remove("show");
-                };
-
-
-        } else {
-
-            photoContainer
-                .classList
-                .remove("show");
-        }
-
-
-        /* SHOW MESSAGE */
-
-        document
-        .getElementById(
-            "loading"
-        )
-        .classList
-        .add("hidden");
-
-
-        document
-        .getElementById(
-            "messageContent"
-        )
-        .classList
-        .remove("hidden");
-
-
-    } catch(error) {
+    if (error) {
 
         console.log(error);
 
-        showError(
-            "Something went wrong while opening your message.<br><br>" +
-            "Please try again."
-        );
+        document.getElementById("messageTitle").textContent =
+            "Something Went Wrong";
+
+        document.getElementById("messageText").textContent =
+            "We couldn't open this message right now.";
+
+        return;
     }
-}
 
 
-/* =====================================================
-   ERROR
-===================================================== */
+    if (!data) {
 
-function showError(message) {
+        document.getElementById("messageTitle").textContent =
+            "Message Not Found";
 
-    document
-    .getElementById(
-        "loading"
-    )
-    .classList
-    .add("hidden");
+        document.getElementById("messageText").textContent =
+            "This message may have expired or the code may be incorrect.";
+
+        return;
+    }
 
 
-    const error =
+    /* TITLE */
+
+    document.getElementById(
+        "messageTitle"
+    ).textContent =
+        data.title || "A Special Message For You";
+
+
+    /* MESSAGE */
+
+    document.getElementById(
+        "messageText"
+    ).textContent =
+        data.message || "";
+
+
+    /* SENDER */
+
+    document.getElementById(
+        "messageSender"
+    ).textContent =
+        data.sender || "Someone special";
+
+
+    /* RECIPIENT */
+
+    document.getElementById(
+        "messageRecipient"
+    ).textContent =
+        data.recipient || "You";
+
+
+    /* =========================
+       PERSONAL PHOTO
+    ========================= */
+
+    const photoContainer =
         document.getElementById(
-            "error"
+            "photoContainer"
+        );
+
+    const photo =
+        document.getElementById(
+            "messagePhoto"
         );
 
 
-    error.innerHTML =
-        message;
+    if (
+        data.photo_url &&
+        data.photo_url.trim() !== ""
+    ) {
+
+        photo.src =
+            data.photo_url;
+
+        photo.onload =
+            function() {
+
+                photoContainer.classList.add(
+                    "show"
+                );
+
+            };
 
 
-    error.classList
-        .remove("hidden");
+        photo.onerror =
+            function() {
+
+                console.log(
+                    "Could not load message photo."
+                );
+
+                photoContainer.classList.remove(
+                    "show"
+                );
+
+            };
+
+    } else {
+
+        photoContainer.classList.remove(
+            "show"
+        );
+
+    }
+
 }
 
 
-/* =====================================================
+/* =========================
    START
-===================================================== */
+========================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadMessage();
-
-    }
-);
+loadMessage();
 
 </script>
 
