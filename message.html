@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -7,260 +8,913 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>KimasFootwear | Your Message</title>
+<title>KimasFootwear | A Special Message</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
+/* =====================================================
+   GLOBAL
+===================================================== */
+
 * {
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    background:
-        radial-gradient(
-            circle at top,
-            #252525 0%,
-            #0a0a0a 55%,
-            #000000 100%
-        );
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
+html {
+    scroll-behavior: smooth;
 }
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: white;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(212,175,55,0.16),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(255,105,180,0.12),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(212,175,55,0.10),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #050505,
+            #160b12,
+            #080808,
+            #140c0d
+        );
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   DECORATIVE BACKGROUND
+===================================================== */
+
+body::before {
+
+    content: "♡";
+
+    position: fixed;
+
+    top: 8%;
+
+    left: 8%;
+
+    font-size: 100px;
+
+    color:
+        rgba(212,175,55,0.05);
+
+    transform: rotate(-15deg);
+
+    pointer-events: none;
+
+}
+
+
+body::after {
+
+    content: "♡";
+
+    position: fixed;
+
+    bottom: 5%;
+
+    right: 8%;
+
+    font-size: 140px;
+
+    color:
+        rgba(255,105,180,0.04);
+
+    transform: rotate(15deg);
+
+    pointer-events: none;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.page {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 35px 18px;
+
+}
+
 
 .container {
+
     width: 100%;
-    max-width: 650px;
+
+    max-width: 720px;
+
 }
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+
+    text-align: center;
+
+    margin-bottom: 28px;
+
+}
+
+
+.brand-name {
+
+    color: #d4af37;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 20px
+        rgba(212,175,55,0.25);
+
+}
+
+
+.brand-tagline {
+
+    margin-top: 8px;
+
+    color: #c9c9c9;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+}
+
+
+.gold-line {
+
+    width: 75px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d4af37,
+            transparent
+        );
+
+    margin:
+        18px auto 0;
+
+}
+
+
+/* =====================================================
+   MESSAGE CARD
+===================================================== */
 
 .card {
-    background: rgba(17,17,17,.96);
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 35px;
+
+    position: relative;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(35,35,35,0.96),
+            rgba(12,12,12,0.98)
+        );
+
+    border:
+
+        1px solid
+        rgba(212,175,55,0.35);
+
+    border-radius: 28px;
+
+    padding: 45px 38px;
+
+    text-align: center;
+
     box-shadow:
-        0 20px 60px rgba(0,0,0,.6);
+
+        0 25px 80px
+        rgba(0,0,0,0.65),
+
+        0 0 50px
+        rgba(212,175,55,0.06);
+
+    overflow: hidden;
+
 }
 
-.logo {
-    text-align: center;
-    color: #d4af37;
+
+/* GOLD CORNERS */
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+
+    height: 120px;
+
+    top: -65px;
+
+    right: -65px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(212,175,55,0.10);
+
+}
+
+
+.card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+
+    height: 100px;
+
+    bottom: -55px;
+
+    left: -55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,105,180,0.08);
+
+}
+
+
+/* =====================================================
+   LOVE ICON
+===================================================== */
+
+.heart {
+
+    width: 65px;
+
+    height: 65px;
+
+    margin:
+        0 auto 25px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     font-size: 30px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
+
+    color: #d4af37;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(212,175,55,0.20),
+            rgba(212,175,55,0.03)
+        );
+
+    border:
+        1px solid
+        rgba(212,175,55,0.35);
+
+    box-shadow:
+        0 0 30px
+        rgba(212,175,55,0.12);
+
 }
 
-.brand-line {
-    width: 70px;
-    height: 2px;
-    background: #d4af37;
-    margin: 0 auto 30px;
-}
 
-.loading {
-    text-align: center;
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro {
+
     color: #aaa;
-    padding: 30px 0;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 14px;
+
 }
 
-.message-content {
-    display: none;
-}
+
+/* =====================================================
+   MESSAGE TITLE
+===================================================== */
 
 .message-title {
-    text-align: center;
+
+    margin: 0 0 25px;
+
     color: #d4af37;
-    font-size: 28px;
-    margin-bottom: 25px;
+
+    font-size: 34px;
+
+    line-height: 1.25;
+
+    font-weight: normal;
+
+    text-shadow:
+        0 0 20px
+        rgba(212,175,55,0.15);
+
 }
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
 
 .message-text {
-    color: #eee;
-    font-size: 18px;
-    line-height: 1.8;
+
+    color: #f3f3f3;
+
+    font-size: 19px;
+
+    line-height: 1.9;
+
     white-space: pre-wrap;
-    text-align: center;
+
+    max-width: 570px;
+
+    margin:
+        0 auto;
+
 }
+
+
+/* =====================================================
+   DETAILS
+===================================================== */
 
 .details {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #333;
+
+    margin-top: 35px;
+
+    padding-top: 24px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.10);
+
 }
+
 
 .detail {
-    margin: 10px 0;
-    color: #aaa;
+
+    margin: 9px 0;
+
+    color: #999;
+
+    font-size: 14px;
+
 }
+
 
 .detail strong {
+
     color: #d4af37;
+
+    font-weight: normal;
+
+    margin-right: 5px;
+
 }
 
-.error {
-    display: none;
-    text-align: center;
+
+/* =====================================================
+   COLLECTION BUTTON
+===================================================== */
+
+.explore-section {
+
+    margin-top: 38px;
+
 }
 
-.error h2 {
-    color: #d4af37;
-}
 
-.error p {
-    color: #aaa;
-    line-height: 1.6;
-}
+.explore-text {
 
-.code {
-    margin-top: 20px;
-    padding: 12px;
-    background: #191919;
-    border-radius: 8px;
-    color: #777;
-    font-family: monospace;
+    color: #888;
+
     font-size: 13px;
-    word-break: break-all;
+
+    margin-bottom: 15px;
+
 }
+
+
+.explore-button {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    padding: 15px 28px;
+
+    border-radius: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d4af37,
+            #f3d875,
+            #b89120
+        );
+
+    color: #080808;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(212,175,55,0.18);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+.explore-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+
+        0 15px 35px
+        rgba(212,175,55,0.30);
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
 
 .footer {
+
     text-align: center;
-    margin-top: 25px;
+
+    margin-top: 28px;
+
     color: #666;
-    font-size: 13px;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
 }
+
+
+.footer span {
+
+    color: #d4af37;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+
+    text-align: center;
+
+    padding: 35px 10px;
+
+    color: #aaa;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+.loading-heart {
+
+    font-size: 32px;
+
+    color: #d4af37;
+
+    margin-bottom: 15px;
+
+    animation:
+        pulse 1.5s infinite;
+
+}
+
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+        opacity: .6;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: .6;
+    }
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error {
+
+    display: none;
+
+    text-align: center;
+
+}
+
+
+.error h2 {
+
+    color: #d4af37;
+
+    font-size: 27px;
+
+}
+
+
+.error p {
+
+    color: #aaa;
+
+    line-height: 1.7;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+.code {
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    background: #191919;
+
+    border-radius: 8px;
+
+    color: #777;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
+    word-break: break-all;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 600px) {
 
-    body {
-        padding: 15px;
+    .page {
+
+        padding:
+            25px 13px;
+
     }
+
+
+    .brand-name {
+
+        font-size: 25px;
+
+        letter-spacing: 3px;
+
+    }
+
+
+    .brand-tagline {
+
+        font-size: 10px;
+
+        letter-spacing: 2px;
+
+    }
+
 
     .card {
-        padding: 25px 18px;
+
+        padding:
+            35px 20px;
+
+        border-radius: 22px;
+
     }
 
-    .logo {
-        font-size: 25px;
-    }
 
     .message-title {
-        font-size: 23px;
+
+        font-size: 27px;
+
     }
 
+
     .message-text {
+
         font-size: 17px;
+
+        line-height: 1.8;
+
     }
+
+
+    .explore-button {
+
+        width: 100%;
+
+        padding:
+            15px 20px;
+
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
+
+<div class="page">
 
 <div class="container">
 
-    <div class="card">
 
-        <div class="logo">
-            KimasFootwear
+<!-- =================================================
+     BRAND
+================================================== -->
+
+<div class="brand">
+
+    <div class="brand-name">
+        KimasFootwear
+    </div>
+
+    <div class="brand-tagline">
+        Walk With Meaning
+    </div>
+
+    <div class="gold-line"></div>
+
+</div>
+
+
+<!-- =================================================
+     MESSAGE CARD
+================================================== -->
+
+<div class="card">
+
+
+    <!-- LOADING -->
+
+    <div id="loading"
+         class="loading">
+
+        <div class="loading-heart">
+            ♡
         </div>
 
-        <div class="brand-line"></div>
-
-
-        <!-- LOADING -->
-
-        <div id="loading" class="loading">
-
-            <p>Opening your special message...</p>
-
-        </div>
-
-
-        <!-- MESSAGE -->
-
-        <div id="messageContent"
-             class="message-content">
-
-            <div
-                id="messageTitle"
-                class="message-title">
-            </div>
-
-            <div
-                id="messageText"
-                class="message-text">
-            </div>
-
-
-            <div
-                id="details"
-                class="details">
-
-                <div
-                    id="senderRow"
-                    class="detail">
-
-                    <strong>From:</strong>
-
-                    <span id="sender"></span>
-
-                </div>
-
-
-                <div
-                    id="recipientRow"
-                    class="detail">
-
-                    <strong>For:</strong>
-
-                    <span id="recipient"></span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ERROR -->
-
-        <div
-            id="error"
-            class="error">
-
-            <h2>
-                Message Not Found
-            </h2>
-
-            <p id="errorText">
-                We couldn't find this message.
-            </p>
-
-            <div
-                id="errorCode"
-                class="code">
-            </div>
-
-        </div>
-
-
-        <div class="footer">
-
-            A special message from KimasFootwear.
-
+        <div>
+            Opening something special...
         </div>
 
     </div>
+
+
+    <!-- MESSAGE -->
+
+    <div id="messageContent"
+         style="display:none;">
+
+
+        <div class="heart">
+            ♡
+        </div>
+
+
+        <div class="intro">
+            A message made just for you
+        </div>
+
+
+        <h1
+            id="messageTitle"
+            class="message-title">
+        </h1>
+
+
+        <div
+            id="messageText"
+            class="message-text">
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div
+            id="details"
+            class="details">
+
+
+            <div
+                id="senderRow"
+                class="detail">
+
+                <strong>From:</strong>
+
+                <span
+                    id="sender">
+                </span>
+
+            </div>
+
+
+            <div
+                id="recipientRow"
+                class="detail">
+
+                <strong>For:</strong>
+
+                <span
+                    id="recipient">
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- EXPLORE -->
+
+        <div class="explore-section">
+
+            <div class="explore-text">
+
+                Loved the experience?
+
+                Discover more from KimasFootwear.
+
+            </div>
+
+
+            <a
+                href="index.html"
+                class="explore-button">
+
+                ✦ Explore KimasFootwear Collections
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+        class="error">
+
+        <div class="heart">
+            ♡
+        </div>
+
+        <h2>
+            Message Not Found
+        </h2>
+
+        <p id="errorText">
+            We couldn't find this message.
+        </p>
+
+        <div
+            id="errorCode"
+            class="code">
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    Every step tells a story.
+
+    <br>
+
+    <span>
+        KimasFootwear
+    </span>
+
+</div>
+
+
+</div>
 
 </div>
 
@@ -292,11 +946,12 @@ function initializeSupabase() {
             SUPABASE_URL,
             SUPABASE_PUBLISHABLE_KEY
         );
+
 }
 
 
 /* =====================================================
-   GET CODE FROM URL
+   GET CODE
 ===================================================== */
 
 function getMessageCode() {
@@ -307,29 +962,7 @@ function getMessageCode() {
         );
 
     return params.get("code");
-}
 
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-    }
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
 }
 
 
@@ -337,7 +970,10 @@ function escapeHtml(value) {
    SHOW ERROR
 ===================================================== */
 
-function showError(message, code) {
+function showError(
+    message,
+    code
+) {
 
     document
         .getElementById("loading")
@@ -356,7 +992,8 @@ function showError(message, code) {
 
     document
         .getElementById("errorText")
-        .textContent = message;
+        .textContent =
+            message;
 
 
     if (code) {
@@ -391,6 +1028,7 @@ async function loadMessage() {
         );
 
         return;
+
     }
 
 
@@ -408,8 +1046,14 @@ async function loadMessage() {
             .select(
                 "title,message,sender,recipient,active"
             )
-            .eq("code", code)
-            .eq("active", true)
+            .eq(
+                "code",
+                code
+            )
+            .eq(
+                "active",
+                true
+            )
             .maybeSingle();
 
 
@@ -423,10 +1067,9 @@ async function loadMessage() {
             );
 
             return;
+
         }
 
-
-        /* MESSAGE DOES NOT EXIST */
 
         if (!data) {
 
@@ -436,13 +1079,13 @@ async function loadMessage() {
             );
 
             return;
+
         }
 
 
-        /* =================================================
-           DISPLAY MESSAGE
-        ================================================= */
-
+        /* =============================================
+           DISPLAY
+        ============================================= */
 
         document
             .getElementById("loading")
@@ -457,13 +1100,15 @@ async function loadMessage() {
         document
             .getElementById("messageTitle")
             .textContent =
-                data.title || "A Special Message";
+                data.title ||
+                "A Special Message";
 
 
         document
             .getElementById("messageText")
             .textContent =
-                data.message || "";
+                data.message ||
+                "";
 
 
         /* SENDER */
@@ -475,12 +1120,15 @@ async function loadMessage() {
                 .textContent =
                     data.sender;
 
-        } else {
+        }
+
+        else {
 
             document
                 .getElementById("senderRow")
                 .style.display =
                     "none";
+
         }
 
 
@@ -493,24 +1141,31 @@ async function loadMessage() {
                 .textContent =
                     data.recipient;
 
-        } else {
+        }
+
+        else {
 
             document
                 .getElementById("recipientRow")
                 .style.display =
                     "none";
+
         }
 
 
-        /* CHANGE BROWSER TITLE */
+        /* PAGE TITLE */
 
         document.title =
             "KimasFootwear | " +
-            (data.title ||
-             "Your Special Message");
+            (
+                data.title ||
+                "A Special Message"
+            );
 
 
-    } catch(error) {
+    }
+
+    catch(error) {
 
         console.error(error);
 
@@ -518,7 +1173,9 @@ async function loadMessage() {
             "Something went wrong while opening your message. Please try again.",
             code
         );
+
     }
+
 }
 
 
@@ -537,5 +1194,7 @@ document.addEventListener(
 
 </script>
 
+
 </body>
+
 </html>
