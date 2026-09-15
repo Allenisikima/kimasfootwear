@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KimasFootwear | Custom Collection</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #111;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #111;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    text-decoration: none;
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #d4af37;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 100px 8% 70px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.7),
+            rgba(0,0,0,.85)
+        ),
+        url('logo.png') center/contain no-repeat;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(45px, 8vw, 75px);
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 750px;
+    margin: auto;
+    color: #ddd;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+}
+
+/* CUSTOM SECTION */
+
+.custom-section {
+    padding: 80px 8%;
+}
+
+.custom-content {
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+}
+
+.custom-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+.custom-content p {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.custom-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 45px auto;
+    max-width: 750px;
+}
+
+.custom-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 30px 20px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.custom-card:hover {
+    transform: translateY(-6px);
+    border-color: #d4af37;
+}
+
+.custom-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: #d4af37;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.custom-card p {
+    color: #aaa;
+    margin: 0;
+}
+
+.order-button {
+    display: inline-block;
+    background: #d4af37;
+    color: #111;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.order-button:hover {
+    background: #fff;
+}
+
+/* BACK */
+
+.back-section {
+    text-align: center;
+    padding: 50px 8%;
+    border-top: 1px solid #333;
+}
+
+.back-button {
+    display: inline-block;
+    color: #d4af37;
+    text-decoration: none;
+    border: 1px solid #d4af37;
+    padding: 12px 25px;
+    border-radius: 5px;
+}
+
+.back-button:hover {
+    background: #d4af37;
+    color: #111;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 30px 8%;
+    border-top: 1px solid #333;
+    color: #777;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 16px 5%;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 80px 6% 60px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        font-size: 22px;
+    }
+
+    .custom-section {
+        padding: 60px 6%;
+    }
+
+    .custom-content h2 {
+        font-size: 34px;
+    }
+
+    .custom-list {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html" class="logo">
+        KimasFootwear
+    </a>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#collection">
+            Collections
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>Custom Collection</h1>
+
+    <p>
+        Your idea. Your style. Your story.
+        Create footwear that is uniquely yours.
+    </p>
+
+</section>
+
+
+<section class="custom-section">
+
+    <div class="custom-content">
+
+        <h2>Designed Around You</h2>
+
+        <p>
+            Our Custom Collection gives you the freedom
+            to create footwear that reflects your personality,
+            occasion and story.
+        </p>
+
+        <p>
+            Whether you have a specific colour, style,
+            material or personal idea in mind, let's bring
+            it to life.
+        </p>
+
+
+        <div class="custom-list">
+
+            <div class="custom-card">
+
+                <h3>Custom Colours</h3>
+
+                <p>
+                    Choose colours that match your
+                    personality, outfit or occasion.
+                </p>
+
+            </div>
+
+
+            <div class="custom-card">
+
+                <h3>Personalised Design</h3>
+
+                <p>
+                    Share your preferred style and
+                    let us create something special.
+                </p>
+
+            </div>
+
+
+            <div class="custom-card">
+
+                <h3>Special Occasions</h3>
+
+                <p>
+                    Create footwear for birthdays,
+                    weddings, anniversaries and gifts.
+                </p>
+
+            </div>
+
+
+            <div class="custom-card">
+
+                <h3>Your Story</h3>
+
+                <p>
+                    Turn your idea into a pair of
+                    footwear with personal meaning.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%27d%20like%20to%20create%20a%20custom%20footwear%20design."
+            class="order-button"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Create My Custom Pair
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="back-section">
+
+    <a
+        href="index.html#collection"
+        class="back-button"
+    >
+        ← Back to Collections
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026 KimasFootwear.
+    Every Step Tells a Story.
+
+</footer>
+
+</body>
+</html>
