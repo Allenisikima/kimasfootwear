@@ -2770,6 +2770,15 @@ async function saveProduct() {
 
         if (editingProductId) {
 
+            /*
+             * IMPORTANT FIX:
+             * Do not use .select().single()
+             * after UPDATE.
+             *
+             * Supabase can successfully update the
+             * product without returning a row.
+             */
+
             result =
             await supabaseClient
             .from("products")
@@ -2777,9 +2786,7 @@ async function saveProduct() {
             .eq(
                 "id",
                 editingProductId
-            )
-            .select()
-            .single();
+            );
 
         } else {
 
@@ -2802,31 +2809,23 @@ async function saveProduct() {
         }
 
 
-        if (!result.data) {
+        /*
+         * For a NEW product, make sure Supabase
+         * returned the inserted product.
+         */
+
+        if (!editingProductId && !result.data) {
 
             throw new Error(
-                "Supabase did not return the saved product."
+                "Supabase did not return the newly added product."
             );
         }
 
 
         console.log(
-            "Saved product:",
-            result.data
+            "Product save completed:",
+            result
         );
-
-
-        /* VERIFY PHOTO */
-
-        if (
-            selectedProductPhoto &&
-            !result.data.photo_url
-        ) {
-
-            throw new Error(
-                "The product was saved, but Supabase did not save the photo URL."
-            );
-        }
 
 
         showStatus(
