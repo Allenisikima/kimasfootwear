@@ -132,16 +132,21 @@ section {
 }
 
 .collection-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background: #1b1b1b;
     border: 1px solid #333;
     padding: 35px 25px;
     text-align: center;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .collection-card:hover {
     transform: translateY(-8px);
     border-color: #d4af37;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
 }
 
 .collection-card h3 {
@@ -341,7 +346,9 @@ footer {
 
     <div class="collection-grid">
 
-        <div class="collection-card">
+        <!-- CLASSIC -->
+
+        <a href="classic.html" class="collection-card">
 
             <h3>Classic</h3>
 
@@ -349,10 +356,12 @@ footer {
                 Timeless footwear designed for everyday confidence.
             </p>
 
-        </div>
+        </a>
 
 
-        <div class="collection-card">
+        <!-- CORPORATE -->
+
+        <a href="corporate.html" class="collection-card">
 
             <h3>Corporate</h3>
 
@@ -360,10 +369,12 @@ footer {
                 Elegant footwear designed to complement professional style.
             </p>
 
-        </div>
+        </a>
 
 
-        <div class="collection-card">
+        <!-- COUPLES -->
+
+        <a href="couples.html" class="collection-card">
 
             <h3>Couples</h3>
 
@@ -371,10 +382,12 @@ footer {
                 Matching footwear created for shared journeys.
             </p>
 
-        </div>
+        </a>
 
 
-        <div class="collection-card">
+        <!-- CUSTOM -->
+
+        <a href="custom.html" class="collection-card">
 
             <h3>Custom</h3>
 
@@ -382,7 +395,7 @@ footer {
                 Personalised designs created around your story.
             </p>
 
-        </div>
+        </a>
 
     </div>
 
