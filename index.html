@@ -46,18 +46,18 @@
         .nav {
             max-width: 1200px;
             margin: auto;
-            padding: 18px 25px;
+            padding: 14px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 25px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: #d4af37;
+        .logo img {
+            height: 48px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            display: block;
         }
 
         nav {
@@ -472,6 +472,7 @@
         /* MOBILE */
 
         @media (max-width: 900px) {
+
             .collection-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -491,12 +492,14 @@
         }
 
         @media (max-width: 600px) {
+
             .nav {
-                padding: 15px 17px;
+                padding: 12px 17px;
             }
 
-            .logo {
-                font-size: 21px;
+            .logo img {
+                height: 40px;
+                max-width: 145px;
             }
 
             nav {
@@ -578,10 +581,11 @@
     <!-- HEADER -->
 
     <header>
+
         <div class="nav">
 
             <a href="index.html" class="logo">
-                KimasFootwear
+                <img src="logo.png" alt="KimasFootwear">
             </a>
 
             <nav>
@@ -591,6 +595,7 @@
             </nav>
 
         </div>
+
     </header>
 
 
@@ -768,7 +773,6 @@
                 </p>
 
             </div>
-
 
             <div id="productsGrid" class="products-grid">
 
