@@ -32,8 +32,6 @@ body {
     display: none !important;
 }
 
-/* LOGIN */
-
 .login-container {
     min-height: 100vh;
     display: flex;
@@ -64,8 +62,6 @@ body {
     line-height: 1.5;
     margin-bottom: 30px;
 }
-
-/* INPUTS */
 
 input,
 textarea,
@@ -101,12 +97,6 @@ label {
     color: #ddd;
     font-size: 14px;
 }
-
-select {
-    appearance: auto;
-}
-
-/* BUTTONS */
 
 button {
     border: none;
@@ -155,8 +145,6 @@ button:disabled {
     width: 100%;
 }
 
-/* DASHBOARD */
-
 .dashboard {
     padding-bottom: 60px;
 }
@@ -185,8 +173,6 @@ header p {
     flex-wrap: wrap;
 }
 
-/* CARDS */
-
 .card {
     background: #111;
     border: 1px solid #2d2d2d;
@@ -200,8 +186,6 @@ header p {
     margin-top: 0;
 }
 
-/* SECTION DIVIDER */
-
 .section-heading {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -209,8 +193,6 @@ header p {
     font-family: Georgia, serif;
     font-size: 28px;
 }
-
-/* STATUS */
 
 .status {
     padding: 12px;
@@ -240,8 +222,6 @@ header p {
     color: #a9c7ff;
 }
 
-/* CODE */
-
 .code-box {
     display: flex;
     gap: 10px;
@@ -260,8 +240,6 @@ header p {
     letter-spacing: 2px;
     text-align: center;
 }
-
-/* PHOTO */
 
 .photo-preview {
     margin-top: 10px;
@@ -284,8 +262,6 @@ header p {
     margin-top: -8px;
     margin-bottom: 15px;
 }
-
-/* PREVIEW */
 
 .preview {
     background: #0a0a0a;
@@ -313,8 +289,6 @@ header p {
     border-radius: 12px;
     margin: 0 auto 20px;
 }
-
-/* MESSAGE LIST */
 
 .message-list {
     display: grid;
@@ -361,8 +335,6 @@ header p {
     flex-wrap: wrap;
     margin-top: 15px;
 }
-
-/* CUSTOMER LINK */
 
 .customer-link {
     word-break: break-all;
@@ -468,8 +440,6 @@ header p {
     border: 1px solid #444;
 }
 
-/* MOBILE */
-
 @media (max-width: 600px) {
 
     .login-box {
@@ -511,9 +481,7 @@ header p {
 
 <body>
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<!-- LOGIN -->
 
 <div id="loginScreen" class="login-container">
 
@@ -565,9 +533,7 @@ header p {
 </div>
 
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
+<!-- DASHBOARD -->
 
 <div id="dashboard" class="dashboard hidden">
 
@@ -600,16 +566,12 @@ Logout
 </header>
 
 
-<!-- =====================================================
-     CUSTOMER MESSAGE SECTION
-===================================================== -->
+<!-- CUSTOMER MESSAGES -->
 
 <h2 class="section-heading">
 Customer Messages
 </h2>
 
-
-<!-- CREATE MESSAGE -->
 
 <div class="card">
 
@@ -740,7 +702,7 @@ Cancel Edit
 </div>
 
 
-<!-- PREVIEW -->
+<!-- MESSAGE PREVIEW -->
 
 <div
 id="previewCard"
@@ -781,7 +743,7 @@ Your message will appear here.
 </div>
 
 
-<!-- CUSTOMER LINK + QR -->
+<!-- CUSTOMER LINK -->
 
 <div
 id="linkCard"
@@ -846,16 +808,12 @@ Loading messages...
 </div>
 
 
-<!-- =====================================================
-     PRODUCTS SECTION
-===================================================== -->
+<!-- PRODUCTS -->
 
 <h2 class="section-heading">
 KimasFootwear Products
 </h2>
 
-
-<!-- ADD PRODUCT -->
 
 <div class="card">
 
@@ -1024,22 +982,16 @@ let supabaseClient = null;
 /* MESSAGE VARIABLES */
 
 let currentCode = "";
-
 let editingId = null;
-
 let currentCustomerLink = "";
-
 let currentPhotoUrl = "";
-
 let selectedPhotoFile = null;
 
 
 /* PRODUCT VARIABLES */
 
 let editingProductId = null;
-
 let selectedProductPhoto = null;
-
 let currentProductPhotoUrl = "";
 
 
@@ -1170,7 +1122,6 @@ async function login(event) {
         await supabaseClient.auth.signInWithPassword({
 
             email: email,
-
             password: password
 
         });
@@ -1229,9 +1180,7 @@ async function login(event) {
 
 
         await generateNewCode();
-
         await loadMessages();
-
         await loadProducts();
 
 
@@ -1285,9 +1234,7 @@ async function checkLogin() {
 
 
             await generateNewCode();
-
             await loadMessages();
-
             await loadProducts();
         }
 
@@ -1346,7 +1293,6 @@ async function generateNewCode() {
 
 
     let code = "";
-
     let exists = true;
 
 
@@ -1403,9 +1349,7 @@ function previewPhoto(event) {
     const file =
         event.target.files[0];
 
-    if (!file) {
-        return;
-    }
+    if (!file) return;
 
 
     if (!file.type.startsWith("image/")) {
@@ -1431,19 +1375,14 @@ function previewPhoto(event) {
 
     reader.onload = function(e) {
 
-        const preview =
-            document.getElementById(
-                "photoPreview"
-            );
-
-        preview.src =
+        document
+        .getElementById("photoPreview")
+        .src =
             e.target.result;
 
 
         document
-        .getElementById(
-            "photoPreviewContainer"
-        )
+        .getElementById("photoPreviewContainer")
         .classList
         .remove("hidden");
     };
@@ -1460,28 +1399,21 @@ function previewPhoto(event) {
 function removeSelectedPhoto() {
 
     selectedPhotoFile = null;
-
     currentPhotoUrl = "";
 
 
     document
-    .getElementById(
-        "messagePhoto"
-    )
+    .getElementById("messagePhoto")
     .value = "";
 
 
     document
-    .getElementById(
-        "photoPreview"
-    )
+    .getElementById("photoPreview")
     .src = "";
 
 
     document
-    .getElementById(
-        "photoPreviewContainer"
-    )
+    .getElementById("photoPreviewContainer")
     .classList
     .add("hidden");
 }
@@ -1657,9 +1589,7 @@ async function saveMessage() {
 
 
     const button =
-        document.getElementById(
-            "saveButton"
-        );
+        document.getElementById("saveButton");
 
 
     const wasEditing =
@@ -1702,15 +1632,10 @@ async function saveMessage() {
             .update({
 
                 code: currentCode,
-
                 title: title,
-
                 message: message,
-
                 sender: sender,
-
                 recipient: recipient,
-
                 photo_url:
                     currentPhotoUrl || null
 
@@ -1725,18 +1650,12 @@ async function saveMessage() {
             .insert({
 
                 code: currentCode,
-
                 title: title,
-
                 message: message,
-
                 sender: sender,
-
                 recipient: recipient,
-
                 photo_url:
                     currentPhotoUrl || null,
-
                 active: true
 
             });
@@ -1745,21 +1664,9 @@ async function saveMessage() {
 
         if (result.error) {
 
-            showStatus(
-                "saveStatus",
-                "Could not save message: " +
-                result.error.message,
-                "error"
+            throw new Error(
+                result.error.message
             );
-
-            button.disabled = false;
-
-            button.textContent =
-                wasEditing
-                ? "Update Message"
-                : "Save Message";
-
-            return;
         }
 
 
@@ -1774,28 +1681,21 @@ async function saveMessage() {
 
         createCustomerLink(currentCode);
 
-
         clearForm();
 
         editingId = null;
-
         currentPhotoUrl = "";
-
         selectedPhotoFile = null;
 
 
         document
-        .getElementById(
-            "formHeading"
-        )
+        .getElementById("formHeading")
         .textContent =
             "Create Customer Message";
 
 
         document
-        .getElementById(
-            "cancelEditButton"
-        )
+        .getElementById("cancelEditButton")
         .classList
         .add("hidden");
 
@@ -1807,7 +1707,6 @@ async function saveMessage() {
 
 
         await loadMessages();
-
         await generateNewCode();
 
 
@@ -1839,9 +1738,7 @@ async function loadMessages() {
 
 
     const list =
-        document.getElementById(
-            "messageList"
-        );
+        document.getElementById("messageList");
 
 
     list.innerHTML =
@@ -1891,9 +1788,7 @@ async function loadMessages() {
         data.forEach(function(item) {
 
             const div =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             div.className =
@@ -2021,111 +1916,82 @@ async function editMessage(id) {
 
 
         editingId = id;
-
-        currentCode =
-            data.code;
-
-        currentPhotoUrl =
-            data.photo_url || "";
-
+        currentCode = data.code;
+        currentPhotoUrl = data.photo_url || "";
         selectedPhotoFile = null;
 
 
         document
-        .getElementById(
-            "generatedCode"
-        )
+        .getElementById("generatedCode")
         .textContent =
             data.code;
 
 
         document
-        .getElementById(
-            "messageTitle"
-        )
+        .getElementById("messageTitle")
         .value =
             data.title || "";
 
 
         document
-        .getElementById(
-            "personalMessage"
-        )
+        .getElementById("personalMessage")
         .value =
             data.message || "";
 
 
         document
-        .getElementById(
-            "senderName"
-        )
+        .getElementById("senderName")
         .value =
             data.sender || "";
 
 
         document
-        .getElementById(
-            "recipientName"
-        )
+        .getElementById("recipientName")
         .value =
             data.recipient || "";
 
 
         document
-        .getElementById(
-            "messagePhoto"
-        )
+        .getElementById("messagePhoto")
         .value = "";
 
 
         if (data.photo_url) {
 
             document
-            .getElementById(
-                "photoPreview"
-            )
+            .getElementById("photoPreview")
             .src =
                 data.photo_url;
 
 
             document
-            .getElementById(
-                "photoPreviewContainer"
-            )
+            .getElementById("photoPreviewContainer")
             .classList
             .remove("hidden");
 
         } else {
 
             document
-            .getElementById(
-                "photoPreviewContainer"
-            )
+            .getElementById("photoPreviewContainer")
             .classList
             .add("hidden");
         }
 
 
         document
-        .getElementById(
-            "formHeading"
-        )
+        .getElementById("formHeading")
         .textContent =
             "Edit Customer Message";
 
 
         document
-        .getElementById(
-            "saveButton"
-        )
+        .getElementById("saveButton")
         .textContent =
             "Update Message";
 
 
         document
-        .getElementById(
-            "cancelEditButton"
-        )
+        .getElementById("cancelEditButton")
         .classList
         .remove("hidden");
 
@@ -2150,34 +2016,26 @@ async function editMessage(id) {
 function cancelEdit() {
 
     editingId = null;
-
     currentPhotoUrl = "";
-
     selectedPhotoFile = null;
 
     clearForm();
 
 
     document
-    .getElementById(
-        "formHeading"
-    )
+    .getElementById("formHeading")
     .textContent =
         "Create Customer Message";
 
 
     document
-    .getElementById(
-        "saveButton"
-    )
+    .getElementById("saveButton")
     .textContent =
         "Save Message";
 
 
     document
-    .getElementById(
-        "cancelEditButton"
-    )
+    .getElementById("cancelEditButton")
     .classList
     .add("hidden");
 
@@ -2255,77 +2113,59 @@ function previewMessage() {
 
     const title =
         document
-        .getElementById(
-            "messageTitle"
-        )
+        .getElementById("messageTitle")
         .value
         .trim();
 
 
     const message =
         document
-        .getElementById(
-            "personalMessage"
-        )
+        .getElementById("personalMessage")
         .value
         .trim();
 
 
     const sender =
         document
-        .getElementById(
-            "senderName"
-        )
+        .getElementById("senderName")
         .value
         .trim();
 
 
     const recipient =
         document
-        .getElementById(
-            "recipientName"
-        )
+        .getElementById("recipientName")
         .value
         .trim();
 
 
     document
-    .getElementById(
-        "previewTitle"
-    )
+    .getElementById("previewTitle")
     .textContent =
         title || "Message Title";
 
 
     document
-    .getElementById(
-        "previewMessage"
-    )
+    .getElementById("previewMessage")
     .textContent =
         message ||
         "Your message will appear here.";
 
 
     document
-    .getElementById(
-        "previewSender"
-    )
+    .getElementById("previewSender")
     .textContent =
         sender || "-";
 
 
     document
-    .getElementById(
-        "previewRecipient"
-    )
+    .getElementById("previewRecipient")
     .textContent =
         recipient || "-";
 
 
     const previewPhoto =
-        document.getElementById(
-            "previewPhoto"
-        );
+        document.getElementById("previewPhoto");
 
 
     if (selectedPhotoFile) {
@@ -2367,9 +2207,7 @@ function previewMessage() {
 
 
     document
-    .getElementById(
-        "previewCard"
-    )
+    .getElementById("previewCard")
     .classList
     .remove("hidden");
 }
@@ -2397,17 +2235,13 @@ function createCustomerLink(code) {
 
 
     document
-    .getElementById(
-        "customerLink"
-    )
+    .getElementById("customerLink")
     .textContent =
         currentCustomerLink;
 
 
     document
-    .getElementById(
-        "linkCard"
-    )
+    .getElementById("linkCard")
     .classList
     .remove("hidden");
 
@@ -2442,9 +2276,7 @@ function showMessageLink(code) {
 function generateQR(url) {
 
     const qr =
-        document.getElementById(
-            "qrcode"
-        );
+        document.getElementById("qrcode");
 
 
     qr.innerHTML = "";
@@ -2531,21 +2363,7 @@ async function copyCustomerLink() {
 function downloadQR() {
 
     const qr =
-        document.getElementById(
-            "qrcode"
-        );
-
-
-    if (!qr) {
-
-        showStatus(
-            "saveStatus",
-            "QR code area was not found.",
-            "error"
-        );
-
-        return;
-    }
+        document.getElementById("qrcode");
 
 
     const canvas =
@@ -2557,28 +2375,15 @@ function downloadQR() {
         canvas.toBlob(
             function(blob) {
 
-                if (!blob) {
-
-                    showStatus(
-                        "saveStatus",
-                        "Could not create QR image.",
-                        "error"
-                    );
-
-                    return;
-                }
+                if (!blob) return;
 
 
                 const url =
-                    URL.createObjectURL(
-                        blob
-                    );
+                    URL.createObjectURL(blob);
 
 
                 const link =
-                    document.createElement(
-                        "a"
-                    );
+                    document.createElement("a");
 
 
                 link.href = url;
@@ -2590,128 +2395,22 @@ function downloadQR() {
                     "-QR.png";
 
 
-                document.body.appendChild(
-                    link
-                );
-
+                document.body.appendChild(link);
 
                 link.click();
 
-
-                document.body.removeChild(
-                    link
-                );
+                document.body.removeChild(link);
 
 
-                setTimeout(
-                    function() {
+                setTimeout(function() {
 
-                        URL.revokeObjectURL(
-                            url
-                        );
+                    URL.revokeObjectURL(url);
 
-                    },
-                    1000
-                );
-
-
-                showStatus(
-                    "saveStatus",
-                    "QR code downloaded successfully!",
-                    "success"
-                );
+                }, 1000);
 
             },
             "image/png"
         );
-
-
-        return;
-    }
-
-
-    const image =
-        qr.querySelector("img");
-
-
-    if (
-        image &&
-        image.src
-    ) {
-
-        fetch(image.src)
-        .then(function(response) {
-
-            return response.blob();
-
-        })
-        .then(function(blob) {
-
-            const url =
-                URL.createObjectURL(
-                    blob
-                );
-
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-
-            link.href = url;
-
-
-            link.download =
-                "KimasFootwear-" +
-                currentCode +
-                "-QR.png";
-
-
-            document.body.appendChild(
-                link
-            );
-
-
-            link.click();
-
-
-            document.body.removeChild(
-                link
-            );
-
-
-            setTimeout(
-                function() {
-
-                    URL.revokeObjectURL(
-                        url
-                    );
-
-                },
-                1000
-            );
-
-
-            showStatus(
-                "saveStatus",
-                "QR code downloaded successfully!",
-                "success"
-            );
-
-        })
-        .catch(function(error) {
-
-            console.log(error);
-
-            showStatus(
-                "saveStatus",
-                "Could not download the QR code.",
-                "error"
-            );
-
-        });
-
 
         return;
     }
@@ -2731,68 +2430,30 @@ function downloadQR() {
 
 function clearForm() {
 
-    document
-    .getElementById(
-        "messageTitle"
-    )
-    .value = "";
+    document.getElementById("messageTitle").value = "";
+    document.getElementById("personalMessage").value = "";
+    document.getElementById("senderName").value = "";
+    document.getElementById("recipientName").value = "";
+    document.getElementById("messagePhoto").value = "";
 
-
-    document
-    .getElementById(
-        "personalMessage"
-    )
-    .value = "";
-
+    document.getElementById("photoPreview").src = "";
 
     document
-    .getElementById(
-        "senderName"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "recipientName"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "messagePhoto"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "photoPreview"
-    )
-    .src = "";
-
-
-    document
-    .getElementById(
-        "photoPreviewContainer"
-    )
+    .getElementById("photoPreviewContainer")
     .classList
     .add("hidden");
 }
 
 
 /* =====================================================
-   PRODUCTS
+   PRODUCT PHOTO PREVIEW
 ===================================================== */
-
-
-/* PRODUCT PHOTO PREVIEW */
 
 function previewProductPhoto(event) {
 
     const file =
         event.target.files[0];
+
 
     if (!file) return;
 
@@ -2822,17 +2483,13 @@ function previewProductPhoto(event) {
         function(e) {
 
             document
-            .getElementById(
-                "productPhotoPreview"
-            )
+            .getElementById("productPhotoPreview")
             .src =
                 e.target.result;
 
 
             document
-            .getElementById(
-                "productPhotoPreviewContainer"
-            )
+            .getElementById("productPhotoPreviewContainer")
             .classList
             .remove("hidden");
         };
@@ -2842,39 +2499,36 @@ function previewProductPhoto(event) {
 }
 
 
-/* REMOVE PRODUCT PHOTO */
+/* =====================================================
+   REMOVE PRODUCT PHOTO
+===================================================== */
 
 function removeProductPhoto() {
 
     selectedProductPhoto = null;
-
     currentProductPhotoUrl = "";
 
 
     document
-    .getElementById(
-        "productPhoto"
-    )
+    .getElementById("productPhoto")
     .value = "";
 
 
     document
-    .getElementById(
-        "productPhotoPreview"
-    )
+    .getElementById("productPhotoPreview")
     .src = "";
 
 
     document
-    .getElementById(
-        "productPhotoPreviewContainer"
-    )
+    .getElementById("productPhotoPreviewContainer")
     .classList
     .add("hidden");
 }
 
 
-/* UPLOAD PRODUCT PHOTO */
+/* =====================================================
+   UPLOAD PRODUCT PHOTO
+===================================================== */
 
 async function uploadProductPhoto(file) {
 
@@ -2965,40 +2619,42 @@ async function uploadProductPhoto(file) {
 }
 
 
-/* SAVE PRODUCT */
+/* =====================================================
+   SAVE PRODUCT - FIXED
+===================================================== */
 
 async function saveProduct() {
 
+    if (!supabaseClient) {
+
+        if (!initializeSupabase()) {
+            return;
+        }
+    }
+
+
     const name =
         document
-        .getElementById(
-            "productName"
-        )
+        .getElementById("productName")
         .value
         .trim();
 
 
     const collection =
         document
-        .getElementById(
-            "productCollection"
-        )
+        .getElementById("productCollection")
         .value;
 
 
     const price =
         document
-        .getElementById(
-            "productPrice"
-        )
+        .getElementById("productPrice")
         .value;
 
 
     const description =
         document
-        .getElementById(
-            "productDescription"
-        )
+        .getElementById("productDescription")
         .value
         .trim();
 
@@ -3059,6 +2715,8 @@ async function saveProduct() {
 
     try {
 
+        /* UPLOAD PHOTO */
+
         if (selectedProductPhoto) {
 
             showStatus(
@@ -3072,8 +2730,16 @@ async function saveProduct() {
                 await uploadProductPhoto(
                     selectedProductPhoto
                 );
+
+
+            console.log(
+                "Product photo URL:",
+                currentProductPhotoUrl
+            );
         }
 
+
+        /* PRODUCT DATA */
 
         const productData = {
 
@@ -3083,15 +2749,21 @@ async function saveProduct() {
 
             price: Number(price),
 
-            description:
-                description,
+            description: description,
 
             photo_url:
-                currentProductPhotoUrl || null,
+                currentProductPhotoUrl || null
 
-            active: true
         };
 
+
+        console.log(
+            "Saving product:",
+            productData
+        );
+
+
+        /* SAVE */
 
         let result;
 
@@ -3105,21 +2777,54 @@ async function saveProduct() {
             .eq(
                 "id",
                 editingProductId
-            );
+            )
+            .select()
+            .single();
 
         } else {
 
             result =
             await supabaseClient
             .from("products")
-            .insert(productData);
+            .insert(productData)
+            .select()
+            .single();
         }
 
+
+        /* CHECK ERROR */
 
         if (result.error) {
 
             throw new Error(
                 result.error.message
+            );
+        }
+
+
+        if (!result.data) {
+
+            throw new Error(
+                "Supabase did not return the saved product."
+            );
+        }
+
+
+        console.log(
+            "Saved product:",
+            result.data
+        );
+
+
+        /* VERIFY PHOTO */
+
+        if (
+            selectedProductPhoto &&
+            !result.data.photo_url
+        ) {
+
+            throw new Error(
+                "The product was saved, but Supabase did not save the photo URL."
             );
         }
 
@@ -3135,16 +2840,24 @@ async function saveProduct() {
 
         clearProductForm();
 
+
         await loadProducts();
 
 
     } catch(error) {
+
+        console.error(
+            "PRODUCT SAVE ERROR:",
+            error
+        );
+
 
         showStatus(
             "productStatus",
             "Error: " + error.message,
             "error"
         );
+
 
     } finally {
 
@@ -3156,7 +2869,9 @@ async function saveProduct() {
 }
 
 
-/* LOAD PRODUCTS */
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
 
 async function loadProducts() {
 
@@ -3216,9 +2931,7 @@ async function loadProducts() {
         data.forEach(function(product) {
 
             const item =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             item.className =
@@ -3323,7 +3036,9 @@ async function loadProducts() {
 }
 
 
-/* EDIT PRODUCT */
+/* =====================================================
+   EDIT PRODUCT
+===================================================== */
 
 async function editProduct(id) {
 
@@ -3365,92 +3080,70 @@ async function editProduct(id) {
 
 
         document
-        .getElementById(
-            "productName"
-        )
+        .getElementById("productName")
         .value =
             data.name || "";
 
 
         document
-        .getElementById(
-            "productCollection"
-        )
+        .getElementById("productCollection")
         .value =
             data.collection || "";
 
 
         document
-        .getElementById(
-            "productPrice"
-        )
+        .getElementById("productPrice")
         .value =
             data.price || "";
 
 
         document
-        .getElementById(
-            "productDescription"
-        )
+        .getElementById("productDescription")
         .value =
             data.description || "";
 
 
         document
-        .getElementById(
-            "productPhoto"
-        )
+        .getElementById("productPhoto")
         .value = "";
 
 
         if (data.photo_url) {
 
             document
-            .getElementById(
-                "productPhotoPreview"
-            )
+            .getElementById("productPhotoPreview")
             .src =
                 data.photo_url;
 
 
             document
-            .getElementById(
-                "productPhotoPreviewContainer"
-            )
+            .getElementById("productPhotoPreviewContainer")
             .classList
             .remove("hidden");
 
         } else {
 
             document
-            .getElementById(
-                "productPhotoPreviewContainer"
-            )
+            .getElementById("productPhotoPreviewContainer")
             .classList
             .add("hidden");
         }
 
 
         document
-        .getElementById(
-            "productFormHeading"
-        )
+        .getElementById("productFormHeading")
         .textContent =
             "Edit Product";
 
 
         document
-        .getElementById(
-            "saveProductButton"
-        )
+        .getElementById("saveProductButton")
         .textContent =
             "Update Product";
 
 
         document
-        .getElementById(
-            "cancelProductEditButton"
-        )
+        .getElementById("cancelProductEditButton")
         .classList
         .remove("hidden");
 
@@ -3468,7 +3161,9 @@ async function editProduct(id) {
 }
 
 
-/* CANCEL PRODUCT EDIT */
+/* =====================================================
+   CANCEL PRODUCT EDIT
+===================================================== */
 
 function cancelProductEdit() {
 
@@ -3476,93 +3171,75 @@ function cancelProductEdit() {
 }
 
 
-/* CLEAR PRODUCT FORM */
+/* =====================================================
+   CLEAR PRODUCT FORM
+===================================================== */
 
 function clearProductForm() {
 
     editingProductId = null;
-
     selectedProductPhoto = null;
-
     currentProductPhotoUrl = "";
 
 
     document
-    .getElementById(
-        "productName"
-    )
+    .getElementById("productName")
     .value = "";
 
 
     document
-    .getElementById(
-        "productCollection"
-    )
+    .getElementById("productCollection")
     .value = "";
 
 
     document
-    .getElementById(
-        "productPrice"
-    )
+    .getElementById("productPrice")
     .value = "";
 
 
     document
-    .getElementById(
-        "productDescription"
-    )
+    .getElementById("productDescription")
     .value = "";
 
 
     document
-    .getElementById(
-        "productPhoto"
-    )
+    .getElementById("productPhoto")
     .value = "";
 
 
     document
-    .getElementById(
-        "productPhotoPreview"
-    )
+    .getElementById("productPhotoPreview")
     .src = "";
 
 
     document
-    .getElementById(
-        "productPhotoPreviewContainer"
-    )
+    .getElementById("productPhotoPreviewContainer")
     .classList
     .add("hidden");
 
 
     document
-    .getElementById(
-        "productFormHeading"
-    )
+    .getElementById("productFormHeading")
     .textContent =
         "Add Product";
 
 
     document
-    .getElementById(
-        "saveProductButton"
-    )
+    .getElementById("saveProductButton")
     .textContent =
         "Save Product";
 
 
     document
-    .getElementById(
-        "cancelProductEditButton"
-    )
+    .getElementById("cancelProductEditButton")
     .classList
     .add("hidden");
 }
 
 
-/* HIDE / SHOW PRODUCT */
+/* =====================================================
+   HIDE / SHOW PRODUCT
+===================================================== */
 
 async function toggleProduct(
     id,
@@ -3621,7 +3298,9 @@ async function toggleProduct(
 }
 
 
-/* DELETE PRODUCT */
+/* =====================================================
+   DELETE PRODUCT
+===================================================== */
 
 async function deleteProduct(id) {
 
@@ -3696,32 +3375,24 @@ async function logout() {
 
 
     document
-    .getElementById(
-        "dashboard"
-    )
+    .getElementById("dashboard")
     .classList
     .add("hidden");
 
 
     document
-    .getElementById(
-        "loginScreen"
-    )
+    .getElementById("loginScreen")
     .classList
     .remove("hidden");
 
 
     document
-    .getElementById(
-        "loginEmail"
-    )
+    .getElementById("loginEmail")
     .value = "";
 
 
     document
-    .getElementById(
-        "loginPassword"
-    )
+    .getElementById("loginPassword")
     .value = "";
 
 
