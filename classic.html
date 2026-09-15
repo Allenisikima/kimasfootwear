@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KimasFootwear | Classic Collection</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #111;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #111;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    text-decoration: none;
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #d4af37;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 100px 8% 70px;
+    background:
+        linear-gradient(
+            rgba(0,0,0,.7),
+            rgba(0,0,0,.85)
+        ),
+        url('logo.png') center/contain no-repeat;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(45px, 8vw, 75px);
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    color: #ddd;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+}
+
+/* COLLECTION */
+
+.collection {
+    padding: 80px 8%;
+}
+
+.collection-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.collection-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: #d4af37;
+    margin-bottom: 12px;
+}
+
+.collection-title p {
+    color: #aaa;
+}
+
+/* PRODUCTS */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.product {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.product:hover {
+    transform: translateY(-7px);
+    border-color: #d4af37;
+}
+
+.product-image {
+    width: 100%;
+    height: 350px;
+    background: #080808;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-info h3 {
+    font-family: 'Playfair Display', serif;
+    color: #d4af37;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.order-button {
+    display: inline-block;
+    background: #d4af37;
+    color: #111;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
+.order-button:hover {
+    background: #fff;
+}
+
+/* BACK */
+
+.back-section {
+    text-align: center;
+    padding: 50px 8%;
+    border-top: 1px solid #333;
+}
+
+.back-button {
+    display: inline-block;
+    color: #d4af37;
+    text-decoration: none;
+    border: 1px solid #d4af37;
+    padding: 12px 25px;
+    border-radius: 5px;
+}
+
+.back-button:hover {
+    background: #d4af37;
+    color: #111;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 30px 8%;
+    border-top: 1px solid #333;
+    color: #777;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 16px 5%;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 80px 6% 60px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        font-size: 22px;
+    }
+
+    .collection {
+        padding: 60px 6%;
+    }
+
+    .collection-title h2 {
+        font-size: 34px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        height: 300px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html" class="logo">
+        KimasFootwear
+    </a>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#collection">
+            Collections
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>Classic Collection</h1>
+
+    <p>
+        Timeless footwear designed for everyday confidence,
+        elegance and comfort.
+    </p>
+
+</section>
+
+
+<section class="collection">
+
+    <div class="collection-title">
+
+        <h2>Classic</h2>
+
+        <p>
+            Discover timeless pieces from KimasFootwear.
+        </p>
+
+    </div>
+
+
+    <div class="products">
+
+        <!-- PRODUCT 1 -->
+
+        <div class="product">
+
+            <div class="product-image">
+
+                <img
+                    src="logo.png"
+                    alt="KimasFootwear Classic"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    Classic Collection
+                </h3>
+
+                <p>
+                    A refined KimasFootwear design
+                    created for everyday elegance.
+                </p>
+
+                <a
+                    href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%27m%20interested%20in%20the%20Classic%20Collection."
+                    class="order-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Order on WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="back-section">
+
+    <a
+        href="index.html#collection"
+        class="back-button"
+    >
+        ← Back to Collections
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026 KimasFootwear.
+    Every Step Tells a Story.
+
+</footer>
+
+</body>
+</html>
