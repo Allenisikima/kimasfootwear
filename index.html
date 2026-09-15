@@ -1,480 +1,1090 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KimasFootwear | Every Step Tells a Story</title>
+    <title>KimasFootwear | Every Step Tells a Story</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-html {
-    scroll-behavior: smooth;
-}
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #080808;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
 
-body {
-    background: #111;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
-}
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-/* HEADER */
+        /* HEADER */
 
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #111;
-    padding: 18px 8%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #333;
-}
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 8, 8, 0.96);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+            backdrop-filter: blur(10px);
+        }
 
-.logo {
-    text-decoration: none;
-    color: #d4af37;
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 700;
-}
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-nav {
-    display: flex;
-    gap: 28px;
-}
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #d4af37;
+        }
 
-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: 0.3s;
-}
+        nav {
+            display: flex;
+            gap: 28px;
+        }
 
-nav a:hover {
-    color: #d4af37;
-}
+        nav a {
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: #ddd;
+            transition: 0.3s;
+        }
 
-/* HERO */
+        nav a:hover {
+            color: #d4af37;
+        }
 
-.hero {
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 8%;
+        /* HERO */
 
-    background:
-        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
-        url('logo.png') center/contain no-repeat;
-}
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 25px;
+            position: relative;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.9)),
+                url('logo.png') center/cover no-repeat;
+        }
 
-.hero-content {
-    max-width: 950px;
-}
+        .hero-content {
+            max-width: 850px;
+        }
 
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(45px, 8vw, 85px);
-    line-height: 1.1;
-    color: #d4af37;
-    margin-bottom: 25px;
-}
+        .hero-small {
+            font-family: 'Allura', cursive;
+            color: #d4af37;
+            font-size: 38px;
+            margin-bottom: 5px;
+        }
 
-.hero p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 27px;
-    max-width: 750px;
-    margin: auto;
-    color: #f2f2f2;
-}
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(45px, 7vw, 82px);
+            line-height: 1.05;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
 
-/* GENERAL SECTIONS */
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #ddd;
+            font-size: 16px;
+            font-weight: 300;
+        }
 
-section {
-    padding: 100px 8%;
-}
+        .hero-buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-.section-title {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    color: #d4af37;
-    margin-bottom: 15px;
-}
+        .btn {
+            padding: 14px 27px;
+            border: 1px solid #d4af37;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
 
-.section-subtitle {
-    text-align: center;
-    max-width: 750px;
-    margin: 0 auto 50px;
-    color: #ccc;
-}
+        .btn-gold {
+            background: #d4af37;
+            color: #080808;
+        }
 
-/* COLLECTION */
+        .btn-gold:hover {
+            background: transparent;
+            color: #d4af37;
+        }
 
-.collection-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    margin-top: 50px;
-}
+        .btn-outline {
+            color: #d4af37;
+        }
 
-.collection-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    background: #1b1b1b;
-    border: 1px solid #333;
-    padding: 35px 25px;
-    text-align: center;
-    transition: 0.3s;
-    cursor: pointer;
-}
+        .btn-outline:hover {
+            background: #d4af37;
+            color: #080808;
+        }
 
-.collection-card:hover {
-    transform: translateY(-8px);
-    border-color: #d4af37;
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
-}
+        /* GENERAL */
 
-.collection-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 25px;
-    color: #d4af37;
-    margin-bottom: 15px;
-}
+        section {
+            padding: 90px 25px;
+        }
 
-.collection-card p {
-    color: #ccc;
-    font-size: 14px;
-}
+        .section-container {
+            max-width: 1200px;
+            margin: auto;
+        }
 
-/* MEANING */
+        .section-heading {
+            text-align: center;
+            margin-bottom: 55px;
+        }
 
-.meaning {
-    text-align: center;
-    background: #151515;
-}
+        .section-heading span {
+            font-family: 'Allura', cursive;
+            font-size: 34px;
+            color: #d4af37;
+        }
 
-.meaning p {
-    max-width: 800px;
-    margin: auto;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 25px;
-    color: #ddd;
-}
+        .section-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin-top: 3px;
+        }
 
-/* ABOUT */
+        .section-heading p {
+            max-width: 600px;
+            margin: 15px auto 0;
+            color: #aaa;
+            font-size: 14px;
+        }
 
-.about {
-    text-align: center;
-}
+        /* COLLECTION */
 
-.about-content {
-    max-width: 850px;
-    margin: auto;
-}
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
 
-.about p {
-    color: #ccc;
-    margin-bottom: 20px;
-}
+        .collection-card {
+            min-height: 260px;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            background: linear-gradient(145deg, #161616, #090909);
+            transition: 0.4s;
+        }
 
-/* CTA */
+        .collection-card:hover {
+            transform: translateY(-7px);
+            border-color: #d4af37;
+        }
 
-.cta {
-    text-align: center;
-    background: #181818;
-}
+        .collection-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(212,175,55,0.16), transparent 45%);
+        }
 
-.cta h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 45px;
-    color: #d4af37;
-    margin-bottom: 15px;
-}
+        .collection-content {
+            position: relative;
+            z-index: 2;
+            padding: 25px;
+        }
 
-.cta p {
-    color: #ccc;
-    margin-bottom: 30px;
-}
+        .collection-number {
+            color: #d4af37;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
 
-/* GOLD BUTTON */
+        .collection-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            margin: 7px 0;
+        }
 
-.gold-button {
-    display: inline-block;
-    background: #d4af37;
-    color: #111;
-    padding: 14px 30px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: 0.3s;
-}
+        .collection-card p {
+            color: #999;
+            font-size: 12px;
+        }
 
-.gold-button:hover {
-    background: #fff;
-    color: #111;
-    transform: translateY(-2px);
-}
+        .collection-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #d4af37;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-/* FOOTER */
+        /* FEATURED */
 
-footer {
-    text-align: center;
-    padding: 30px 8%;
-    background: #111;
-    border-top: 1px solid #333;
-    color: #888;
-    font-size: 14px;
-}
+        .featured-section {
+            background: #0d0d0d;
+            border-top: 1px solid rgba(212,175,55,0.08);
+            border-bottom: 1px solid rgba(212,175,55,0.08);
+        }
 
-/* MOBILE */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
 
-@media (max-width: 900px) {
+        .product-card {
+            background: #111;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            overflow: hidden;
+            transition: 0.35s;
+        }
 
-    .collection-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212,175,55,0.55);
+        }
 
-}
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            background: #181818;
+        }
 
-@media (max-width: 600px) {
+        .product-info {
+            padding: 22px;
+        }
 
-    header {
-        padding: 16px 5%;
-    }
+        .product-collection {
+            color: #d4af37;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-    nav {
-        gap: 12px;
-    }
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+            margin: 7px 0;
+        }
 
-    nav a {
-        font-size: 12px;
-    }
+        .product-description {
+            color: #999;
+            font-size: 12px;
+            min-height: 42px;
+        }
 
-    .hero {
-        min-height: 80vh;
-        padding: 50px 6%;
-    }
+        .product-price {
+            color: #d4af37;
+            font-size: 15px;
+            font-weight: 600;
+            margin: 15px 0;
+        }
 
-    .hero h1 {
-        font-size: 48px;
-    }
+        .product-buttons {
+            display: flex;
+            gap: 10px;
+        }
 
-    .hero p {
-        font-size: 22px;
-    }
+        .small-btn {
+            flex: 1;
+            text-align: center;
+            padding: 11px 8px;
+            border: 1px solid #d4af37;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    section {
-        padding: 75px 6%;
-    }
+        .order-btn {
+            background: #d4af37;
+            color: #080808;
+        }
 
-    .section-title {
-        font-size: 34px;
-    }
+        .collection-btn {
+            color: #d4af37;
+        }
 
-    .collection-grid {
-        grid-template-columns: 1fr;
-    }
+        .empty-products {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
 
-    .cta h2 {
-        font-size: 36px;
-    }
+        /* MEANING */
 
-}
+        .meaning {
+            background: #080808;
+        }
 
-</style>
+        .meaning-content {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .meaning-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 43px;
+            margin-bottom: 25px;
+        }
+
+        .meaning-content h2 span {
+            color: #d4af37;
+        }
+
+        .meaning-content p {
+            color: #aaa;
+            font-size: 15px;
+            line-height: 2;
+        }
+
+        .meaning-signature {
+            margin-top: 25px;
+            font-family: 'Allura', cursive;
+            color: #d4af37;
+            font-size: 32px;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: #101010;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-image {
+            min-height: 430px;
+            background:
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
+                url('logo.png') center/cover no-repeat;
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+
+        .about-text span {
+            font-family: 'Allura', cursive;
+            color: #d4af37;
+            font-size: 34px;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 43px;
+            margin: 5px 0 20px;
+        }
+
+        .about-text p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 17px;
+        }
+
+        /* CTA */
+
+        .cta {
+            text-align: center;
+            background:
+                linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.88)),
+                url('logo.png') center/cover no-repeat;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 50px;
+        }
+
+        .cta p {
+            color: #aaa;
+            margin: 15px auto 30px;
+            max-width: 600px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 45px 25px 25px;
+            text-align: center;
+            background: #050505;
+            border-top: 1px solid rgba(212,175,55,0.15);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37;
+            font-size: 24px;
+        }
+
+        .footer-tagline {
+            font-family: 'Allura', cursive;
+            color: #aaa;
+            font-size: 25px;
+            margin-top: 5px;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 10px;
+            margin-top: 25px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .about-image {
+                min-height: 320px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                padding: 15px 17px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            nav a {
+                font-size: 10px;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 60px 20px;
+            }
+
+            .hero-small {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+
+            section {
+                padding: 65px 18px;
+            }
+
+            .section-heading {
+                margin-bottom: 35px;
+            }
+
+            .section-heading h2 {
+                font-size: 33px;
+            }
+
+            .collection-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .collection-card {
+                min-height: 220px;
+            }
+
+            .collection-content {
+                padding: 17px;
+            }
+
+            .collection-card h3 {
+                font-size: 20px;
+            }
+
+            .collection-card p {
+                font-size: 10px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                height: 330px;
+            }
+
+            .meaning-content h2,
+            .about-text h2 {
+                font-size: 34px;
+            }
+
+            .cta h2 {
+                font-size: 37px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+    <!-- HEADER -->
 
-<header>
+    <header>
+        <div class="nav">
 
-    <a href="#home" class="logo">KimasFootwear</a>
+            <a href="index.html" class="logo">
+                KimasFootwear
+            </a>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#collection">Collection</a>
-        <a href="#about">About</a>
-    </nav>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="#collection">Collection</a>
+                <a href="#about">About</a>
+            </nav>
 
-</header>
-
-
-<!-- HERO -->
-
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <h1>Every Step Tells a Story.</h1>
-
-        <p>
-            Footwear made with meaning, designed to carry more than just your steps.
-        </p>
-
-    </div>
-
-</section>
+        </div>
+    </header>
 
 
-<!-- COLLECTION -->
+    <!-- HERO -->
 
-<section id="collection">
+    <section class="hero">
 
-    <h2 class="section-title">Our Collection</h2>
+        <div class="hero-content">
 
-    <p class="section-subtitle">
-        Footwear created for people who want comfort, style and meaning in every step.
-    </p>
+            <div class="hero-small">
+                KimasFootwear
+            </div>
 
-
-    <div class="collection-grid">
-
-        <!-- CLASSIC -->
-
-        <a href="classic.html" class="collection-card">
-
-            <h3>Classic</h3>
+            <h1>
+                Every Step Tells a Story.
+            </h1>
 
             <p>
-                Timeless footwear designed for everyday confidence.
+                Premium footwear crafted with intention, character and meaning.
+                Because what you wear should say something about you.
             </p>
 
-        </a>
+            <div class="hero-buttons">
+
+                <a href="#collection" class="btn btn-gold">
+                    Explore Collection
+                </a>
+
+                <a href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%20would%20like%20to%20make%20an%20order."
+                   class="btn btn-outline">
+                    Order on WhatsApp
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
-        <!-- CORPORATE -->
+    <!-- COLLECTION -->
 
-        <a href="corporate.html" class="collection-card">
+    <section id="collection">
 
-            <h3>Corporate</h3>
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>Discover</span>
+
+                <h2>Our Collections</h2>
+
+                <p>
+                    Carefully selected footwear for different moments,
+                    personalities and stories.
+                </p>
+
+            </div>
+
+
+            <div class="collection-grid">
+
+                <a href="classic.html" class="collection-card">
+
+                    <div class="collection-content">
+
+                        <div class="collection-number">
+                            01 — COLLECTION
+                        </div>
+
+                        <h3>Classic</h3>
+
+                        <p>
+                            Timeless footwear with refined character.
+                        </p>
+
+                        <div class="collection-link">
+                            Explore →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a href="corporate.html" class="collection-card">
+
+                    <div class="collection-content">
+
+                        <div class="collection-number">
+                            02 — COLLECTION
+                        </div>
+
+                        <h3>Corporate</h3>
+
+                        <p>
+                            Professional footwear for distinguished moments.
+                        </p>
+
+                        <div class="collection-link">
+                            Explore →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a href="couples.html" class="collection-card">
+
+                    <div class="collection-content">
+
+                        <div class="collection-number">
+                            03 — COLLECTION
+                        </div>
+
+                        <h3>Couples</h3>
+
+                        <p>
+                            Footwear made for shared journeys.
+                        </p>
+
+                        <div class="collection-link">
+                            Explore →
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a href="custom.html" class="collection-card">
+
+                    <div class="collection-content">
+
+                        <div class="collection-number">
+                            04 — COLLECTION
+                        </div>
+
+                        <h3>Custom</h3>
+
+                        <p>
+                            Designed around your personal story.
+                        </p>
+
+                        <div class="collection-link">
+                            Create Yours →
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURED FOOTWEAR -->
+
+    <section class="featured-section">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>Made For You</span>
+
+                <h2>Featured Footwear</h2>
+
+                <p>
+                    Explore some of the footwear currently available from KimasFootwear.
+                </p>
+
+            </div>
+
+
+            <div id="productsGrid" class="products-grid">
+
+                <div class="empty-products">
+                    Loading footwear...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MEANING -->
+
+    <section class="meaning">
+
+        <div class="meaning-content">
+
+            <h2>
+                More Than Footwear.
+                <span>A Story.</span>
+            </h2>
 
             <p>
-                Elegant footwear designed to complement professional style.
+                At KimasFootwear, we believe footwear is more than something
+                you simply put on your feet. It can represent identity,
+                confidence, love, celebration and memories.
             </p>
-
-        </a>
-
-
-        <!-- COUPLES -->
-
-        <a href="couples.html" class="collection-card">
-
-            <h3>Couples</h3>
 
             <p>
-                Matching footwear created for shared journeys.
+                Every pair is an opportunity to walk differently,
+                stand confidently and carry your story wherever you go.
             </p>
 
-        </a>
+            <div class="meaning-signature">
+                Walk With Meaning.
+            </div>
+
+        </div>
+
+    </section>
 
 
-        <!-- CUSTOM -->
+    <!-- ABOUT -->
 
-        <a href="custom.html" class="collection-card">
+    <section class="about" id="about">
 
-            <h3>Custom</h3>
+        <div class="section-container">
+
+            <div class="about-grid">
+
+                <div class="about-image"></div>
+
+                <div class="about-text">
+
+                    <span>Our Story</span>
+
+                    <h2>
+                        Built To Leave A Mark.
+                    </h2>
+
+                    <p>
+                        KimasFootwear is a footwear brand built around one simple
+                        belief: every step should have meaning.
+                    </p>
+
+                    <p>
+                        From classic designs to corporate footwear, couples'
+                        pieces and personalised creations, we are building
+                        footwear that connects style with personal expression.
+                    </p>
+
+                    <p>
+                        We are not simply making shoes.
+                        We are creating pieces that become part of people's stories.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+        <div class="section-container">
+
+            <h2>
+                Walk With Meaning.
+            </h2>
 
             <p>
-                Personalised designs created around your story.
+                Find your next pair or speak with us about creating something
+                made especially for you.
             </p>
 
-        </a>
+            <a href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%20would%20like%20to%20make%20an%20order."
+               class="btn btn-gold">
+                Start Your Order
+            </a>
 
-    </div>
+        </div>
 
-</section>
-
-
-<!-- MEANING -->
-
-<section class="meaning">
-
-    <h2 class="section-title">A Step With Meaning</h2>
-
-    <p>
-        Your KimasFootwear isn't just something you wear.
-        It can carry a memory, a message or a special moment.
-    </p>
-
-</section>
+    </section>
 
 
-<!-- ABOUT -->
+    <!-- FOOTER -->
 
-<section class="about" id="about">
+    <footer>
 
-    <div class="about-content">
+        <div class="footer-logo">
+            KimasFootwear
+        </div>
 
-        <h2 class="section-title">About KimasFootwear</h2>
+        <div class="footer-tagline">
+            Your Sole, Your Story.
+        </div>
 
-        <p>
-            KimasFootwear is built around a simple idea:
-            footwear should mean more than fashion.
-        </p>
+        <div class="copyright">
+            © 2026 KimasFootwear. All Rights Reserved.
+        </div>
 
-        <p>
-            We create footwear that combines style, comfort and
-            personal expression. Every pair has the potential to
-            become part of someone's story.
-        </p>
-
-        <p>
-            From a special gift to a personal milestone,
-            KimasFootwear is designed to help people carry
-            meaning wherever they go.
-        </p>
-
-    </div>
-
-</section>
+    </footer>
 
 
-<!-- CTA -->
+    <!-- SUPABASE -->
 
-<section class="cta">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <h2>Walk With Meaning.</h2>
+    <script>
 
-    <p>
-        Discover KimasFootwear and create a pair with your own story.
-    </p>
+        const SUPABASE_URL =
+            "https://hisdjtixefaoocvlzaml.supabase.co";
 
-    <a
-        href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%27d%20like%20to%20make%20an%20order.%20Please%20I%27d%20like%20to%20know%20more%20about%20your%20available%20footwear."
-        class="gold-button"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        Order on WhatsApp
-    </a>
+        const SUPABASE_KEY =
+            "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
 
-</section>
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
 
 
-<!-- FOOTER -->
+        function escapeHtml(value) {
 
-<footer>
+            if (value === null || value === undefined) {
+                return "";
+            }
 
-    © 2026 KimasFootwear. Every Step Tells a Story.
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
 
-</footer>
+
+        function formatPrice(price) {
+
+            const number = Number(price);
+
+            if (Number.isNaN(number)) {
+                return "";
+            }
+
+            return "₦" + number.toLocaleString("en-NG");
+        }
+
+
+        async function loadFeaturedProducts() {
+
+            const grid =
+                document.getElementById("productsGrid");
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("products")
+                .select(
+                    "id,name,collection,description,price,photo_url,active"
+                )
+                .eq("active", true)
+                .order("created_at", {
+                    ascending: false
+                })
+                .limit(6);
+
+
+            if (error) {
+
+                console.error(error);
+
+                grid.innerHTML = `
+                    <div class="empty-products">
+                        Our latest footwear is being updated.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            if (!data || data.length === 0) {
+
+                grid.innerHTML = `
+                    <div class="empty-products">
+                        New KimasFootwear pieces are coming soon.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            grid.innerHTML = data.map(product => {
+
+                const image =
+                    product.photo_url ||
+                    "logo.png";
+
+                const collectionPage = {
+
+                    Classic: "classic.html",
+
+                    Corporate: "corporate.html",
+
+                    Couples: "couples.html",
+
+                    Custom: "custom.html"
+
+                }[product.collection] || "index.html";
+
+
+                const whatsappText =
+                    `Hello KimasFootwear, I am interested in ${product.name}.`;
+
+
+                const whatsappUrl =
+                    "https://wa.me/2349042375290?text=" +
+                    encodeURIComponent(whatsappText);
+
+
+                return `
+
+                    <article class="product-card">
+
+                        <img
+                            class="product-image"
+                            src="${escapeHtml(image)}"
+                            alt="${escapeHtml(product.name)}"
+                        >
+
+                        <div class="product-info">
+
+                            <div class="product-collection">
+                                ${escapeHtml(product.collection)}
+                            </div>
+
+                            <div class="product-name">
+                                ${escapeHtml(product.name)}
+                            </div>
+
+                            <div class="product-description">
+                                ${escapeHtml(
+                                    product.description ||
+                                    "A refined KimasFootwear creation."
+                                )}
+                            </div>
+
+                            <div class="product-price">
+                                ${formatPrice(product.price)}
+                            </div>
+
+                            <div class="product-buttons">
+
+                                <a
+                                    href="${whatsappUrl}"
+                                    class="small-btn order-btn"
+                                >
+                                    Order
+                                </a>
+
+                                <a
+                                    href="${collectionPage}"
+                                    class="small-btn collection-btn"
+                                >
+                                    View Collection
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }).join("");
+
+        }
+
+
+        loadFeaturedProducts();
+
+    </script>
 
 </body>
+
 </html>
