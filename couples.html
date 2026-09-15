@@ -8,6 +8,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
 * {
@@ -16,8 +18,12 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: #111;
+    background: #0b0b0b;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
@@ -29,12 +35,13 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #111;
+    background: rgba(11,11,11,.96);
+    backdrop-filter: blur(10px);
     padding: 18px 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #292929;
 }
 
 .logo {
@@ -47,13 +54,14 @@ header {
 
 nav {
     display: flex;
-    gap: 25px;
+    gap: 28px;
 }
 
 nav a {
-    color: #fff;
+    color: #eee;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 500;
     transition: .3s;
 }
 
@@ -64,22 +72,42 @@ nav a:hover {
 /* HERO */
 
 .hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 100px 8% 70px;
+    padding: 90px 8%;
 
     background:
         linear-gradient(
-            rgba(0,0,0,.7),
-            rgba(0,0,0,.85)
+            rgba(0,0,0,.62),
+            rgba(0,0,0,.92)
         ),
         url('logo.png') center/contain no-repeat;
+
+    border-bottom: 1px solid #242424;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero-label {
+    color: #d4af37;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 18px;
 }
 
 .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(45px, 8vw, 75px);
+    font-size: clamp(48px, 8vw, 78px);
+    line-height: 1.05;
     color: #d4af37;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .hero p {
@@ -87,105 +115,150 @@ nav a:hover {
     margin: auto;
     color: #ddd;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 25px;
+    font-size: 27px;
 }
 
 /* COLLECTION */
 
 .collection {
-    padding: 80px 8%;
+    padding: 95px 8%;
 }
 
 .collection-title {
     text-align: center;
-    margin-bottom: 50px;
+    max-width: 700px;
+    margin: 0 auto 55px;
+}
+
+.collection-label {
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 
 .collection-title h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    color: #d4af37;
-    margin-bottom: 12px;
+    font-size: 44px;
+    color: #fff;
+    margin-bottom: 15px;
 }
 
 .collection-title p {
-    color: #aaa;
+    color: #999;
+    font-size: 14px;
 }
 
 /* PRODUCTS */
 
 .products {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
 }
 
 .product {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
+    background: #151515;
+    border: 1px solid #292929;
+    border-radius: 14px;
     overflow: hidden;
-    transition: .3s;
+    transition: .35s ease;
 }
 
 .product:hover {
-    transform: translateY(-7px);
+    transform: translateY(-8px);
     border-color: #d4af37;
+    box-shadow: 0 18px 45px rgba(0,0,0,.45);
 }
 
 .product-image {
     width: 100%;
-    height: 350px;
+    height: 380px;
     background: #080808;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 
 .product-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    transition: .5s ease;
+}
+
+.product:hover .product-image img {
+    transform: scale(1.04);
 }
 
 .product-info {
-    padding: 25px;
+    padding: 28px;
 }
 
 .product-info h3 {
     font-family: 'Playfair Display', serif;
     color: #d4af37;
-    font-size: 26px;
-    margin-bottom: 10px;
+    font-size: 27px;
+    margin-bottom: 8px;
 }
 
-.product-info p {
-    color: #ccc;
-    margin-bottom: 20px;
+.product-price {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.product-description {
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 23px;
 }
 
 .order-button {
     display: inline-block;
     background: #d4af37;
-    color: #111;
+    color: #0b0b0b;
     text-decoration: none;
-    padding: 12px 22px;
+    padding: 13px 22px;
     border-radius: 5px;
+    font-size: 13px;
     font-weight: 700;
+    transition: .3s;
 }
 
 .order-button:hover {
     background: #fff;
+    transform: translateY(-2px);
+}
+
+/* EMPTY / LOADING */
+
+.status-message {
+    text-align: center;
+    color: #999;
+    padding: 50px 20px;
+    grid-column: 1 / -1;
+}
+
+.status-message strong {
+    display: block;
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 25px;
+    margin-bottom: 8px;
 }
 
 /* BACK */
 
 .back-section {
     text-align: center;
-    padding: 50px 8%;
-    border-top: 1px solid #333;
+    padding: 55px 8%;
+    border-top: 1px solid #292929;
 }
 
 .back-button {
@@ -193,22 +266,25 @@ nav a:hover {
     color: #d4af37;
     text-decoration: none;
     border: 1px solid #d4af37;
-    padding: 12px 25px;
+    padding: 12px 26px;
     border-radius: 5px;
+    font-size: 13px;
+    transition: .3s;
 }
 
 .back-button:hover {
     background: #d4af37;
-    color: #111;
+    color: #0b0b0b;
 }
 
 /* FOOTER */
 
 footer {
     text-align: center;
-    padding: 30px 8%;
-    border-top: 1px solid #333;
-    color: #777;
+    padding: 32px 8%;
+    border-top: 1px solid #222;
+    color: #666;
+    font-size: 12px;
 }
 
 /* MOBILE */
@@ -219,32 +295,41 @@ footer {
         padding: 16px 5%;
     }
 
+    .logo {
+        font-size: 20px;
+    }
+
     nav {
         gap: 12px;
     }
 
     nav a {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .hero {
-        padding: 80px 6% 60px;
+        min-height: 430px;
+        padding: 75px 6% 60px;
+    }
+
+    .hero-label {
+        letter-spacing: 3px;
     }
 
     .hero h1 {
-        font-size: 48px;
+        font-size: 47px;
     }
 
     .hero p {
-        font-size: 22px;
+        font-size: 23px;
     }
 
     .collection {
-        padding: 60px 6%;
+        padding: 65px 6%;
     }
 
     .collection-title h2 {
-        font-size: 34px;
+        font-size: 35px;
     }
 
     .products {
@@ -252,7 +337,33 @@ footer {
     }
 
     .product-image {
-        height: 300px;
+        height: 320px;
+    }
+
+    .product-info {
+        padding: 24px;
+    }
+
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 400px) {
+
+    nav {
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 10px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 21px;
     }
 
 }
@@ -289,12 +400,22 @@ footer {
 
 <section class="hero">
 
-    <h1>Couples Collection</h1>
+    <div class="hero-content">
 
-    <p>
-        Matching footwear created for two people
-        walking through life together.
-    </p>
+        <div class="hero-label">
+            KimasFootwear
+        </div>
+
+        <h1>
+            Couples Collection
+        </h1>
+
+        <p>
+            Matching footwear created for two people
+            walking through life together.
+        </p>
+
+    </div>
 
 </section>
 
@@ -303,7 +424,13 @@ footer {
 
     <div class="collection-title">
 
-        <h2>For Two</h2>
+        <div class="collection-label">
+            Made For Two
+        </div>
+
+        <h2>
+            For Two
+        </h2>
 
         <p>
             Beautiful footwear for couples,
@@ -313,42 +440,18 @@ footer {
     </div>
 
 
-    <div class="products">
+    <div
+        class="products"
+        id="products"
+    >
 
-        <!-- COUPLES PRODUCT -->
+        <div class="status-message">
 
-        <div class="product">
+            <strong>
+                Couples Collection
+            </strong>
 
-            <div class="product-image">
-
-                <img
-                    src="logo.png"
-                    alt="KimasFootwear Couples Collection"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>
-                    Couple's Pair
-                </h3>
-
-                <p>
-                    Matching footwear designed to celebrate
-                    connection, love and togetherness.
-                </p>
-
-                <a
-                    href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%27m%20interested%20in%20the%20Couples%20Collection."
-                    class="order-button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Order on WhatsApp
-                </a>
-
-            </div>
+            Loading our latest pieces...
 
         </div>
 
@@ -375,6 +478,227 @@ footer {
     Every Step Tells a Story.
 
 </footer>
+
+
+<script>
+
+/* SUPABASE */
+
+const SUPABASE_URL =
+    "https://hisdjtixefaoocvlzaml.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* SECURITY */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* PRICE FORMAT */
+
+function formatPrice(price) {
+
+    const number =
+        Number(price);
+
+    if (!Number.isFinite(number)) {
+        return "";
+    }
+
+    return "₦" +
+        number.toLocaleString(
+            "en-NG",
+            {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            }
+        );
+
+}
+
+
+/* WHATSAPP */
+
+function whatsappLink(productName) {
+
+    const message =
+        "Hello KimasFootwear, I'm interested in " +
+        productName +
+        " from the Couples Collection.";
+
+    return "https://wa.me/2349042375290?text=" +
+        encodeURIComponent(message);
+
+}
+
+
+/* LOAD PRODUCTS */
+
+async function loadProducts() {
+
+    const container =
+        document.getElementById("products");
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("products")
+        .select(
+            "id,name,collection,description,price,photo_url,active"
+        )
+        .eq("collection", "Couples")
+        .eq("active", true)
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Error loading products:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="status-message">
+                <strong>Couples Collection</strong>
+                Our collection is being updated.
+                Please check back shortly.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+        container.innerHTML = `
+            <div class="status-message">
+                <strong>Coming Soon</strong>
+                Beautiful Couples Collection pieces
+                are being prepared for you.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        data.map(product => {
+
+            const name =
+                escapeHtml(
+                    product.name
+                );
+
+            const description =
+                escapeHtml(
+                    product.description ||
+                    "A beautiful KimasFootwear piece created for shared moments."
+                );
+
+            const image =
+                product.photo_url ||
+                "logo.png";
+
+            const price =
+                formatPrice(
+                    product.price
+                );
+
+            const whatsapp =
+                whatsappLink(
+                    product.name
+                );
+
+
+            return `
+
+                <article class="product">
+
+                    <div class="product-image">
+
+                        <img
+                            src="${escapeHtml(image)}"
+                            alt="${name}"
+                            loading="lazy"
+                            onerror="this.src='logo.png'"
+                        >
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>
+                            ${name}
+                        </h3>
+
+                        ${
+                            price
+                            ?
+                            `<div class="product-price">
+                                ${price}
+                            </div>`
+                            :
+                            ""
+                        }
+
+                        <p class="product-description">
+                            ${description}
+                        </p>
+
+                        <a
+                            href="${whatsapp}"
+                            class="order-button"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Order on WhatsApp
+                        </a>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* START */
+
+loadProducts();
+
+</script>
 
 </body>
 </html>
