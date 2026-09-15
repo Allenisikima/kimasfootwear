@@ -8,7 +8,13 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     margin: 0;
@@ -16,251 +22,513 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: #111;
+    background: #0a0a0a;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
 }
 
-/* HEADER */
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #111;
-    padding: 18px 8%;
+    background: rgba(10, 10, 10, 0.94);
+    backdrop-filter: blur(14px);
+    padding: 18px 7%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18);
 }
 
 .logo {
     text-decoration: none;
     color: #d4af37;
     font-family: 'Playfair Display', serif;
-    font-size: 24px;
+    font-size: 25px;
     font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 nav {
     display: flex;
-    gap: 25px;
+    align-items: center;
+    gap: 28px;
 }
 
 nav a {
-    color: #fff;
+    position: relative;
+    color: #ddd;
     text-decoration: none;
-    font-size: 14px;
-    transition: .3s;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 1px;
+    background: #d4af37;
+    transition: 0.3s;
 }
 
 nav a:hover {
     color: #d4af37;
 }
 
-/* HERO */
+nav a:hover::after {
+    width: 100%;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 100px 8% 70px;
+    padding: 90px 7%;
 
     background:
-        linear-gradient(
-            rgba(0,0,0,.7),
-            rgba(0,0,0,.85)
+        radial-gradient(
+            circle at center,
+            rgba(212,175,55,0.10),
+            transparent 42%
         ),
-        url('logo.png') center/contain no-repeat;
+        linear-gradient(
+            180deg,
+            #0a0a0a 0%,
+            #101010 55%,
+            #0a0a0a 100%
+        );
+
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border: 1px solid rgba(212,175,55,0.08);
+    border-radius: 50%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+}
+
+.hero-label {
+    color: #d4af37;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
 }
 
 .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(45px, 8vw, 75px);
+    font-size: clamp(48px, 9vw, 90px);
+    line-height: 1.05;
+    font-weight: 600;
+    color: #f5f5f5;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
     color: #d4af37;
-    margin-bottom: 20px;
 }
 
 .hero p {
-    max-width: 700px;
+    max-width: 680px;
     margin: auto;
-    color: #ddd;
+    color: #bdbdbd;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 25px;
+    font-size: clamp(21px, 3vw, 28px);
+    line-height: 1.5;
 }
 
-/* COLLECTION */
+.hero-line {
+    width: 80px;
+    height: 1px;
+    background: #d4af37;
+    margin: 32px auto 0;
+}
+
+
+/* =====================================================
+   COLLECTION
+===================================================== */
 
 .collection {
-    padding: 80px 8%;
+    padding: 100px 7%;
+    background: #0d0d0d;
 }
 
 .collection-title {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
+}
+
+.collection-label {
+    color: #d4af37;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
 .collection-title h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    color: #d4af37;
+    font-size: clamp(34px, 5vw, 50px);
+    color: #f4f4f4;
     margin-bottom: 12px;
 }
 
-.collection-title p {
-    color: #aaa;
+.collection-title h2 span {
+    color: #d4af37;
 }
 
-/* PRODUCTS */
+.collection-title p {
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
 
 .products {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    max-width: 1000px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px;
+    max-width: 1150px;
     margin: auto;
 }
 
 .product {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
+    position: relative;
+    background: #141414;
+    border: 1px solid #242424;
+    border-radius: 2px;
     overflow: hidden;
-    transition: .3s;
+    transition:
+        transform 0.45s ease,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease;
 }
 
 .product:hover {
-    transform: translateY(-7px);
-    border-color: #d4af37;
+    transform: translateY(-10px);
+    border-color: rgba(212,175,55,0.65);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
 }
 
+
+/* =====================================================
+   PRODUCT IMAGE
+===================================================== */
+
 .product-image {
+    position: relative;
     width: 100%;
-    height: 350px;
-    background: #080808;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 430px;
+    background:
+        radial-gradient(
+            circle at center,
+            #202020,
+            #080808 75%
+        );
+    overflow: hidden;
+}
+
+.product-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        transparent 65%,
+        rgba(0,0,0,0.25)
+    );
+    pointer-events: none;
 }
 
 .product-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
 }
 
+.product:hover .product-image img {
+    transform: scale(1.045);
+}
+
+
+/* =====================================================
+   PRODUCT INFO
+===================================================== */
+
 .product-info {
-    padding: 25px;
+    padding: 30px;
 }
 
 .product-info h3 {
     font-family: 'Playfair Display', serif;
+    color: #f3f3f3;
+    font-size: 27px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.product-price {
     color: #d4af37;
-    font-size: 26px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
 .product-info p {
-    color: #ccc;
-    margin-bottom: 20px;
+    color: #999;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 25px;
 }
 
+
+/* =====================================================
+   ORDER BUTTON
+===================================================== */
+
 .order-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: #d4af37;
-    color: #111;
+    color: #0a0a0a;
     text-decoration: none;
-    padding: 12px 22px;
-    border-radius: 5px;
+    padding: 13px 22px;
+    min-width: 190px;
+    font-size: 12px;
     font-weight: 700;
+    letter-spacing: 0.5px;
+    border: 1px solid #d4af37;
+    transition: 0.3s;
 }
 
 .order-button:hover {
-    background: #fff;
+    background: transparent;
+    color: #d4af37;
 }
 
-/* BACK */
+
+/* =====================================================
+   LOADING / EMPTY / ERROR
+===================================================== */
+
+.loading,
+.empty,
+.error {
+    text-align: center;
+    padding: 70px 20px;
+    grid-column: 1 / -1;
+}
+
+.loading {
+    color: #888;
+}
+
+.empty {
+    color: #888;
+}
+
+.error {
+    color: #d98c8c;
+}
+
+
+/* =====================================================
+   BACK SECTION
+===================================================== */
 
 .back-section {
     text-align: center;
-    padding: 50px 8%;
-    border-top: 1px solid #333;
+    padding: 70px 7%;
+    background: #0a0a0a;
+    border-top: 1px solid #202020;
+}
+
+.back-text {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 20px;
 }
 
 .back-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     color: #d4af37;
     text-decoration: none;
-    border: 1px solid #d4af37;
-    padding: 12px 25px;
-    border-radius: 5px;
+    border: 1px solid rgba(212,175,55,0.65);
+    padding: 13px 27px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .back-button:hover {
     background: #d4af37;
-    color: #111;
+    color: #0a0a0a;
 }
 
-/* FOOTER */
+
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer {
     text-align: center;
-    padding: 30px 8%;
-    border-top: 1px solid #333;
-    color: #777;
+    padding: 35px 7%;
+    background: #080808;
+    border-top: 1px solid #1b1b1b;
+    color: #666;
+    font-size: 11px;
+    letter-spacing: 0.5px;
 }
 
-/* MOBILE */
+.footer-brand {
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 6px;
+}
 
-@media (max-width: 700px) {
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 750px) {
 
     header {
         padding: 16px 5%;
     }
 
+    .logo {
+        font-size: 21px;
+    }
+
     nav {
-        gap: 12px;
+        gap: 14px;
     }
 
     nav a {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .hero {
-        padding: 80px 6% 60px;
+        min-height: 500px;
+        padding: 75px 6%;
     }
 
     .hero h1 {
-        font-size: 48px;
+        font-size: 49px;
+    }
+
+    .hero-label {
+        font-size: 10px;
+        letter-spacing: 3px;
     }
 
     .hero p {
-        font-size: 22px;
+        font-size: 21px;
     }
 
     .collection {
-        padding: 60px 6%;
-    }
-
-    .collection-title h2 {
-        font-size: 34px;
+        padding: 75px 5%;
     }
 
     .products {
         grid-template-columns: 1fr;
+        gap: 28px;
     }
 
     .product-image {
-        height: 300px;
+        height: 360px;
     }
 
+    .product-info {
+        padding: 25px;
+    }
+
+    .product-info h3 {
+        font-size: 24px;
+    }
+
+    .order-button {
+        width: 100%;
+    }
+
+    .back-section {
+        padding: 60px 5%;
+    }
+}
+
+@media (max-width: 420px) {
+
+    nav {
+        gap: 9px;
+    }
+
+    nav a {
+        font-size: 9px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .product-image {
+        height: 320px;
+    }
 }
 
 </style>
 </head>
 
+
 <body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -287,69 +555,65 @@ footer {
 </header>
 
 
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
-    <h1>Corporate Collection</h1>
+    <div class="hero-content">
 
-    <p>
-        Refined footwear designed for professionals
-        who want confidence, elegance and distinction.
-    </p>
+        <div class="hero-label">
+            KimasFootwear
+        </div>
+
+        <h1>
+            Corporate <span>Collection</span>
+        </h1>
+
+        <p>
+            Refined footwear designed for professionals
+            who value confidence, elegance and distinction.
+        </p>
+
+        <div class="hero-line"></div>
+
+    </div>
 
 </section>
 
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
 
 <section class="collection">
 
     <div class="collection-title">
 
-        <h2>Corporate</h2>
+        <div class="collection-label">
+            The Collection
+        </div>
+
+        <h2>
+            Professional <span>Distinction</span>
+        </h2>
 
         <p>
-            Professional footwear for work, meetings,
+            Sophisticated footwear for work, meetings,
             events and important occasions.
         </p>
 
     </div>
 
 
-    <div class="products">
+    <div
+        class="products"
+        id="productsContainer"
+    >
 
-        <!-- CORPORATE PRODUCT -->
-
-        <div class="product">
-
-            <div class="product-image">
-
-                <img
-                    src="logo.png"
-                    alt="KimasFootwear Corporate Collection"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>
-                    Corporate Classic
-                </h3>
-
-                <p>
-                    A sophisticated design created to
-                    complement your professional appearance.
-                </p>
-
-                <a
-                    href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%27m%20interested%20in%20the%20Corporate%20Collection."
-                    class="order-button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Order on WhatsApp
-                </a>
-
-            </div>
-
+        <div class="loading">
+            Loading Corporate Collection...
         </div>
 
     </div>
@@ -357,7 +621,15 @@ footer {
 </section>
 
 
+<!-- =====================================================
+     BACK
+===================================================== -->
+
 <section class="back-section">
+
+    <div class="back-text">
+        Explore more from KimasFootwear.
+    </div>
 
     <a
         href="index.html#collection"
@@ -369,12 +641,252 @@ footer {
 </section>
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
+
+    <div class="footer-brand">
+        KimasFootwear
+    </div>
 
     © 2026 KimasFootwear.
     Every Step Tells a Story.
 
 </footer>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+"https://hisdjtixefaoocvlzaml.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+
+/* =====================================================
+   LOAD CORPORATE PRODUCTS
+===================================================== */
+
+async function loadCorporateProducts() {
+
+    const container =
+        document.getElementById(
+            "productsContainer"
+        );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("products")
+        .select(
+            "id,name,collection,description,price,photo_url,active"
+        )
+        .eq(
+            "collection",
+            "Corporate"
+        )
+        .eq(
+            "active",
+            true
+        )
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+        if (error) {
+
+            console.error(error);
+
+            container.innerHTML = `
+                <div class="error">
+                    Unable to load the Corporate Collection.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    New Corporate footwear will be added soon.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        data.forEach(function(product) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "product";
+
+
+            const formattedPrice =
+                Number(product.price)
+                .toLocaleString(
+                    "en-NG",
+                    {
+                        style: "currency",
+                        currency: "NGN",
+                        minimumFractionDigits: 0
+                    }
+                );
+
+
+            const image =
+                product.photo_url
+                ?
+                product.photo_url
+                :
+                "logo.png";
+
+
+            const whatsappMessage =
+                "Hello KimasFootwear, I am interested in the " +
+                product.name +
+                " from the Corporate Collection. " +
+                "Price: " +
+                formattedPrice +
+                ". Please I would like to know more about it.";
+
+
+            const whatsappLink =
+                "https://wa.me/2349042375290?text=" +
+                encodeURIComponent(
+                    whatsappMessage
+                );
+
+
+            card.innerHTML = `
+
+                <div class="product-image">
+
+                    <img
+                        src="${escapeHtml(image)}"
+                        alt="${escapeHtml(product.name)}"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h3>
+                        ${escapeHtml(product.name)}
+                    </h3>
+
+
+                    <div class="product-price">
+                        ${formattedPrice}
+                    </div>
+
+
+                    <p>
+                        ${escapeHtml(
+                            product.description ||
+                            "A refined KimasFootwear design created for professional elegance."
+                        )}
+                    </p>
+
+
+                    <a
+                        href="${escapeHtml(whatsappLink)}"
+                        class="order-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Order on WhatsApp
+                    </a>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        });
+
+
+    } catch(error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="error">
+                Something went wrong while loading the collection.
+            </div>
+        `;
+    }
+}
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+    }
+
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadCorporateProducts();
+
+</script>
 
 </body>
 </html>
