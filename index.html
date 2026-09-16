@@ -872,7 +872,8 @@ footer {
             made especially for you.
         </p>
 
-        <a href="https://wa.me/2349042375290?text=Hello%20KimasFootwear%2C%20I%20would%20like%20to%20make%20an%20order."
+        <!-- CHANGED ONLY THIS LINK -->
+        <a href="order.html"
            class="btn btn-gold">
             Start Your Order
         </a>
@@ -1015,10 +1016,8 @@ async function loadFeaturedProducts() {
         }[product.collection] || "index.html";
 
 
-        /* ONLY CHANGE:
-           Send product name and collection
-           to the order form.
-        */
+        /* Send product name and collection
+           to the order form. */
 
         const orderUrl =
             "order.html?product=" +
