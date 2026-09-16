@@ -371,6 +371,123 @@ header p {
     padding: 25px;
 }
 
+
+/* =====================================================
+   ORDERS
+===================================================== */
+
+.order-list {
+    display: grid;
+    gap: 18px;
+}
+
+.order-item {
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.order-item.new-order {
+    border-color: #d4af37;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.order-header h3 {
+    color: #d4af37;
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.order-date {
+    color: #888;
+    font-size: 12px;
+}
+
+.order-status {
+    min-width: 170px;
+    margin: 0;
+}
+
+.order-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.order-detail {
+    background: #101010;
+    border: 1px solid #2c2c2c;
+    border-radius: 9px;
+    padding: 15px;
+}
+
+.order-detail h4 {
+    color: #d4af37;
+    margin: 0 0 10px;
+    font-size: 15px;
+}
+
+.order-detail p {
+    color: #ccc;
+    margin: 5px 0;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.order-detail strong {
+    color: #fff;
+}
+
+.order-message {
+    margin-top: 15px;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 9px;
+    padding: 15px;
+}
+
+.order-message h4 {
+    color: #d4af37;
+    margin: 0 0 12px;
+}
+
+.order-message pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #ccc;
+    font-family: Arial, sans-serif;
+    line-height: 1.55;
+    margin: 0;
+    font-size: 13px;
+}
+
+.order-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.order-count {
+    display: inline-block;
+    background: #d4af37;
+    color: #080808;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+
 /* PRODUCTS */
 
 .product-item {
@@ -474,6 +591,22 @@ header p {
     .product-actions button {
         width: 100%;
     }
+
+    .order-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-status {
+        width: 100%;
+    }
+
+    .order-actions {
+        display: block;
+    }
+
+    .order-actions button {
+        width: 100%;
+    }
 }
 
 </style>
@@ -481,7 +614,10 @@ header p {
 
 <body>
 
-<!-- LOGIN -->
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
 <div id="loginScreen" class="login-container">
 
@@ -491,7 +627,7 @@ header p {
 
         <p>
             Private Admin Dashboard<br>
-            Sign in to manage your customer messages and products.
+            Sign in to manage your customer messages, orders and products.
         </p>
 
         <div id="loginStatus" class="status"></div>
@@ -533,7 +669,9 @@ header p {
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
 
 <div id="dashboard" class="dashboard hidden">
 
@@ -548,7 +686,7 @@ header p {
 <h1>KimasFootwear</h1>
 
 <p>
-Private Message & Product Management Dashboard
+Private Message, Order & Product Management Dashboard
 </p>
 
 </div>
@@ -566,7 +704,9 @@ Logout
 </header>
 
 
-<!-- CUSTOMER MESSAGES -->
+<!-- =====================================================
+     CUSTOMER MESSAGES
+===================================================== -->
 
 <h2 class="section-heading">
 Customer Messages
@@ -702,7 +842,9 @@ Cancel Edit
 </div>
 
 
-<!-- MESSAGE PREVIEW -->
+<!-- =====================================================
+     MESSAGE PREVIEW
+===================================================== -->
 
 <div
 id="previewCard"
@@ -743,7 +885,9 @@ Your message will appear here.
 </div>
 
 
-<!-- CUSTOMER LINK -->
+<!-- =====================================================
+     CUSTOMER LINK
+===================================================== -->
 
 <div
 id="linkCard"
@@ -786,7 +930,9 @@ Download QR
 </div>
 
 
-<!-- MESSAGE LIST -->
+<!-- =====================================================
+     MESSAGE LIST
+===================================================== -->
 
 <div class="card">
 
@@ -808,7 +954,60 @@ Loading messages...
 </div>
 
 
-<!-- PRODUCTS -->
+<!-- =====================================================
+     CUSTOMER ORDERS
+===================================================== -->
+
+<h2 class="section-heading">
+Customer Orders
+</h2>
+
+
+<div class="card">
+
+<h2>
+Order Management
+<span
+id="orderCount"
+class="order-count"
+>
+0
+</span>
+</h2>
+
+<div id="orderStatus" class="status"></div>
+
+
+<div style="margin-bottom:18px;">
+
+<button
+type="button"
+class="gold-btn"
+onclick="loadOrders()"
+>
+🔄 Refresh Orders
+</button>
+
+</div>
+
+
+<div
+id="orderList"
+class="order-list"
+>
+
+<div class="loading">
+Loading orders...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
 
 <h2 class="section-heading">
 KimasFootwear Products
@@ -937,7 +1136,9 @@ Cancel Edit
 </div>
 
 
-<!-- PRODUCT LIST -->
+<!-- =====================================================
+     PRODUCT LIST
+===================================================== -->
 
 <div class="card">
 
@@ -979,7 +1180,9 @@ const SUPABASE_PUBLISHABLE_KEY =
 let supabaseClient = null;
 
 
-/* MESSAGE VARIABLES */
+/* =====================================================
+   MESSAGE VARIABLES
+===================================================== */
 
 let currentCode = "";
 let editingId = null;
@@ -988,7 +1191,9 @@ let currentPhotoUrl = "";
 let selectedPhotoFile = null;
 
 
-/* PRODUCT VARIABLES */
+/* =====================================================
+   PRODUCT VARIABLES
+===================================================== */
 
 let editingProductId = null;
 let selectedProductPhoto = null;
@@ -1181,6 +1386,7 @@ async function login(event) {
 
         await generateNewCode();
         await loadMessages();
+        await loadOrders();
         await loadProducts();
 
 
@@ -1235,6 +1441,7 @@ async function checkLogin() {
 
             await generateNewCode();
             await loadMessages();
+            await loadOrders();
             await loadProducts();
         }
 
@@ -2446,6 +2653,719 @@ function clearForm() {
 
 
 /* =====================================================
+   =====================================================
+   CUSTOMER ORDERS
+   =====================================================
+===================================================== */
+
+
+/* =====================================================
+   LOAD ORDERS
+===================================================== */
+
+async function loadOrders() {
+
+    if (!supabaseClient) return;
+
+
+    const list =
+        document.getElementById("orderList");
+
+
+    const count =
+        document.getElementById("orderCount");
+
+
+    if (!list) return;
+
+
+    list.innerHTML =
+        '<div class="loading">Loading orders...</div>';
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("orders")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+        if (error) {
+
+            console.error(
+                "Orders error:",
+                error
+            );
+
+
+            list.innerHTML =
+                '<div class="empty">Unable to load orders: ' +
+                escapeHtml(error.message) +
+                '</div>';
+
+
+            if (count) {
+                count.textContent = "0";
+            }
+
+            return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            list.innerHTML =
+                '<div class="empty">No customer orders yet.</div>';
+
+
+            if (count) {
+                count.textContent = "0";
+            }
+
+            return;
+        }
+
+
+        if (count) {
+            count.textContent =
+                data.length;
+        }
+
+
+        list.innerHTML = "";
+
+
+        data.forEach(function(order) {
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "order-item";
+
+
+            if (
+                !order.status ||
+                order.status === "New"
+            ) {
+
+                item.classList.add(
+                    "new-order"
+                );
+            }
+
+
+            const createdDate =
+                order.created_at
+                ?
+                new Date(
+                    order.created_at
+                ).toLocaleString(
+                    "en-NG",
+                    {
+                        dateStyle: "medium",
+                        timeStyle: "short"
+                    }
+                )
+                :
+                "Unknown";
+
+
+            const status =
+                order.status ||
+                "New";
+
+
+            const personalMessage =
+                order.private_message_enabled
+                ?
+                `
+                <div class="order-detail">
+
+                    <h4>
+                        💌 Personal Message
+                    </h4>
+
+                    <p>
+                        <strong>From:</strong>
+                        ${escapeHtml(
+                            order.message_sender || "-"
+                        )}
+                    </p>
+
+                    <p>
+                        <strong>To:</strong>
+                        ${escapeHtml(
+                            order.message_recipient || "-"
+                        )}
+                    </p>
+
+                    <p>
+                        <strong>Message:</strong><br>
+                        ${escapeHtml(
+                            order.private_message || "-"
+                        )}
+                    </p>
+
+                </div>
+                `
+                :
+                `
+                <div class="order-detail">
+
+                    <h4>
+                        💌 Personal Message
+                    </h4>
+
+                    <p>
+                        No personal message requested.
+                    </p>
+
+                </div>
+                `;
+
+
+            item.innerHTML = `
+
+                <div class="order-header">
+
+                    <div>
+
+                        <h3>
+                            📦 Order #${escapeHtml(
+                                String(order.id)
+                            )}
+                        </h3>
+
+                        <div class="order-date">
+                            ${escapeHtml(createdDate)}
+                        </div>
+
+                    </div>
+
+
+                    <select
+                        class="order-status"
+                        id="order-status-${order.id}"
+                        onchange="updateOrderStatus(${order.id}, this.value)"
+                    >
+
+                        <option
+                            value="New"
+                            ${status === "New" ? "selected" : ""}
+                        >
+                            New
+                        </option>
+
+                        <option
+                            value="Confirmed"
+                            ${status === "Confirmed" ? "selected" : ""}
+                        >
+                            Confirmed
+                        </option>
+
+                        <option
+                            value="Processing"
+                            ${status === "Processing" ? "selected" : ""}
+                        >
+                            Processing
+                        </option>
+
+                        <option
+                            value="Completed"
+                            ${status === "Completed" ? "selected" : ""}
+                        >
+                            Completed
+                        </option>
+
+                        <option
+                            value="Cancelled"
+                            ${status === "Cancelled" ? "selected" : ""}
+                        >
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="order-grid">
+
+
+                    <!-- CUSTOMER -->
+
+                    <div class="order-detail">
+
+                        <h4>
+                            👤 Customer
+                        </h4>
+
+                        <p>
+                            <strong>Name:</strong>
+                            ${escapeHtml(
+                                order.customer_name
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>WhatsApp:</strong>
+                            ${escapeHtml(
+                                order.customer_phone
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            ${escapeHtml(
+                                order.customer_email ||
+                                "Not provided"
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <!-- PRODUCT -->
+
+                    <div class="order-detail">
+
+                        <h4>
+                            👞 Footwear
+                        </h4>
+
+                        <p>
+                            <strong>Product:</strong>
+                            ${escapeHtml(
+                                order.product_name
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>Collection:</strong>
+                            ${escapeHtml(
+                                order.collection
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>Size:</strong>
+                            ${escapeHtml(
+                                order.size
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>Quantity:</strong>
+                            ${escapeHtml(
+                                String(
+                                    order.quantity || 1
+                                )
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>Colour:</strong>
+                            ${escapeHtml(
+                                order.colour ||
+                                "Not specified"
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="order-detail">
+
+                        <h4>
+                            📍 Delivery
+                        </h4>
+
+                        <p>
+                            <strong>Address:</strong><br>
+                            ${escapeHtml(
+                                order.delivery_address
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>City:</strong>
+                            ${escapeHtml(
+                                order.delivery_city
+                            )}
+                        </p>
+
+                        <p>
+                            <strong>State:</strong>
+                            ${escapeHtml(
+                                order.delivery_state
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <!-- CUSTOM REQUEST -->
+
+                    <div class="order-detail">
+
+                        <h4>
+                            📝 Customisation
+                        </h4>
+
+                        <p>
+                            ${escapeHtml(
+                                order.custom_request ||
+                                "No special request."
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    ${personalMessage}
+
+                </div>
+
+
+                <!-- EXACT WHATSAPP MESSAGE -->
+
+                <div class="order-message">
+
+                    <h4>
+                        📲 WhatsApp Message
+                    </h4>
+
+                    <pre id="whatsapp-message-${order.id}">${escapeHtml(
+                        order.whatsapp_message ||
+                        "No WhatsApp message was saved with this order."
+                    )}</pre>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <button
+                        type="button"
+                        class="gold-btn"
+                        onclick="copyOrderMessage(${order.id})"
+                    >
+                        Copy WhatsApp Message
+                    </button>
+
+                    <button
+                        type="button"
+                        class="dark-btn"
+                        onclick="contactCustomer('${escapeJs(
+                            order.customer_phone || ""
+                        )}')"
+                    >
+                        Open WhatsApp
+                    </button>
+
+                    <button
+                        type="button"
+                        class="danger-btn"
+                        onclick="deleteOrder(${order.id})"
+                    >
+                        Delete Order
+                    </button>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(item);
+
+        });
+
+
+    } catch(error) {
+
+        console.error(
+            "Unexpected orders error:",
+            error
+        );
+
+
+        list.innerHTML =
+            '<div class="empty">Error loading customer orders.</div>';
+    }
+}
+
+
+/* =====================================================
+   UPDATE ORDER STATUS
+===================================================== */
+
+async function updateOrderStatus(
+    orderId,
+    newStatus
+) {
+
+    if (!supabaseClient) return;
+
+
+    try {
+
+        const {
+            error
+        } =
+        await supabaseClient
+        .from("orders")
+        .update({
+            status: newStatus
+        })
+        .eq(
+            "id",
+            orderId
+        );
+
+
+        if (error) {
+
+            console.error(
+                "Status update error:",
+                error
+            );
+
+
+            showStatus(
+                "orderStatus",
+                "Could not update order status: " +
+                error.message,
+                "error"
+            );
+
+
+            await loadOrders();
+
+            return;
+        }
+
+
+        showStatus(
+            "orderStatus",
+            "Order #" +
+            orderId +
+            " status updated to " +
+            newStatus +
+            ".",
+            "success"
+        );
+
+
+        await loadOrders();
+
+
+    } catch(error) {
+
+        showStatus(
+            "orderStatus",
+            "Error updating order: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* =====================================================
+   COPY ORDER MESSAGE
+===================================================== */
+
+async function copyOrderMessage(
+    orderId
+) {
+
+    const element =
+        document.getElementById(
+            "whatsapp-message-" +
+            orderId
+        );
+
+
+    if (!element) {
+
+        showStatus(
+            "orderStatus",
+            "Order message could not be found.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const message =
+        element.textContent;
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            message
+        );
+
+
+        showStatus(
+            "orderStatus",
+            "WhatsApp message copied successfully.",
+            "success"
+        );
+
+
+    } catch(error) {
+
+        showStatus(
+            "orderStatus",
+            "Could not copy the message automatically.",
+            "error"
+        );
+    }
+}
+
+
+/* =====================================================
+   OPEN CUSTOMER WHATSAPP
+===================================================== */
+
+function contactCustomer(
+    phone
+) {
+
+    if (!phone) {
+
+        showStatus(
+            "orderStatus",
+            "Customer WhatsApp number is not available.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    let cleaned =
+        phone.replace(
+            /[^0-9+]/g,
+            ""
+        );
+
+
+    if (
+        cleaned.startsWith("0")
+    ) {
+
+        cleaned =
+            "234" +
+            cleaned.substring(1);
+    }
+
+
+    if (
+        cleaned.startsWith("+")
+    ) {
+
+        cleaned =
+            cleaned.substring(1);
+    }
+
+
+    window.open(
+        "https://wa.me/" +
+        cleaned,
+        "_blank"
+    );
+}
+
+
+/* =====================================================
+   DELETE ORDER
+===================================================== */
+
+async function deleteOrder(
+    orderId
+) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to permanently delete Order #" +
+            orderId +
+            "?"
+        );
+
+
+    if (!confirmed) return;
+
+
+    try {
+
+        const {
+            error
+        } =
+        await supabaseClient
+        .from("orders")
+        .delete()
+        .eq(
+            "id",
+            orderId
+        );
+
+
+        if (error) {
+
+            showStatus(
+                "orderStatus",
+                "Could not delete order: " +
+                error.message,
+                "error"
+            );
+
+            return;
+        }
+
+
+        showStatus(
+            "orderStatus",
+            "Order #" +
+            orderId +
+            " deleted successfully.",
+            "success"
+        );
+
+
+        await loadOrders();
+
+
+    } catch(error) {
+
+        showStatus(
+            "orderStatus",
+            "Delete error: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* =====================================================
    PRODUCT PHOTO PREVIEW
 ===================================================== */
 
@@ -2620,7 +3540,7 @@ async function uploadProductPhoto(file) {
 
 
 /* =====================================================
-   SAVE PRODUCT - FIXED
+   SAVE PRODUCT
 ===================================================== */
 
 async function saveProduct() {
@@ -2715,8 +3635,6 @@ async function saveProduct() {
 
     try {
 
-        /* UPLOAD PHOTO */
-
         if (selectedProductPhoto) {
 
             showStatus(
@@ -2730,16 +3648,8 @@ async function saveProduct() {
                 await uploadProductPhoto(
                     selectedProductPhoto
                 );
-
-
-            console.log(
-                "Product photo URL:",
-                currentProductPhotoUrl
-            );
         }
 
-
-        /* PRODUCT DATA */
 
         const productData = {
 
@@ -2757,27 +3667,10 @@ async function saveProduct() {
         };
 
 
-        console.log(
-            "Saving product:",
-            productData
-        );
-
-
-        /* SAVE */
-
         let result;
 
 
         if (editingProductId) {
-
-            /*
-             * IMPORTANT FIX:
-             * Do not use .select().single()
-             * after UPDATE.
-             *
-             * Supabase can successfully update the
-             * product without returning a row.
-             */
 
             result =
             await supabaseClient
@@ -2799,8 +3692,6 @@ async function saveProduct() {
         }
 
 
-        /* CHECK ERROR */
-
         if (result.error) {
 
             throw new Error(
@@ -2809,23 +3700,15 @@ async function saveProduct() {
         }
 
 
-        /*
-         * For a NEW product, make sure Supabase
-         * returned the inserted product.
-         */
-
-        if (!editingProductId && !result.data) {
+        if (
+            !editingProductId &&
+            !result.data
+        ) {
 
             throw new Error(
                 "Supabase did not return the newly added product."
             );
         }
-
-
-        console.log(
-            "Product save completed:",
-            result
-        );
 
 
         showStatus(
