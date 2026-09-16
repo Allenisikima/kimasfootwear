@@ -157,6 +157,17 @@ header {
     font-size: 23px;
 }
 
+.price-box {
+    margin-top: 12px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.price-box strong {
+    color: #d4af37;
+    font-size: 20px;
+}
+
 .hidden {
     display: none;
 }
@@ -440,6 +451,16 @@ footer strong {
 
             <span id="selectedProduct"></span>
 
+            <div class="price-box">
+                Unit Price:
+                <strong id="unitPriceDisplay">₦0</strong>
+            </div>
+
+            <div class="price-box">
+                Total:
+                <strong id="totalPriceDisplay">₦0</strong>
+            </div>
+
         </div>
 
 
@@ -453,6 +474,7 @@ footer strong {
                 type="text"
                 id="productName"
                 placeholder="Enter the footwear you want"
+                oninput="loadProductPrice()"
             >
 
         </div>
@@ -466,7 +488,10 @@ footer strong {
                     Collection *
                 </label>
 
-                <select id="collection">
+                <select
+                    id="collection"
+                    onchange="loadProductPrice()"
+                >
 
                     <option value="">
                         Select collection
@@ -537,6 +562,7 @@ footer strong {
                     id="quantity"
                     value="1"
                     min="1"
+                    oninput="updateTotalPrice()"
                 >
 
             </div>
@@ -874,6 +900,178 @@ const supabaseClient =
 
 
 /* ==========================================
+   PRICE
+========================================== */
+
+let currentUnitPrice = 0;
+
+
+/* ==========================================
+   FORMAT NAIRA
+========================================== */
+
+function formatNaira(amount) {
+
+    return "₦" +
+        Number(amount || 0).toLocaleString(
+            "en-NG",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+}
+
+
+/* ==========================================
+   LOAD PRODUCT PRICE
+========================================== */
+
+async function loadProductPrice() {
+
+    const productName =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+    const collection =
+        document.getElementById(
+            "collection"
+        ).value;
+
+    if (!productName || !collection) {
+
+        currentUnitPrice = 0;
+
+        updatePriceDisplay();
+
+        return;
+    }
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("products")
+                .select("price")
+                .eq("name", productName)
+                .eq("collection", collection)
+                .limit(1)
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Product price lookup error:",
+                error
+            );
+
+            currentUnitPrice = 0;
+
+            updatePriceDisplay();
+
+            return;
+        }
+
+
+        if (data && data.price !== null) {
+
+            currentUnitPrice =
+                Number(data.price) || 0;
+
+        } else {
+
+            currentUnitPrice = 0;
+
+        }
+
+
+        updatePriceDisplay();
+
+    } catch (error) {
+
+        console.error(
+            "Price lookup failed:",
+            error
+        );
+
+        currentUnitPrice = 0;
+
+        updatePriceDisplay();
+
+    }
+
+}
+
+
+/* ==========================================
+   UPDATE TOTAL PRICE
+========================================== */
+
+function updateTotalPrice() {
+
+    const quantity =
+        Number(
+            document.getElementById(
+                "quantity"
+            ).value
+        ) || 1;
+
+
+    const total =
+        currentUnitPrice * quantity;
+
+
+    document.getElementById(
+        "unitPriceDisplay"
+    ).textContent =
+        formatNaira(currentUnitPrice);
+
+
+    document.getElementById(
+        "totalPriceDisplay"
+    ).textContent =
+        formatNaira(total);
+
+}
+
+
+/* ==========================================
+   UPDATE PRICE DISPLAY
+========================================== */
+
+function updatePriceDisplay() {
+
+    const productBox =
+        document.getElementById(
+            "productBox"
+        );
+
+
+    const productName =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    if (productName) {
+
+        productBox.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    updateTotalPrice();
+
+}
+
+
+/* ==========================================
    AUTO-FILL PRODUCT FROM URL
 ========================================== */
 
@@ -911,6 +1109,17 @@ if (collection) {
     document.getElementById(
         "collection"
     ).value = collection;
+
+}
+
+
+/* ==========================================
+   LOAD PRICE AFTER URL AUTO-FILL
+========================================== */
+
+if (product && collection) {
+
+    loadProductPrice();
 
 }
 
@@ -1029,9 +1238,11 @@ async function submitOrder() {
 
 
     const quantity =
-        document.getElementById(
-            "quantity"
-        ).value;
+        Number(
+            document.getElementById(
+                "quantity"
+            ).value
+        ) || 1;
 
 
     const colour =
@@ -1129,15 +1340,54 @@ async function submitOrder() {
 
 
     if (!address || !city || !state) {
-        alert("Please complete your delivery address.");
+
+        alert(
+            "Please complete your delivery address."
+        );
+
         return;
     }
 
 
     if (!terms) {
-        alert("Please agree to the Terms & Conditions.");
+
+        alert(
+            "Please agree to the Terms & Conditions."
+        );
+
         return;
     }
+
+
+    /* ==========================================
+       MAKE SURE PRICE IS LOADED
+    ========================================== */
+
+    if (currentUnitPrice <= 0) {
+
+        await loadProductPrice();
+
+    }
+
+
+    /*
+       A price is required for the new
+       revenue system.
+    */
+
+    if (currentUnitPrice <= 0) {
+
+        alert(
+            "We could not find the price for this product.\n\n" +
+            "Please select a valid product from the KimasFootwear catalogue."
+        );
+
+        return;
+    }
+
+
+    const totalAmount =
+        currentUnitPrice * quantity;
 
 
     /* ==========================================
@@ -1190,7 +1440,7 @@ No personal message requested.
 
     /* ==========================================
        WHATSAPP MESSAGE
-    ========================================== */
+========================================== */
 
     const whatsappMessage =
 `
@@ -1213,6 +1463,9 @@ Collection: ${collection}
 Size: ${size}
 Quantity: ${quantity}
 Colour: ${colour || "Not specified"}
+
+Unit Price: ${formatNaira(currentUnitPrice)}
+Total Amount: ${formatNaira(totalAmount)}
 
 Customisation / Special Request:
 ${customRequest || "None"}
@@ -1243,7 +1496,7 @@ Thank you.
 
     /* ==========================================
        DISABLE BUTTON
-    ========================================== */
+========================================== */
 
     button.disabled = true;
 
@@ -1253,7 +1506,7 @@ Thank you.
 
     /* ==========================================
        SAVE ORDER
-    ========================================== */
+========================================== */
 
     try {
 
@@ -1282,7 +1535,7 @@ Thank you.
                         size,
 
                     quantity:
-                        Number(quantity) || 1,
+                        quantity,
 
                     colour:
                         colour || null,
@@ -1318,6 +1571,15 @@ Thank you.
                         messageYes
                             ? privateMessage
                             : null,
+
+
+                    /* NEW PRICE FIELDS */
+
+                    unit_price:
+                        currentUnitPrice,
+
+                    total_amount:
+                        totalAmount,
 
 
                     whatsapp_message:
