@@ -333,6 +333,50 @@ header p {
 }
 
 /* =========================
+   REVENUE & SALES ANALYTICS
+========================= */
+
+.sales-section {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.sales-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.sales-card {
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.sales-card h3 {
+    margin: 0 0 10px;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sales-number {
+    color: #d4af37;
+    font-size: 25px;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.sales-card small {
+    display: block;
+    color: #777;
+    margin-top: 7px;
+    font-size: 11px;
+}
+
+/* =========================
    PRODUCTS
 ========================= */
 
@@ -488,6 +532,10 @@ header p {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .sales-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
 @media (max-width: 600px) {
@@ -519,6 +567,19 @@ header p {
 
     .revenue-number {
         font-size: 21px;
+    }
+
+    .sales-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .sales-card {
+        padding: 15px 10px;
+    }
+
+    .sales-number {
+        font-size: 20px;
     }
 
     .order-grid {
@@ -560,7 +621,9 @@ header p {
 
         <h1>KimasFootwear</h1>
 
-        <p>Private Message, Order & Product Management Dashboard</p>
+        <p>
+            Private Message, Order & Product Management Dashboard
+        </p>
 
         <label>Email</label>
 
@@ -578,7 +641,10 @@ header p {
             placeholder="Password"
         >
 
-        <button class="gold-btn full" onclick="login()">
+        <button
+            class="gold-btn full"
+            onclick="login()"
+        >
             Login
         </button>
 
@@ -609,7 +675,10 @@ header p {
 
 <div class="top-bar">
 
-    <button class="dark-btn" onclick="logout()">
+    <button
+        class="dark-btn"
+        onclick="logout()"
+    >
         Logout
     </button>
 
@@ -729,6 +798,130 @@ header p {
             id="cancelledOrdersCount"
         >
             0
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     REVENUE & SALES ANALYTICS
+===================================================== -->
+
+<div class="sales-section">
+
+    <h2 class="section-heading">
+        Revenue & Sales Analytics
+    </h2>
+
+    <div class="sales-grid">
+
+        <div class="sales-card">
+
+            <h3>💰 Total Revenue</h3>
+
+            <div
+                class="sales-number"
+                id="salesTotalRevenue"
+            >
+                ₦0
+            </div>
+
+            <small>
+                Excludes cancelled orders
+            </small>
+
+        </div>
+
+
+        <div class="sales-card">
+
+            <h3>✅ Completed Sales</h3>
+
+            <div
+                class="sales-number"
+                id="completedSalesValue"
+            >
+                ₦0
+            </div>
+
+            <small>
+                Value of completed orders
+            </small>
+
+        </div>
+
+
+        <div class="sales-card">
+
+            <h3>🔄 Active Orders Value</h3>
+
+            <div
+                class="sales-number"
+                id="activeSalesValue"
+            >
+                ₦0
+            </div>
+
+            <small>
+                New, confirmed & processing
+            </small>
+
+        </div>
+
+
+        <div class="sales-card">
+
+            <h3>❌ Cancelled Value</h3>
+
+            <div
+                class="sales-number"
+                id="cancelledSalesValue"
+            >
+                ₦0
+            </div>
+
+            <small>
+                Value of cancelled orders
+            </small>
+
+        </div>
+
+
+        <div class="sales-card">
+
+            <h3>👟 Items Sold</h3>
+
+            <div
+                class="sales-number"
+                id="totalItemsSold"
+            >
+                0
+            </div>
+
+            <small>
+                Total footwear quantity ordered
+            </small>
+
+        </div>
+
+
+        <div class="sales-card">
+
+            <h3>📊 Average Order</h3>
+
+            <div
+                class="sales-number"
+                id="averageOrderValue"
+            >
+                ₦0
+            </div>
+
+            <small>
+                Average value per non-cancelled order
+            </small>
+
         </div>
 
     </div>
@@ -861,9 +1054,11 @@ header p {
         class="message-list"
         id="messageList"
     >
+
         <div class="loading">
             Loading messages...
         </div>
+
     </div>
 
 </div>
@@ -1842,7 +2037,7 @@ async function loadOrders() {
 
 
 /* =====================================================
-   ADVANCED ORDER SUMMARY
+   ADVANCED ORDER SUMMARY + SALES ANALYTICS
 ===================================================== */
 
 function updateOrderSummary() {
@@ -1876,14 +2071,33 @@ function updateOrderSummary() {
 
 
     /*
-       Revenue excludes cancelled orders.
-       It uses total_amount saved with each order.
+       TOTAL REVENUE
+
+       Cancelled orders are excluded.
     */
 
+    const activeOrders =
+        allOrders.filter(order =>
+            (order.status || "").toLowerCase() !== "cancelled"
+        );
+
+
     const revenue =
+        activeOrders.reduce(
+            (sum, order) =>
+                sum + Number(order.total_amount || 0),
+            0
+        );
+
+
+    /*
+       COMPLETED SALES VALUE
+    */
+
+    const completedSales =
         allOrders
             .filter(order =>
-                (order.status || "").toLowerCase() !== "cancelled"
+                (order.status || "").toLowerCase() === "completed"
             )
             .reduce(
                 (sum, order) =>
@@ -1893,7 +2107,79 @@ function updateOrderSummary() {
 
 
     /*
-       Today
+       ACTIVE ORDERS VALUE
+
+       Includes:
+       New
+       Confirmed
+       Processing
+    */
+
+    const activeSales =
+        allOrders
+            .filter(order => {
+
+                const status =
+                    (order.status || "New").toLowerCase();
+
+                return (
+                    status === "new" ||
+                    status === "confirmed" ||
+                    status === "processing"
+                );
+
+            })
+            .reduce(
+                (sum, order) =>
+                    sum + Number(order.total_amount || 0),
+                0
+            );
+
+
+    /*
+       CANCELLED VALUE
+    */
+
+    const cancelledSales =
+        allOrders
+            .filter(order =>
+                (order.status || "").toLowerCase() === "cancelled"
+            )
+            .reduce(
+                (sum, order) =>
+                    sum + Number(order.total_amount || 0),
+                0
+            );
+
+
+    /*
+       TOTAL ITEMS SOLD
+
+       Cancelled orders are excluded.
+    */
+
+    const totalItems =
+        activeOrders.reduce(
+            (sum, order) =>
+                sum + Number(order.quantity || 0),
+            0
+        );
+
+
+    /*
+       AVERAGE ORDER VALUE
+
+       Cancelled orders are excluded.
+    */
+
+    const averageOrder =
+        activeOrders.length > 0
+        ? revenue / activeOrders.length
+        : 0;
+
+
+    /*
+       TODAY
     */
 
     const now =
@@ -1929,7 +2215,7 @@ function updateOrderSummary() {
 
 
     /*
-       This month
+       THIS MONTH
     */
 
     const ordersThisMonth =
@@ -1950,36 +2236,83 @@ function updateOrderSummary() {
         }).length;
 
 
+    /*
+       EXISTING DASHBOARD SUMMARY
+    */
+
     document.getElementById("totalRevenue")
-        .textContent = formatNaira(revenue);
+        .textContent =
+        formatNaira(revenue);
 
 
     document.getElementById("totalOrdersCount")
-        .textContent = total;
+        .textContent =
+        total;
 
 
     document.getElementById("newOrdersCount")
-        .textContent = newOrders;
+        .textContent =
+        newOrders;
 
 
     document.getElementById("processingOrdersCount")
-        .textContent = processing;
+        .textContent =
+        processing;
 
 
     document.getElementById("completedOrdersCount")
-        .textContent = completed;
+        .textContent =
+        completed;
 
 
     document.getElementById("ordersTodayCount")
-        .textContent = ordersToday;
+        .textContent =
+        ordersToday;
 
 
     document.getElementById("ordersMonthCount")
-        .textContent = ordersThisMonth;
+        .textContent =
+        ordersThisMonth;
 
 
     document.getElementById("cancelledOrdersCount")
-        .textContent = cancelled;
+        .textContent =
+        cancelled;
+
+
+    /*
+       NEW REVENUE & SALES ANALYTICS
+    */
+
+    document.getElementById("salesTotalRevenue")
+        .textContent =
+        formatNaira(revenue);
+
+
+    document.getElementById("completedSalesValue")
+        .textContent =
+        formatNaira(completedSales);
+
+
+    document.getElementById("activeSalesValue")
+        .textContent =
+        formatNaira(activeSales);
+
+
+    document.getElementById("cancelledSalesValue")
+        .textContent =
+        formatNaira(cancelledSales);
+
+
+    document.getElementById("totalItemsSold")
+        .textContent =
+        totalItems;
+
+
+    document.getElementById("averageOrderValue")
+        .textContent =
+        formatNaira(averageOrder);
+
 }
 
 
