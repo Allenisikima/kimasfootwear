@@ -6,252 +6,259 @@
 
 <title>KimasFootwear | Place Your Order</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
     background: #080808;
-    color: #fff;
+    color: #f5f5f5;
     font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 header {
-    padding: 18px 6%;
-    border-bottom: 1px solid #292929;
-    background: #080808;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    padding: 22px 7%;
+    border-bottom: 1px solid rgba(212,175,55,.18);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8,8,8,.96);
 }
 
-.header-inner {
-    max-width: 1100px;
-    margin: auto;
+.logo {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 12px;
 }
 
 .logo img {
-    height: 48px;
-    width: auto;
-    max-width: 180px;
+    width: 55px;
+    height: 55px;
     object-fit: contain;
 }
 
-.back-link {
+.logo span {
+    font-family: 'Allura', cursive;
+    font-size: 30px;
     color: #d4af37;
-    text-decoration: none;
-    font-size: 13px;
 }
 
-.back-link:hover {
-    color: #fff;
+.back {
+    color: #d4af37;
+    font-size: 14px;
 }
 
-.page {
-    max-width: 850px;
-    margin: auto;
-    padding: 55px 20px 80px;
+.container {
+    width: min(900px, 92%);
+    margin: 50px auto;
 }
 
-.hero {
+.page-title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 }
 
-.hero small {
+.page-title h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 68px);
+    font-weight: 600;
     color: #d4af37;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-size: 11px;
 }
 
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    margin: 12px 0;
-}
-
-.hero p {
+.page-title p {
     color: #aaa;
-    line-height: 1.7;
-    max-width: 600px;
-    margin: auto;
+    margin-top: 8px;
 }
 
-.form-card {
-    background: #111;
-    border: 1px solid #2c2c2c;
-    border-radius: 16px;
+.form-section {
+    background: #101010;
+    border: 1px solid rgba(212,175,55,.18);
     padding: 30px;
     margin-bottom: 25px;
+    border-radius: 8px;
 }
 
-.form-card h2 {
-    font-family: 'Playfair Display', serif;
+.form-section h2 {
+    font-family: 'Cormorant Garamond', serif;
     color: #d4af37;
-    margin-top: 0;
+    font-size: 30px;
     margin-bottom: 25px;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.field {
+.form-group {
     margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     display: block;
-    font-size: 13px;
+    margin-bottom: 8px;
     color: #ddd;
-    margin-bottom: 7px;
-}
-
-.required {
-    color: #d4af37;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-    background: #191919;
-    border: 1px solid #3a3a3a;
-    color: #fff;
-    padding: 14px;
-    border-radius: 8px;
-    font-family: inherit;
     font-size: 14px;
-    outline: none;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 15px;
+    background: #080808;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
     border-color: #d4af37;
 }
 
-textarea {
-    min-height: 110px;
+.form-group textarea {
+    min-height: 120px;
     resize: vertical;
 }
 
-.product-box {
-    background: #191919;
-    border: 1px solid #333;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.selected-product {
     padding: 18px;
-    border-radius: 10px;
-    margin-bottom: 22px;
+    border: 1px solid rgba(212,175,55,.35);
+    background: rgba(212,175,55,.05);
+    border-radius: 5px;
+    margin-bottom: 25px;
 }
 
-.product-box strong {
+.selected-product span {
     color: #d4af37;
-}
-
-.checkbox-row {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    margin: 20px 0;
-}
-
-.checkbox-row input {
-    width: auto;
-    margin-top: 3px;
-}
-
-.checkbox-row label {
-    line-height: 1.6;
-    margin: 0;
-}
-
-.terms-link {
-    color: #d4af37;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.whatsapp-btn {
-    width: 100%;
-    background: #d4af37;
-    color: #080808;
-    border: none;
-    padding: 17px;
-    border-radius: 9px;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.whatsapp-btn:hover {
-    background: #f0d56a;
-}
-
-.whatsapp-btn:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-}
-
-.note {
-    color: #888;
-    font-size: 12px;
-    line-height: 1.6;
-    text-align: center;
-    margin-top: 15px;
-}
-
-.message-toggle {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.choice {
-    flex: 1;
-    min-width: 130px;
-}
-
-.choice input {
-    display: none;
-}
-
-.choice label {
-    display: block;
-    padding: 13px;
-    text-align: center;
-    background: #191919;
-    border: 1px solid #444;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #ccc;
-}
-
-.choice input:checked + label {
-    border-color: #d4af37;
-    color: #d4af37;
-    background: #211d10;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px;
 }
 
 .hidden {
     display: none;
 }
 
-/* TERMS MODAL */
+.radio-group {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #ddd;
+}
+
+.radio-option input {
+    accent-color: #d4af37;
+}
+
+.personal-message {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #292929;
+}
+
+.personal-message.show {
+    display: block;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-group input {
+    margin-top: 5px;
+    accent-color: #d4af37;
+}
+
+.checkbox-group label {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.terms-link {
+    color: #d4af37;
+    cursor: pointer;
+}
+
+.submit-area {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 35px;
+    border: 1px solid #d4af37;
+    background: #d4af37;
+    color: #080808;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: transparent;
+    color: #d4af37;
+}
+
+.btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.note {
+    color: #888;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+footer {
+    text-align: center;
+    padding: 45px 20px;
+    border-top: 1px solid rgba(212,175,55,.15);
+    color: #777;
+    margin-top: 60px;
+}
+
+footer strong {
+    color: #d4af37;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+}
 
 .modal {
     position: fixed;
@@ -261,77 +268,72 @@ textarea {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    z-index: 100;
+    z-index: 9999;
 }
 
-.modal.active {
+.modal.show {
     display: flex;
 }
 
-.modal-box {
+.modal-content {
     background: #111;
-    border: 1px solid #444;
-    border-radius: 14px;
-    max-width: 700px;
-    width: 100%;
+    border: 1px solid rgba(212,175,55,.4);
+    width: min(650px, 100%);
     max-height: 85vh;
     overflow-y: auto;
     padding: 30px;
+    border-radius: 7px;
 }
 
-.modal-box h2 {
+.modal-content h2 {
     color: #d4af37;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
-.modal-box h3 {
-    color: #d4af37;
-    margin-top: 25px;
-}
-
-.modal-box p,
-.modal-box li {
+.modal-content p {
     color: #bbb;
-    line-height: 1.7;
-    font-size: 13px;
+    font-size: 14px;
+    margin-bottom: 15px;
 }
 
 .close-modal {
-    float: right;
-    background: transparent;
-    border: 1px solid #555;
-    color: white;
-    padding: 7px 12px;
-    border-radius: 6px;
-    cursor: pointer;
+    margin-top: 20px;
 }
 
-@media(max-width: 650px) {
+@media (max-width: 650px) {
+    header {
+        padding: 18px 5%;
+    }
 
-    .form-row {
+    .logo span {
+        font-size: 25px;
+    }
+
+    .container {
+        width: 94%;
+        margin: 35px auto;
+    }
+
+    .form-section {
+        padding: 22px;
+    }
+
+    .grid {
         grid-template-columns: 1fr;
         gap: 0;
     }
 
-    .form-card {
-        padding: 22px;
+    .page-title h1 {
+        font-size: 48px;
     }
 
-    .hero h1 {
-        font-size: 34px;
+    .radio-group {
+        flex-direction: column;
+        gap: 12px;
     }
-
-    .logo img {
-        height: 40px;
-        max-width: 145px;
-    }
-
-    .header-inner {
-        gap: 15px;
-    }
-
 }
-
 </style>
 </head>
 
@@ -339,617 +341,551 @@ textarea {
 
 <header>
 
-<div class="header-inner">
+    <a href="index.html" class="logo">
+        <img src="logo.png" alt="KimasFootwear Logo">
+        <span>KimasFootwear</span>
+    </a>
 
-<a href="index.html" class="logo">
-    <img src="logo.png" alt="KimasFootwear">
-</a>
-
-<a href="index.html" class="back-link">
-    ← Back to KimasFootwear
-</a>
-
-</div>
+    <a href="index.html" class="back">
+        ← Back Home
+    </a>
 
 </header>
 
 
-<main class="page">
+<main class="container">
 
-<section class="hero">
+    <div class="page-title">
+        <h1>Place Your Order</h1>
+        <p>Every step tells a story. Let's create yours.</p>
+    </div>
 
-<small>KimasFootwear</small>
 
-<h1>Place Your Order</h1>
+    <!-- CUSTOMER DETAILS -->
 
-<p>
-Every pair is made with attention to detail.
-Complete the form below and send your order directly to us on WhatsApp.
-</p>
+    <section class="form-section">
 
-</section>
+        <h2>01. Customer Details</h2>
 
+        <div class="grid">
 
-<!-- CUSTOMER INFORMATION -->
+            <div class="form-group">
+                <label for="customerName">Full Name *</label>
 
-<div class="form-card">
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Your full name"
+                >
+            </div>
 
-<h2>01 — Your Details</h2>
 
-<div class="form-row">
+            <div class="form-group">
+                <label for="customerPhone">WhatsApp Number *</label>
 
-<div class="field">
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="e.g. 08012345678"
+                >
+            </div>
 
-<label>
-Full Name <span class="required">*</span>
-</label>
+        </div>
 
-<input
-type="text"
-id="customerName"
-placeholder="Your full name"
-required
->
 
-</div>
+        <div class="form-group">
 
+            <label for="customerEmail">
+                Email Address
+            </label>
 
-<div class="field">
+            <input
+                type="email"
+                id="customerEmail"
+                placeholder="Your email address"
+            >
 
-<label>
-WhatsApp Number <span class="required">*</span>
-</label>
+        </div>
 
-<input
-type="tel"
-id="customerPhone"
-placeholder="08012345678"
-required
->
+    </section>
 
-</div>
 
-</div>
+    <!-- FOOTWEAR DETAILS -->
 
+    <section class="form-section">
 
-<div class="field">
+        <h2>02. Footwear Details</h2>
 
-<label>
-Email Address
-</label>
 
-<input
-type="email"
-id="customerEmail"
-placeholder="Optional"
->
+        <div
+            id="productBox"
+            class="selected-product hidden"
+        >
 
-</div>
+            Selected Product:
 
-</div>
+            <span id="selectedProduct"></span>
 
+        </div>
 
-<!-- FOOTWEAR -->
 
-<div class="form-card">
+        <div class="form-group">
 
-<h2>02 — Footwear Details</h2>
+            <label for="productName">
+                Product Name *
+            </label>
 
+            <input
+                type="text"
+                id="productName"
+                placeholder="Enter the footwear you want"
+            >
 
-<div
-id="productBox"
-class="product-box hidden"
->
+        </div>
 
-<strong>Selected Product:</strong>
 
-<div id="selectedProduct"></div>
+        <div class="grid">
 
-</div>
+            <div class="form-group">
 
+                <label for="collection">
+                    Collection *
+                </label>
 
-<div class="form-row">
+                <select id="collection">
 
-<div class="field">
+                    <option value="">
+                        Select collection
+                    </option>
 
-<label>
-Product Name <span class="required">*</span>
-</label>
+                    <option value="Classic">
+                        Classic
+                    </option>
 
-<input
-type="text"
-id="productName"
-placeholder="Name of footwear"
-required
->
+                    <option value="Corporate">
+                        Corporate
+                    </option>
 
-</div>
+                    <option value="Couples">
+                        Couples
+                    </option>
 
+                    <option value="Custom">
+                        Custom
+                    </option>
 
-<div class="field">
+                </select>
 
-<label>
-Collection <span class="required">*</span>
-</label>
+            </div>
 
-<select id="collection">
 
-<option value="">
-Select collection
-</option>
+            <div class="form-group">
 
-<option value="Classic">
-Classic
-</option>
+                <label for="size">
+                    Size *
+                </label>
 
-<option value="Corporate">
-Corporate
-</option>
+                <select id="size">
 
-<option value="Couples">
-Couples
-</option>
+                    <option value="">
+                        Select size
+                    </option>
 
-<option value="Custom">
-Custom
-</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
 
-</select>
+                </select>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
 
-<div class="form-row">
+        <div class="grid">
 
-<div class="field">
+            <div class="form-group">
 
-<label>
-Footwear Size <span class="required">*</span>
-</label>
+                <label for="quantity">
+                    Quantity *
+                </label>
 
-<select id="size">
+                <input
+                    type="number"
+                    id="quantity"
+                    value="1"
+                    min="1"
+                >
 
-<option value="">
-Select size
-</option>
+            </div>
 
-<option>36</option>
-<option>37</option>
-<option>38</option>
-<option>39</option>
-<option>40</option>
-<option>41</option>
-<option>42</option>
-<option>43</option>
-<option>44</option>
-<option>45</option>
-<option>46</option>
-<option>47</option>
 
-</select>
+            <div class="form-group">
 
-</div>
+                <label for="colour">
+                    Colour
+                </label>
 
+                <input
+                    type="text"
+                    id="colour"
+                    placeholder="Preferred colour"
+                >
 
-<div class="field">
+            </div>
 
-<label>
-Quantity <span class="required">*</span>
-</label>
+        </div>
 
-<input
-type="number"
-id="quantity"
-value="1"
-min="1"
-required
->
 
-</div>
+        <div class="form-group">
 
-</div>
+            <label for="customRequest">
+                Customisation / Special Request
+            </label>
 
+            <textarea
+                id="customRequest"
+                placeholder="Tell us anything special you want..."
+            ></textarea>
 
-<div class="field">
+        </div>
 
-<label>
-Preferred Colour
-</label>
+    </section>
 
-<input
-type="text"
-id="colour"
-placeholder="Example: Black, Brown, White"
->
 
-</div>
+    <!-- DELIVERY -->
 
+    <section class="form-section">
 
-<div class="field">
+        <h2>03. Delivery Details</h2>
 
-<label>
-Customisation / Special Request</label>
 
-<textarea
-id="customRequest"
-placeholder="Tell us anything you would like us to know about your order..."
-></textarea>
+        <div class="form-group">
 
-</div>
+            <label for="address">
+                Delivery Address *
+            </label>
 
-</div>
+            <textarea
+                id="address"
+                placeholder="Enter your full delivery address"
+            ></textarea>
 
+        </div>
 
-<!-- DELIVERY -->
 
-<div class="form-card">
+        <div class="grid">
 
-<h2>03 — Delivery</h2>
+            <div class="form-group">
 
+                <label for="city">
+                    City *
+                </label>
 
-<div class="field">
+                <input
+                    type="text"
+                    id="city"
+                    placeholder="City"
+                >
 
-<label>
-Delivery Address <span class="required">*</span>
-</label>
+            </div>
 
-<textarea
-id="address"
-placeholder="Enter your delivery address"
-required
-></textarea>
 
-</div>
+            <div class="form-group">
 
+                <label for="state">
+                    State *
+                </label>
 
-<div class="form-row">
+                <input
+                    type="text"
+                    id="state"
+                    placeholder="State"
+                >
 
-<div class="field">
+            </div>
 
-<label>
-City <span class="required">*</span>
-</label>
+        </div>
 
-<input
-type="text"
-id="city"
-placeholder="City"
-required
->
+    </section>
 
-</div>
 
+    <!-- PERSONAL MESSAGE -->
 
-<div class="field">
+    <section class="form-section">
 
-<label>
-State <span class="required">*</span>
-</label>
+        <h2>04. Make It Personal</h2>
 
-<input
-type="text"
-id="state"
-placeholder="State"
-required
->
+        <p style="color:#999; margin-bottom:20px;">
+            Want to include a private message with your footwear?
+        </p>
 
-</div>
 
-</div>
+        <div class="radio-group">
 
-</div>
+            <label class="radio-option">
 
+                <input
+                    type="radio"
+                    name="personalMessage"
+                    id="messageNo"
+                    value="No"
+                    checked
+                    onchange="togglePersonalMessage()"
+                >
 
-<!-- GIFT MESSAGE -->
+                No
 
-<div class="form-card">
+            </label>
 
-<h2>04 — Make It Personal</h2>
 
-<p style="color:#aaa;line-height:1.7;font-size:13px;">
-Would you like to add a private message to this order?
-</p>
+            <label class="radio-option">
 
+                <input
+                    type="radio"
+                    name="personalMessage"
+                    id="messageYes"
+                    value="Yes"
+                    onchange="togglePersonalMessage()"
+                >
 
-<div class="message-toggle">
+                Yes, make it personal
 
-<div class="choice">
+            </label>
 
-<input
-type="radio"
-name="privateMessage"
-id="messageNo"
-value="No"
-checked
-onchange="toggleMessage(false)"
->
+        </div>
 
-<label for="messageNo">
-No
-</label>
 
-</div>
+        <div
+            id="personalMessage"
+            class="personal-message"
+        >
 
+            <div class="grid">
 
-<div class="choice">
+                <div class="form-group">
 
-<input
-type="radio"
-name="privateMessage"
-id="messageYes"
-value="Yes"
-onchange="toggleMessage(true)"
->
+                    <label for="messageSender">
+                        From
+                    </label>
 
-<label for="messageYes">
-Yes — Add Message
-</label>
+                    <input
+                        type="text"
+                        id="messageSender"
+                        placeholder="Sender's name"
+                    >
 
-</div>
+                </div>
 
-</div>
 
+                <div class="form-group">
 
-<div
-id="messageFields"
-class="hidden"
-style="margin-top:25px;"
->
+                    <label for="messageRecipient">
+                        To
+                    </label>
 
-<div class="form-row">
+                    <input
+                        type="text"
+                        id="messageRecipient"
+                        placeholder="Recipient's name"
+                    >
 
-<div class="field">
+                </div>
 
-<label>
-Sender Name
-</label>
+            </div>
 
-<input
-type="text"
-id="messageSender"
-placeholder="Who is sending it?"
->
 
-</div>
+            <div class="form-group">
 
+                <label for="privateMessage">
+                    Your Message
+                </label>
 
-<div class="field">
+                <textarea
+                    id="privateMessage"
+                    placeholder="Write your personal message..."
+                ></textarea>
 
-<label>
-Recipient Name
-</label>
+            </div>
 
-<input
-type="text"
-id="messageRecipient"
-placeholder="Who will receive it?"
->
+        </div>
 
-</div>
+    </section>
 
-</div>
 
+    <!-- CONFIRMATION -->
 
-<div class="field">
+    <section class="form-section">
 
-<label>
-Private Message
-</label>
+        <h2>05. Confirmation</h2>
 
-<textarea
-id="privateMessage"
-placeholder="Write your personal message..."
-></textarea>
 
-</div>
+        <div class="checkbox-group">
 
+            <input
+                type="checkbox"
+                id="terms"
+            >
 
-<p class="note">
-KimasFootwear can create a unique code/QR experience for your personal message.
-</p>
+            <label for="terms">
 
-</div>
+                I have read and agree to the
+                <span
+                    class="terms-link"
+                    onclick="openTerms()"
+                >
+                    KimasFootwear Terms & Conditions
+                </span>.
 
-</div>
+            </label>
 
+        </div>
 
-<!-- TERMS -->
 
-<div class="form-card">
+        <div class="submit-area">
 
-<h2>05 — Confirmation</h2>
+            <button
+                type="button"
+                class="btn"
+                onclick="submitOrder()"
+            >
+                📲 Submit Order via WhatsApp
+            </button>
 
+            <p class="note">
+                Your order will also be saved securely for KimasFootwear
+                to process.
+            </p>
 
-<div class="checkbox-row">
+        </div>
 
-<input
-type="checkbox"
-id="terms"
->
-
-<label for="terms">
-
-I have read and agree to the
-
-<span
-class="terms-link"
-onclick="openTerms()"
->
-KimasFootwear Terms & Conditions
-</span>.
-
-</label>
-
-</div>
-
-
-<button
-type="button"
-class="whatsapp-btn"
-onclick="submitOrder()"
->
-📲 Submit Order via WhatsApp
-</button>
-
-
-<p class="note">
-
-Your order details will be prepared as a WhatsApp message.
-You will review and send the message to KimasFootwear.
-
-</p>
-
-</div>
+    </section>
 
 </main>
+
+
+<footer>
+
+    <strong>KimasFootwear</strong>
+
+    <p>
+        Every Step Tells a Story.
+    </p>
+
+    <p style="margin-top:10px;">
+        © 2026 KimasFootwear. All rights reserved.
+    </p>
+
+</footer>
 
 
 <!-- TERMS MODAL -->
 
 <div
-id="termsModal"
-class="modal"
-onclick="closeTermsOutside(event)"
+    id="termsModal"
+    class="modal"
+    onclick="closeTermsOutside(event)"
 >
 
-<div class="modal-box">
+    <div class="modal-content">
 
-<button
-class="close-modal"
-onclick="closeTerms()"
->
-Close
-</button>
+        <h2>Terms & Conditions</h2>
 
-<h2>
-KimasFootwear Terms & Conditions
-</h2>
+        <p>
+            By placing an order with KimasFootwear, you confirm that
+            the information supplied is accurate.
+        </p>
 
+        <p>
+            Orders are subject to product availability, confirmation
+            of final pricing and agreed delivery arrangements.
+        </p>
 
-<h3>1. Order Confirmation</h3>
+        <p>
+            Custom footwear and personalised requests may require
+            additional production time.
+        </p>
 
-<p>
-Submitting an order form does not automatically mean that the order has been accepted.
-KimasFootwear will contact the customer through WhatsApp to confirm product availability,
-price, size, delivery details and other relevant information.
-</p>
+        <p>
+            Final payment and delivery details will be confirmed
+            directly with KimasFootwear.
+        </p>
 
-
-<h3>2. Product Availability</h3>
-
-<p>
-Products and sizes are subject to availability. Where a selected item is unavailable,
-KimasFootwear may contact the customer to discuss available alternatives.
-</p>
-
-
-<h3>3. Custom Orders</h3>
-
-<p>
-Customised footwear may require additional time and may have additional charges depending
-on the requested design, materials or personalisation.
-</p>
+        <p>
+            By submitting this form, you authorize KimasFootwear to
+            contact you regarding your order.
+        </p>
 
 
-<h3>4. Payment</h3>
+        <button
+            type="button"
+            class="btn close-modal"
+            onclick="closeTerms()"
+        >
+            Close
+        </button>
 
-<p>
-Payment arrangements, including the amount required and payment method, will be communicated
-and confirmed with the customer before production or dispatch.
-</p>
-
-
-<h3>5. Delivery</h3>
-
-<p>
-Delivery time and delivery charges depend on the customer's location and the nature of the order.
-The customer is responsible for providing accurate delivery information.
-</p>
-
-
-<h3>6. Size Selection</h3>
-
-<p>
-Customers are responsible for providing the correct footwear size and relevant measurements
-where requested. KimasFootwear may provide guidance, but the customer should confirm the
-information before production.
-</p>
-
-
-<h3>7. Customised Products</h3>
-
-<p>
-Because customised products are created according to customer specifications, changes or
-cancellations may be subject to the stage of production and the agreed terms for that order.
-</p>
-
-
-<h3>8. Customer Information</h3>
-
-<p>
-Information supplied through the order form is used for the purpose of communicating about
-the customer's order and arranging fulfilment.
-</p>
-
-
-<h3>9. Private Messages</h3>
-
-<p>
-Where a customer requests a private message or QR experience, the customer is responsible
-for ensuring that the information supplied for that message is accurate and appropriate.
-</p>
-
-
-<h3>10. Agreement</h3>
-
-<p>
-By submitting an order through WhatsApp after completing this form, the customer confirms
-that they have reviewed and accepted these terms and conditions.
-</p>
-
-</div>
+    </div>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   PRODUCT FROM URL
-===================================================== */
+/* ==========================================
+   SUPABASE CONFIGURATION
+========================================== */
+
+const SUPABASE_URL =
+    "https://hisdjtixefaoocvlzaml.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ==========================================
+   AUTO-FILL PRODUCT FROM URL
+========================================== */
 
 const params =
-new URLSearchParams(
-    window.location.search
-);
+    new URLSearchParams(
+        window.location.search
+    );
 
 const product =
-params.get("product");
+    params.get("product");
 
 const collection =
-params.get("collection");
+    params.get("collection");
 
 
 if (product) {
 
-    document
-    .getElementById("productName")
-    .value =
-        product;
+    document.getElementById(
+        "productName"
+    ).value = product;
 
+    document.getElementById(
+        "selectedProduct"
+    ).textContent = product;
 
-    document
-    .getElementById("selectedProduct")
-    .textContent =
-        product;
-
-
-    document
-    .getElementById("productBox")
-    .classList
-    .remove("hidden");
+    document.getElementById(
+        "productBox"
+    ).classList.remove("hidden");
 }
 
 
@@ -960,56 +896,60 @@ if (collection) {
             "collection"
         );
 
-
     collectionSelect.value =
         collection;
+
 }
 
 
-/* =====================================================
-   PRIVATE MESSAGE
-===================================================== */
+/* ==========================================
+   PERSONAL MESSAGE TOGGLE
+========================================== */
 
-function toggleMessage(show) {
+function togglePersonalMessage() {
 
-    const fields =
+    const yes =
         document.getElementById(
-            "messageFields"
+            "messageYes"
+        ).checked;
+
+    const box =
+        document.getElementById(
+            "personalMessage"
         );
 
+    if (yes) {
 
-    if (show) {
-
-        fields.classList
-            .remove("hidden");
+        box.classList.add("show");
 
     } else {
 
-        fields.classList
-            .add("hidden");
+        box.classList.remove("show");
+
     }
+
 }
 
 
-/* =====================================================
-   TERMS
-===================================================== */
+/* ==========================================
+   TERMS MODAL
+========================================== */
 
 function openTerms() {
 
     document
-    .getElementById("termsModal")
-    .classList
-    .add("active");
+        .getElementById("termsModal")
+        .classList.add("show");
+
 }
 
 
 function closeTerms() {
 
     document
-    .getElementById("termsModal")
-    .classList
-    .remove("active");
+        .getElementById("termsModal")
+        .classList.remove("show");
+
 }
 
 
@@ -1021,112 +961,133 @@ function closeTermsOutside(event) {
     ) {
 
         closeTerms();
+
     }
+
 }
 
 
-/* =====================================================
+/* ==========================================
    SUBMIT ORDER
-===================================================== */
+========================================== */
 
-function submitOrder() {
+async function submitOrder() {
 
     const name =
         document
-        .getElementById("customerName")
-        .value
-        .trim();
-
+            .getElementById("customerName")
+            .value
+            .trim();
 
     const phone =
         document
-        .getElementById("customerPhone")
-        .value
-        .trim();
-
+            .getElementById("customerPhone")
+            .value
+            .trim();
 
     const email =
         document
-        .getElementById("customerEmail")
-        .value
-        .trim();
+            .getElementById("customerEmail")
+            .value
+            .trim();
 
 
     const productName =
         document
-        .getElementById("productName")
-        .value
-        .trim();
-
+            .getElementById("productName")
+            .value
+            .trim();
 
     const collection =
         document
-        .getElementById("collection")
-        .value;
-
+            .getElementById("collection")
+            .value;
 
     const size =
         document
-        .getElementById("size")
-        .value;
-
+            .getElementById("size")
+            .value;
 
     const quantity =
         document
-        .getElementById("quantity")
-        .value;
-
+            .getElementById("quantity")
+            .value;
 
     const colour =
         document
-        .getElementById("colour")
-        .value
-        .trim();
-
+            .getElementById("colour")
+            .value
+            .trim();
 
     const customRequest =
         document
-        .getElementById("customRequest")
-        .value
-        .trim();
+            .getElementById("customRequest")
+            .value
+            .trim();
 
 
     const address =
         document
-        .getElementById("address")
-        .value
-        .trim();
-
+            .getElementById("address")
+            .value
+            .trim();
 
     const city =
         document
-        .getElementById("city")
-        .value
-        .trim();
-
+            .getElementById("city")
+            .value
+            .trim();
 
     const state =
         document
-        .getElementById("state")
-        .value
-        .trim();
+            .getElementById("state")
+            .value
+            .trim();
+
+
+    const messageYes =
+        document
+            .getElementById("messageYes")
+            .checked;
+
+
+    const messageSender =
+        document
+            .getElementById("messageSender")
+            .value
+            .trim();
+
+    const messageRecipient =
+        document
+            .getElementById("messageRecipient")
+            .value
+            .trim();
+
+    const privateMessage =
+        document
+            .getElementById("privateMessage")
+            .value
+            .trim();
 
 
     const terms =
         document
-        .getElementById("terms")
-        .checked;
+            .getElementById("terms")
+            .checked;
 
 
-    /* REQUIRED FIELDS */
+    /* ==========================================
+       VALIDATION
+    ========================================== */
 
     if (!name) {
 
         alert(
-            "Please enter your full name."
+            "Please enter your name."
         );
 
         return;
+
     }
 
 
@@ -1137,16 +1098,18 @@ function submitOrder() {
         );
 
         return;
+
     }
 
 
     if (!productName) {
 
         alert(
-            "Please enter the footwear you want to order."
+            "Please select a product."
         );
 
         return;
+
     }
 
 
@@ -1157,91 +1120,85 @@ function submitOrder() {
         );
 
         return;
+
     }
 
 
     if (!size) {
 
         alert(
-            "Please select your footwear size."
+            "Please select a size."
         );
 
         return;
+
     }
 
 
     if (!address || !city || !state) {
 
         alert(
-            "Please complete your delivery information."
+            "Please complete your delivery address."
         );
 
         return;
+
     }
 
 
     if (!terms) {
 
         alert(
-            "Please read and accept the KimasFootwear Terms & Conditions."
+            "Please agree to the Terms & Conditions."
         );
 
         return;
+
     }
 
 
-    /* PRIVATE MESSAGE */
-
-    const wantsMessage =
-        document
-        .getElementById("messageYes")
-        .checked;
-
+    /* ==========================================
+       PERSONAL MESSAGE
+    ========================================== */
 
     let messageSection = "";
 
 
-    if (wantsMessage) {
+    if (messageYes) {
 
-        const sender =
-            document
-            .getElementById("messageSender")
-            .value
-            .trim();
+        if (
+            !messageSender ||
+            !messageRecipient ||
+            !privateMessage
+        ) {
 
+            alert(
+                "Please complete all the personal message fields."
+            );
 
-        const recipient =
-            document
-            .getElementById("messageRecipient")
-            .value
-            .trim();
+            return;
 
-
-        const privateMessage =
-            document
-            .getElementById("privateMessage")
-            .value
-            .trim();
+        }
 
 
-        messageSection =
-`
+        messageSection = `
 ━━━━━━━━━━━━━━━━━━
-💌 PRIVATE MESSAGE
+💌 PERSONAL MESSAGE
 ━━━━━━━━━━━━━━━━━━
 
-Sender: ${sender || "Not provided"}
-Recipient: ${recipient || "Not provided"}
+From: ${messageSender}
+To: ${messageRecipient}
 
 Message:
-${privateMessage || "Not provided"}
-
-Customer would like the KimasFootwear private message / QR experience.
+${privateMessage}
 `;
+
     }
 
 
-    /* WHATSAPP MESSAGE */
+    /* ==========================================
+       WHATSAPP MESSAGE
+    ========================================== */
 
     const whatsappMessage =
 `
@@ -1292,21 +1249,181 @@ Thank you.
 `;
 
 
-    const whatsappNumber =
-        "2349042375290";
+    /* ==========================================
+       BUTTON
+    ========================================== */
 
-
-    const whatsappUrl =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        encodeURIComponent(
-            whatsappMessage
+    const submitButton =
+        document.querySelector(
+            'button[onclick="submitOrder()"]'
         );
 
 
-    window.location.href =
-        whatsappUrl;
+    if (submitButton) {
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "Saving Order...";
+
+    }
+
+
+    /* ==========================================
+       SAVE TO SUPABASE
+    ========================================== */
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("orders")
+            .insert([
+                {
+
+                    customer_name: name,
+
+                    customer_phone: phone,
+
+                    customer_email:
+                        email || null,
+
+
+                    product_name:
+                        productName,
+
+                    collection:
+                        collection,
+
+                    size:
+                        size,
+
+                    quantity:
+                        Number(quantity) || 1,
+
+                    colour:
+                        colour || null,
+
+                    custom_request:
+                        customRequest || null,
+
+
+                    delivery_address:
+                        address,
+
+                    delivery_city:
+                        city,
+
+                    delivery_state:
+                        state,
+
+
+                    private_message_enabled:
+                        messageYes,
+
+                    message_sender:
+                        messageYes
+                            ? messageSender
+                            : null,
+
+                    message_recipient:
+                        messageYes
+                            ? messageRecipient
+                            : null,
+
+                    private_message:
+                        messageYes
+                            ? privateMessage
+                            : null,
+
+
+                    whatsapp_message:
+                        whatsappMessage,
+
+
+                    status:
+                        "New"
+
+                }
+            ])
+            .select();
+
+
+        if (error) {
+
+            console.error(
+                "Order save error:",
+                error
+            );
+
+            alert(
+                "Your order could not be saved. Please check your internet connection and try again."
+            );
+
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "📲 Submit Order via WhatsApp";
+
+            }
+
+            return;
+
+        }
+
+
+        /* ==========================================
+           WHATSAPP
+        ========================================== */
+
+        const whatsappNumber =
+            "2349042375290";
+
+
+        const whatsappUrl =
+            "https://wa.me/" +
+            whatsappNumber +
+            "?text=" +
+            encodeURIComponent(
+                whatsappMessage
+            );
+
+
+        window.location.href =
+            whatsappUrl;
+
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected order error:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong while submitting your order. Please try again."
+        );
+
+
+        if (submitButton) {
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "📲 Submit Order via WhatsApp";
+
+        }
+
+    }
+
 }
 
 </script>
