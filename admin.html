@@ -377,6 +377,100 @@ header p {
 }
 
 /* =========================
+   SIMPLE SALES ANALYTICS
+========================= */
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.analytics-box {
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.analytics-box h3 {
+    color: #d4af37;
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+}
+
+.analytics-list {
+    display: grid;
+    gap: 10px;
+}
+
+.analytics-row {
+    background: #101010;
+    border: 1px solid #2d2d2d;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.analytics-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.analytics-name {
+    color: #ddd;
+    font-size: 13px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.analytics-value {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.analytics-date {
+    color: #777;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.analytics-bar {
+    width: 100%;
+    height: 7px;
+    background: #292929;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 9px;
+}
+
+.analytics-bar-fill {
+    height: 100%;
+    background: #d4af37;
+    border-radius: 10px;
+}
+
+.analytics-secondary {
+    color: #888;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.analytics-empty {
+    color: #777;
+    text-align: center;
+    padding: 15px 5px;
+    font-size: 13px;
+}
+
+/* =========================
    PRODUCTS
 ========================= */
 
@@ -536,6 +630,10 @@ header p {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 @media (max-width: 600px) {
@@ -580,6 +678,23 @@ header p {
 
     .sales-number {
         font-size: 20px;
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .analytics-box {
+        padding: 15px;
+    }
+
+    .analytics-box h3 {
+        font-size: 22px;
+    }
+
+    .analytics-row-top {
+        align-items: flex-start;
     }
 
     .order-grid {
@@ -921,6 +1036,85 @@ header p {
             <small>
                 Average value per non-cancelled order
             </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SIMPLE SALES ANALYTICS
+===================================================== -->
+
+<h2 class="section-heading">
+    Sales Analytics
+</h2>
+
+
+<div class="analytics-grid">
+
+    <!-- REVENUE TREND -->
+
+    <div class="analytics-box">
+
+        <h3>
+            📈 Revenue — Last 7 Days
+        </h3>
+
+        <div
+            class="analytics-list"
+            id="revenueTrend"
+        >
+
+            <div class="loading">
+                Loading analytics...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BEST SELLING PRODUCTS -->
+
+    <div class="analytics-box">
+
+        <h3>
+            👞 Best-Selling Products
+        </h3>
+
+        <div
+            class="analytics-list"
+            id="bestSellingProducts"
+        >
+
+            <div class="loading">
+                Loading analytics...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOP COLLECTIONS -->
+
+    <div class="analytics-box">
+
+        <h3>
+            🏆 Top Collections
+        </h3>
+
+        <div
+            class="analytics-list"
+            id="topCollections"
+        >
+
+            <div class="loading">
+                Loading analytics...
+            </div>
 
         </div>
 
@@ -2070,11 +2264,7 @@ function updateOrderSummary() {
         ).length;
 
 
-    /*
-       TOTAL REVENUE
-
-       Cancelled orders are excluded.
-    */
+    /* TOTAL REVENUE */
 
     const activeOrders =
         allOrders.filter(order =>
@@ -2090,9 +2280,7 @@ function updateOrderSummary() {
         );
 
 
-    /*
-       COMPLETED SALES VALUE
-    */
+    /* COMPLETED SALES VALUE */
 
     const completedSales =
         allOrders
@@ -2106,14 +2294,7 @@ function updateOrderSummary() {
             );
 
 
-    /*
-       ACTIVE ORDERS VALUE
-
-       Includes:
-       New
-       Confirmed
-       Processing
-    */
+    /* ACTIVE ORDERS VALUE */
 
     const activeSales =
         allOrders
@@ -2136,9 +2317,7 @@ function updateOrderSummary() {
             );
 
 
-    /*
-       CANCELLED VALUE
-    */
+    /* CANCELLED VALUE */
 
     const cancelledSales =
         allOrders
@@ -2152,11 +2331,7 @@ function updateOrderSummary() {
             );
 
 
-    /*
-       TOTAL ITEMS SOLD
-
-       Cancelled orders are excluded.
-    */
+    /* TOTAL ITEMS SOLD */
 
     const totalItems =
         activeOrders.reduce(
@@ -2166,11 +2341,7 @@ function updateOrderSummary() {
         );
 
 
-    /*
-       AVERAGE ORDER VALUE
-
-       Cancelled orders are excluded.
-    */
+    /* AVERAGE ORDER VALUE */
 
     const averageOrder =
         activeOrders.length > 0
@@ -2178,9 +2349,7 @@ function updateOrderSummary() {
         : 0;
 
 
-    /*
-       TODAY
-    */
+    /* TODAY */
 
     const now =
         new Date();
@@ -2214,9 +2383,7 @@ function updateOrderSummary() {
         }).length;
 
 
-    /*
-       THIS MONTH
-    */
+    /* THIS MONTH */
 
     const ordersThisMonth =
         allOrders.filter(order => {
@@ -2236,9 +2403,7 @@ function updateOrderSummary() {
         }).length;
 
 
-    /*
-       EXISTING DASHBOARD SUMMARY
-    */
+    /* EXISTING SUMMARY */
 
     document.getElementById("totalRevenue")
         .textContent =
@@ -2280,9 +2445,7 @@ function updateOrderSummary() {
         cancelled;
 
 
-    /*
-       NEW REVENUE & SALES ANALYTICS
-    */
+    /* REVENUE & SALES ANALYTICS */
 
     document.getElementById("salesTotalRevenue")
         .textContent =
@@ -2312,6 +2475,519 @@ function updateOrderSummary() {
     document.getElementById("averageOrderValue")
         .textContent =
         formatNaira(averageOrder);
+
+
+    /* UPDATE SIMPLE SALES ANALYTICS */
+
+    updateSalesAnalytics();
+
+}
+
+
+/* =====================================================
+   SIMPLE SALES ANALYTICS
+===================================================== */
+
+function updateSalesAnalytics() {
+
+    const revenueTrend =
+        document.getElementById("revenueTrend");
+
+    const bestSellingProducts =
+        document.getElementById("bestSellingProducts");
+
+    const topCollections =
+        document.getElementById("topCollections");
+
+
+    /*
+       Only non-cancelled orders
+       are used for sales analytics.
+    */
+
+    const validOrders =
+        allOrders.filter(order =>
+            (order.status || "").toLowerCase() !== "cancelled"
+        );
+
+
+    /* =================================================
+       REVENUE — LAST 7 DAYS
+    ================================================= */
+
+    const days = [];
+
+    for (let i = 6; i >= 0; i--) {
+
+        const date =
+            new Date();
+
+        date.setHours(
+            0,
+            0,
+            0,
+            0
+        );
+
+        date.setDate(
+            date.getDate() - i
+        );
+
+        days.push(date);
+    }
+
+
+    const dailyRevenue = {};
+
+
+    days.forEach(date => {
+
+        const key =
+            date.getFullYear() +
+            "-" +
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0") +
+            "-" +
+            String(
+                date.getDate()
+            ).padStart(2, "0");
+
+        dailyRevenue[key] = 0;
+
+    });
+
+
+    validOrders.forEach(order => {
+
+        if (!order.created_at) {
+            return;
+        }
+
+        const date =
+            new Date(order.created_at);
+
+        const key =
+            date.getFullYear() +
+            "-" +
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0") +
+            "-" +
+            String(
+                date.getDate()
+            ).padStart(2, "0");
+
+
+        if (
+            Object.prototype.hasOwnProperty.call(
+                dailyRevenue,
+                key
+            )
+        ) {
+
+            dailyRevenue[key] +=
+                Number(
+                    order.total_amount || 0
+                );
+
+        }
+
+    });
+
+
+    const dailyValues =
+        Object.values(dailyRevenue);
+
+    const maxRevenue =
+        Math.max(
+            ...dailyValues,
+            0
+        );
+
+
+    let revenueHTML = "";
+
+
+    days.forEach(date => {
+
+        const key =
+            date.getFullYear() +
+            "-" +
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0") +
+            "-" +
+            String(
+                date.getDate()
+            ).padStart(2, "0");
+
+
+        const amount =
+            dailyRevenue[key] || 0;
+
+
+        const percentage =
+            maxRevenue > 0
+            ? (amount / maxRevenue) * 100
+            : 0;
+
+
+        const dayName =
+            date.toLocaleDateString(
+                "en-NG",
+                {
+                    weekday: "short"
+                }
+            );
+
+
+        const dayDate =
+            date.toLocaleDateString(
+                "en-NG",
+                {
+                    day: "numeric",
+                    month: "short"
+                }
+            );
+
+
+        revenueHTML += `
+
+            <div class="analytics-row">
+
+                <div class="analytics-row-top">
+
+                    <div>
+
+                        <div class="analytics-name">
+                            ${dayName}
+                        </div>
+
+                        <div class="analytics-date">
+                            ${dayDate}
+                        </div>
+
+                    </div>
+
+                    <div class="analytics-value">
+
+                        ${formatNaira(amount)}
+
+                    </div>
+
+                </div>
+
+                <div class="analytics-bar">
+
+                    <div
+                        class="analytics-bar-fill"
+                        style="width:${percentage}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    revenueTrend.innerHTML =
+        revenueHTML;
+
+
+    /* =================================================
+       BEST-SELLING PRODUCTS
+    ================================================= */
+
+    const productTotals = {};
+
+
+    validOrders.forEach(order => {
+
+        const product =
+            (
+                order.product_name ||
+                "Unknown Product"
+            ).trim() ||
+            "Unknown Product";
+
+
+        const quantity =
+            Number(
+                order.quantity || 0
+            );
+
+
+        const revenue =
+            Number(
+                order.total_amount || 0
+            );
+
+
+        if (!productTotals[product]) {
+
+            productTotals[product] = {
+                quantity: 0,
+                revenue: 0
+            };
+
+        }
+
+
+        productTotals[product].quantity +=
+            quantity;
+
+
+        productTotals[product].revenue +=
+            revenue;
+
+    });
+
+
+    const topProducts =
+        Object.entries(productTotals)
+            .sort(
+                (a, b) =>
+                    b[1].quantity -
+                    a[1].quantity
+            )
+            .slice(0, 5);
+
+
+    if (topProducts.length === 0) {
+
+        bestSellingProducts.innerHTML =
+            `
+            <div class="analytics-empty">
+                No sales data yet.
+            </div>
+            `;
+
+    } else {
+
+        const maxQuantity =
+            Math.max(
+                ...topProducts.map(
+                    item => item[1].quantity
+                ),
+                0
+            );
+
+
+        bestSellingProducts.innerHTML =
+            topProducts.map(
+                ([product, data], index) => {
+
+                    const percentage =
+                        maxQuantity > 0
+                        ? (
+                            data.quantity /
+                            maxQuantity
+                        ) * 100
+                        : 0;
+
+
+                    return `
+
+                    <div class="analytics-row">
+
+                        <div class="analytics-row-top">
+
+                            <div class="analytics-name">
+
+                                ${index + 1}.
+                                ${escapeHtml(product)}
+
+                            </div>
+
+                            <div class="analytics-value">
+
+                                ${data.quantity}
+                                ${
+                                    data.quantity === 1
+                                    ? "item"
+                                    : "items"
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="analytics-bar">
+
+                            <div
+                                class="analytics-bar-fill"
+                                style="width:${percentage}%"
+                            ></div>
+
+                        </div>
+
+
+                        <div class="analytics-secondary">
+
+                            Revenue:
+                            ${formatNaira(data.revenue)}
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    /* =================================================
+       TOP COLLECTIONS
+    ================================================= */
+
+    const collectionTotals = {};
+
+
+    validOrders.forEach(order => {
+
+        const collection =
+            (
+                order.collection ||
+                "Unknown Collection"
+            ).trim() ||
+            "Unknown Collection";
+
+
+        const quantity =
+            Number(
+                order.quantity || 0
+            );
+
+
+        const revenue =
+            Number(
+                order.total_amount || 0
+            );
+
+
+        if (!collectionTotals[collection]) {
+
+            collectionTotals[collection] = {
+                quantity: 0,
+                revenue: 0
+            };
+
+        }
+
+
+        collectionTotals[collection].quantity +=
+            quantity;
+
+
+        collectionTotals[collection].revenue +=
+            revenue;
+
+    });
+
+
+    const topCollectionsData =
+        Object.entries(collectionTotals)
+            .sort(
+                (a, b) =>
+                    b[1].quantity -
+                    a[1].quantity
+            )
+            .slice(0, 5);
+
+
+    if (topCollectionsData.length === 0) {
+
+        topCollections.innerHTML =
+            `
+            <div class="analytics-empty">
+                No collection data yet.
+            </div>
+            `;
+
+    } else {
+
+        const maxCollectionQuantity =
+            Math.max(
+                ...topCollectionsData.map(
+                    item => item[1].quantity
+                ),
+                0
+            );
+
+
+        topCollections.innerHTML =
+            topCollectionsData.map(
+                ([collection, data], index) => {
+
+                    const percentage =
+                        maxCollectionQuantity > 0
+                        ? (
+                            data.quantity /
+                            maxCollectionQuantity
+                        ) * 100
+                        : 0;
+
+
+                    return `
+
+                    <div class="analytics-row">
+
+                        <div class="analytics-row-top">
+
+                            <div class="analytics-name">
+
+                                ${index + 1}.
+                                ${escapeHtml(collection)}
+
+                            </div>
+
+                            <div class="analytics-value">
+
+                                ${data.quantity}
+                                ${
+                                    data.quantity === 1
+                                    ? "item"
+                                    : "items"
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="analytics-bar">
+
+                            <div
+                                class="analytics-bar-fill"
+                                style="width:${percentage}%"
+                            ></div>
+
+                        </div>
+
+
+                        <div class="analytics-secondary">
+
+                            Revenue:
+                            ${formatNaira(data.revenue)}
+
+                        </div>
+
+                    </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
 
 }
 
