@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KimasFootwear Admin</title>
+<title>KimasFootwear | Admin Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,277 +19,219 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #080808;
-    color: white;
+    background: #0b0b0b;
+    color: #eee;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
-    width: 92%;
+    width: 100%;
     max-width: 1100px;
     margin: auto;
+    padding: 20px;
 }
 
 .hidden {
     display: none !important;
 }
 
+/* =========================
+   LOGIN
+========================= */
+
 .login-container {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
 .login-box {
     width: 100%;
-    max-width: 430px;
-    background: #111;
-    padding: 35px;
-    border-radius: 15px;
+    max-width: 420px;
+    background: #151515;
     border: 1px solid #333;
-    box-shadow: 0 10px 40px rgba(0,0,0,.5);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(0,0,0,.5);
 }
 
 .login-box h1 {
     text-align: center;
     color: #d4af37;
-    margin-bottom: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 35px;
+    margin-top: 0;
 }
 
 .login-box p {
     text-align: center;
     color: #aaa;
-    line-height: 1.5;
-    margin-bottom: 30px;
 }
+
+/* =========================
+   INPUTS
+========================= */
 
 input,
 textarea,
 select {
     width: 100%;
-    padding: 14px;
+    padding: 13px;
     margin-top: 7px;
-    margin-bottom: 18px;
-    background: #1c1c1c;
+    margin-bottom: 15px;
+    background: #101010;
     border: 1px solid #444;
-    border-radius: 8px;
-    color: white;
-    font-size: 15px;
-    outline: none;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #d4af37;
+    color: #fff;
+    border-radius: 7px;
+    font-family: inherit;
 }
 
 textarea {
-    min-height: 150px;
+    min-height: 130px;
     resize: vertical;
 }
 
-input[type="file"] {
-    padding: 12px;
+label {
+    color: #ccc;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-label {
-    color: #ddd;
-    font-size: 14px;
-}
+/* =========================
+   BUTTONS
+========================= */
 
 button {
+    padding: 12px 18px;
     border: none;
-    border-radius: 8px;
-    padding: 13px 18px;
+    border-radius: 7px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    margin-right: 5px;
-    margin-bottom: 5px;
-}
-
-button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
+    font-family: inherit;
+    font-weight: 600;
+    margin: 4px;
 }
 
 .gold-btn {
     background: #d4af37;
-    color: #080808;
+    color: #111;
 }
 
 .gold-btn:hover {
-    background: #f0d56a;
+    background: #e4c45a;
 }
 
 .dark-btn {
     background: #292929;
-    color: white;
+    color: #fff;
+    border: 1px solid #444;
 }
 
 .dark-btn:hover {
-    background: #3a3a3a;
+    background: #333;
 }
 
 .danger-btn {
-    background: #8b2020;
-    color: white;
-}
-
-.danger-btn:hover {
-    background: #b52a2a;
+    background: #8b1e1e;
+    color: #fff;
 }
 
 .full {
     width: 100%;
+    margin: 5px 0;
 }
 
+/* =========================
+   DASHBOARD
+========================= */
+
 .dashboard {
-    padding-bottom: 60px;
+    display: none;
 }
 
 header {
-    padding: 25px 0;
-    border-bottom: 1px solid #333;
-    margin-bottom: 25px;
+    text-align: center;
+    padding: 20px 0;
 }
 
 header h1 {
-    margin: 0;
     color: #d4af37;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    margin: 0;
 }
 
 header p {
     color: #aaa;
-    margin: 7px 0 0;
 }
 
 .top-bar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
 
 .card {
-    background: #111;
-    border: 1px solid #2d2d2d;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 25px;
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 .card h2 {
     color: #d4af37;
     margin-top: 0;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .section-heading {
-    margin-top: 40px;
-    margin-bottom: 20px;
     color: #d4af37;
-    font-family: Georgia, serif;
-    font-size: 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    margin-top: 40px;
+    margin-bottom: 15px;
 }
 
 .status {
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 18px;
-    display: none;
-}
-
-.status.success {
-    display: block;
-    background: #12351d;
-    border: 1px solid #276b39;
-    color: #8df0a2;
-}
-
-.status.error {
-    display: block;
-    background: #3a1515;
-    border: 1px solid #7d3030;
-    color: #ff9b9b;
-}
-
-.status.info {
-    display: block;
-    background: #171f32;
-    border: 1px solid #334b7a;
-    color: #a9c7ff;
+    color: #65d67c;
+    font-weight: 600;
 }
 
 .code-box {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
+    background: #0d0d0d;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
 .generated-code {
-    flex: 1;
-    padding: 15px;
-    background: #191919;
-    border: 1px solid #555;
-    border-radius: 8px;
     color: #d4af37;
+    font-size: 24px;
     font-weight: bold;
     letter-spacing: 2px;
-    text-align: center;
 }
 
 .photo-preview {
-    margin-top: 10px;
-    margin-bottom: 18px;
-}
-
-.photo-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
     display: block;
-    width: 100%;
-    max-width: 320px;
-    max-height: 320px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #444;
+    margin-top: 10px;
 }
 
 .photo-note {
     color: #888;
-    font-size: 13px;
-    margin-top: -8px;
-    margin-bottom: 15px;
+    font-size: 12px;
 }
 
 .preview {
-    background: #0a0a0a;
+    background: #0e0e0e;
     border: 1px solid #333;
-    border-radius: 12px;
-    padding: 25px;
-}
-
-.preview h3 {
-    color: #d4af37;
-    margin-top: 0;
-}
-
-.preview p {
-    color: #ccc;
-    line-height: 1.6;
-}
-
-.preview img {
-    display: block;
-    width: 100%;
-    max-width: 320px;
-    max-height: 320px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin: 0 auto 20px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .message-list {
@@ -302,294 +246,202 @@ header p {
     padding: 18px;
 }
 
-.message-item h3 {
-    margin: 0 0 8px;
-    color: #d4af37;
-}
-
-.message-item p {
-    color: #ccc;
-    line-height: 1.5;
-}
-
-.message-item img {
-    width: 100%;
-    max-width: 180px;
-    max-height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 10px 0;
-    border: 1px solid #444;
-}
-
 .message-code {
     color: #d4af37;
-    font-family: monospace;
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .message-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
     margin-top: 15px;
 }
 
 .customer-link {
-    word-break: break-all;
     color: #d4af37;
-    background: #191919;
-    padding: 12px;
-    border-radius: 7px;
-    margin: 10px 0 15px;
-    line-height: 1.5;
+    word-break: break-all;
 }
 
 #qrcode {
     margin-top: 15px;
     background: white;
     padding: 10px;
-    width: fit-content;
-    border-radius: 5px;
-}
-
-#qrcode canvas,
-#qrcode img {
-    display: block;
+    display: inline-block;
 }
 
 .loading {
-    text-align: center;
     color: #aaa;
     padding: 20px;
+    text-align: center;
 }
 
 .empty {
+    color: #777;
+    padding: 20px;
     text-align: center;
-    color: #888;
-    padding: 25px;
 }
 
+/* =========================
+   PRODUCTS
+========================= */
 
-/* =====================================================
+.product-item {
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.product-admin-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.product-collection {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.product-description {
+    color: #ccc;
+    margin: 10px 0;
+}
+
+.product-actions {
+    margin-top: 15px;
+}
+
+.product-photo-preview {
+    max-width: 200px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* =========================
    ORDERS
-===================================================== */
+========================= */
 
-.order-list {
+.orders-list {
     display: grid;
-    gap: 18px;
+    gap: 15px;
 }
 
 .order-item {
     background: #191919;
     border: 1px solid #333;
     border-radius: 12px;
-    padding: 20px;
+    padding: 18px;
 }
 
-.order-item.new-order {
-    border-color: #d4af37;
-}
-
-.order-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-}
-
-.order-header h3 {
+.order-item h3 {
+    margin: 0 0 8px;
     color: #d4af37;
-    margin: 0 0 6px;
-    font-size: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
 }
 
-.order-date {
-    color: #888;
-    font-size: 12px;
-}
-
-.order-status {
-    min-width: 170px;
-    margin: 0;
+.order-meta {
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 15px;
 }
 
 .order-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
 }
 
 .order-detail {
     background: #101010;
-    border: 1px solid #2c2c2c;
-    border-radius: 9px;
-    padding: 15px;
-}
-
-.order-detail h4 {
-    color: #d4af37;
-    margin: 0 0 10px;
-    font-size: 15px;
-}
-
-.order-detail p {
-    color: #ccc;
-    margin: 5px 0;
-    line-height: 1.5;
-    word-break: break-word;
+    border: 1px solid #2d2d2d;
+    border-radius: 8px;
+    padding: 12px;
 }
 
 .order-detail strong {
-    color: #fff;
-}
-
-.order-message {
-    margin-top: 15px;
-    background: #0a0a0a;
-    border: 1px solid #333;
-    border-radius: 9px;
-    padding: 15px;
-}
-
-.order-message h4 {
     color: #d4af37;
-    margin: 0 0 12px;
-}
-
-.order-message pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    color: #ccc;
-    font-family: Arial, sans-serif;
-    line-height: 1.55;
-    margin: 0;
+    display: block;
+    margin-bottom: 5px;
     font-size: 13px;
 }
 
-.order-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 15px;
+.order-detail span {
+    color: #ddd;
+    word-break: break-word;
 }
 
-.order-count {
-    display: inline-block;
-    background: #d4af37;
-    color: #080808;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-left: 8px;
-}
-
-
-/* PRODUCTS */
-
-.product-item {
-    background: #191919;
+.order-message {
+    background: #090909;
     border: 1px solid #333;
-    border-radius: 12px;
-    padding: 18px;
+    border-radius: 8px;
+    padding: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #ccc;
+    line-height: 1.6;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
 }
 
-.product-item h3 {
-    margin: 8px 0;
-    color: #d4af37;
-    font-size: 22px;
-}
-
-.product-admin-image {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    height: 230px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #444;
-    margin-bottom: 15px;
-}
-
-.product-price {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.product-collection {
-    display: inline-block;
-    background: #292929;
-    color: #d4af37;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-}
-
-.product-description {
-    color: #bbb;
-    line-height: 1.5;
-    margin: 12px 0;
-}
-
-.product-actions {
+.order-status {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
     margin-top: 15px;
+    flex-wrap: wrap;
 }
 
-.product-photo-preview {
-    margin-bottom: 18px;
+.order-status select {
+    margin: 0;
+    width: auto;
+    min-width: 180px;
 }
 
-.product-photo-preview img {
-    display: block;
-    width: 100%;
-    max-width: 320px;
-    max-height: 320px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #444;
+.order-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #252525;
+    color: #d4af37;
+    font-size: 12px;
+    font-weight: bold;
 }
+
+.order-error {
+    color: #ff7777;
+    background: #241010;
+    border: 1px solid #5b2222;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
-    .login-box {
-        padding: 25px;
+    .container {
+        padding: 12px;
     }
 
-    .code-box {
-        flex-direction: column;
+    header h1 {
+        font-size: 34px;
     }
 
-    .generated-code {
-        width: 100%;
-    }
-
-    .top-bar {
-        align-items: flex-start;
-    }
-
-    button {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    .card {
-        padding: 18px;
-    }
-
-    .product-actions {
-        display: block;
-    }
-
-    .product-actions button {
-        width: 100%;
+    .section-heading {
+        font-size: 28px;
     }
 
     .order-grid {
@@ -597,14 +449,21 @@ header p {
     }
 
     .order-status {
-        width: 100%;
-    }
-
-    .order-actions {
         display: block;
     }
 
-    .order-actions button {
+    .order-status select {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .message-actions button,
+    .product-actions button {
         width: 100%;
     }
 }
@@ -614,94 +473,68 @@ header p {
 
 <body>
 
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
-
-<div id="loginScreen" class="login-container">
+<div class="login-container" id="loginScreen">
 
     <div class="login-box">
 
         <h1>KimasFootwear</h1>
 
-        <p>
-            Private Admin Dashboard<br>
-            Sign in to manage your customer messages, orders and products.
-        </p>
+        <p>Private Message, Order & Product Management Dashboard</p>
 
-        <div id="loginStatus" class="status"></div>
+        <label>Email</label>
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Admin email"
+        >
 
-        <form id="loginForm" onsubmit="login(event)">
+        <label>Password</label>
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+        >
 
-            <label>Email Address</label>
+        <button class="gold-btn full" onclick="login()">
+            Login
+        </button>
 
-            <input
-                type="email"
-                id="loginEmail"
-                placeholder="Enter your email"
-                autocomplete="username"
-                required
-            >
-
-            <label>Password</label>
-
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Enter your password"
-                autocomplete="current-password"
-                required
-            >
-
-            <button
-                type="submit"
-                id="loginButton"
-                class="gold-btn full"
-            >
-                Sign In
-            </button>
-
-        </form>
+        <p id="loginError"></p>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      DASHBOARD
-===================================================== -->
+========================= -->
 
-<div id="dashboard" class="dashboard hidden">
+<div class="dashboard" id="dashboard">
 
 <div class="container">
 
 <header>
 
-<div class="top-bar">
+    <h1>KimasFootwear</h1>
 
-<div>
-
-<h1>KimasFootwear</h1>
-
-<p>
-Private Message, Order & Product Management Dashboard
-</p>
-
-</div>
-
-<button
-class="dark-btn"
-type="button"
-onclick="logout()"
->
-Logout
-</button>
-
-</div>
+    <p>
+        Private Message, Order & Product Management Dashboard
+    </p>
 
 </header>
+
+<div class="top-bar">
+
+    <button class="dark-btn" onclick="logout()">
+        Logout
+    </button>
+
+</div>
 
 
 <!-- =====================================================
@@ -709,247 +542,146 @@ Logout
 ===================================================== -->
 
 <h2 class="section-heading">
-Customer Messages
+    Customer Messages
 </h2>
 
+
+<!-- CREATE MESSAGE -->
 
 <div class="card">
 
-<h2 id="formHeading">
-Create Customer Message
-</h2>
+    <h2>Create Customer Message</h2>
 
-<div id="saveStatus" class="status"></div>
+    <div class="code-box">
 
-<label>Unique Kimas Code</label>
+        <label>Unique Kimas Code</label>
 
-<div class="code-box">
+        <div
+            class="generated-code"
+            id="generatedCode"
+        >
+            KIM-WJ32ME
+        </div>
 
-<div
-id="generatedCode"
-class="generated-code"
->
-Click Generate
-</div>
+        <button
+            class="dark-btn"
+            onclick="generateNewCode()"
+        >
+            Generate Code
+        </button>
 
-<button
-type="button"
-class="gold-btn"
-onclick="generateNewCode()"
->
-Generate Code
-</button>
-
-</div>
+    </div>
 
 
-<label>Message Title</label>
+    <label>Message Title</label>
 
-<input
-type="text"
-id="messageTitle"
-placeholder="Example: A Special Message For You"
->
-
-
-<label>Personal Message</label>
-
-<textarea
-id="personalMessage"
-placeholder="Write the message the receiver will see..."
-></textarea>
+    <input
+        type="text"
+        id="messageTitle"
+        placeholder="Example: A Special Message For You"
+    >
 
 
-<label>Sender Name</label>
+    <label>Personal Message</label>
 
-<input
-type="text"
-id="senderName"
-placeholder="Example: Allen"
->
-
-
-<label>Recipient Name</label>
-
-<input
-type="text"
-id="recipientName"
-placeholder="Example: Pearl"
->
+    <textarea
+        id="messageText"
+        placeholder="Write the message the receiver will see..."
+    ></textarea>
 
 
-<label>Photo for the Receiver</label>
+    <label>Sender Name</label>
 
-<input
-type="file"
-id="messagePhoto"
-accept="image/*"
-onchange="previewPhoto(event)"
->
+    <input
+        type="text"
+        id="messageSender"
+        placeholder="Example: Allen"
+    >
 
-<div class="photo-note">
-Optional. Add a personal photo that the receiver will see with the message.
-</div>
 
-<div
-id="photoPreviewContainer"
-class="photo-preview hidden"
->
+    <label>Recipient Name</label>
 
-<img
-id="photoPreview"
-src=""
-alt="Photo preview"
->
+    <input
+        type="text"
+        id="messageRecipient"
+        placeholder="Example: Pearl"
+    >
 
-<button
-type="button"
-class="dark-btn"
-onclick="removeSelectedPhoto()"
->
-Remove Photo
-</button>
+
+    <label>Photo for the Receiver</label>
+
+    <input
+        type="file"
+        id="messagePhoto"
+        accept="image/*"
+    >
+
+    <p class="photo-note">
+        Optional. Add a personal photo that the receiver will see with the message.
+    </p>
+
+
+    <img
+        id="messagePhotoPreview"
+        class="photo-preview hidden"
+    >
+
+
+    <button
+        class="gold-btn"
+        onclick="saveMessage()"
+    >
+        Save Message
+    </button>
 
 </div>
 
 
-<button
-type="button"
-id="saveButton"
-class="gold-btn"
-onclick="saveMessage()"
->
-Save Message
-</button>
-
-<button
-type="button"
-class="dark-btn"
-onclick="previewMessage()"
->
-Preview
-</button>
-
-<button
-type="button"
-id="cancelEditButton"
-class="dark-btn hidden"
-onclick="cancelEdit()"
->
-Cancel Edit
-</button>
-
-</div>
-
-
-<!-- =====================================================
-     MESSAGE PREVIEW
-===================================================== -->
-
-<div
-id="previewCard"
-class="card hidden"
->
-
-<h2>Preview</h2>
-
-<div class="preview">
-
-<img
-id="previewPhoto"
-src=""
-alt="Message photo"
-class="hidden"
->
-
-<h3 id="previewTitle">
-Message Title
-</h3>
-
-<p id="previewMessage">
-Your message will appear here.
-</p>
-
-<p>
-<strong>From:</strong>
-<span id="previewSender"></span>
-</p>
-
-<p>
-<strong>For:</strong>
-<span id="previewRecipient"></span>
-</p>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     CUSTOMER LINK
-===================================================== -->
-
-<div
-id="linkCard"
-class="card hidden"
->
-
-<h2>
-Customer Link & QR Code
-</h2>
-
-<p>
-Give this link or QR code to the customer.
-</p>
-
-<div
-id="customerLink"
-class="customer-link"
-></div>
-
-<button
-type="button"
-class="gold-btn"
-onclick="copyCustomerLink()"
->
-Copy Link
-</button>
-
-<div id="qrcode"></div>
-
-<br>
-
-<button
-type="button"
-class="gold-btn"
-onclick="downloadQR()"
->
-Download QR
-</button>
-
-</div>
-
-
-<!-- =====================================================
-     MESSAGE LIST
-===================================================== -->
+<!-- MESSAGE PREVIEW -->
 
 <div class="card">
 
-<h2>
-Your Message Codes
-</h2>
+    <h2>Preview</h2>
 
-<div
-id="messageList"
-class="message-list"
->
-
-<div class="loading">
-Loading messages...
-</div>
+    <div
+        class="preview"
+        id="messagePreview"
+    >
+        Your message preview will appear here.
+    </div>
 
 </div>
+
+
+<!-- LINK / QR -->
+
+<div class="card">
+
+    <h2>Link / QR</h2>
+
+    <div id="linkArea">
+        Select a message to generate its link and QR code.
+    </div>
+
+    <div id="qrcode"></div>
+
+</div>
+
+
+<!-- MESSAGE LIST -->
+
+<div class="card">
+
+    <h2>Your Message Codes</h2>
+
+    <div
+        class="message-list"
+        id="messageList"
+    >
+        <div class="loading">
+            Loading messages...
+        </div>
+    </div>
 
 </div>
 
@@ -959,48 +691,38 @@ Loading messages...
 ===================================================== -->
 
 <h2 class="section-heading">
-Customer Orders
+    Customer Orders
 </h2>
+
+<div class="card">
+
+    <h2>
+        Order Management
+        <span id="orderCount">0</span>
+    </h2>
+
+    <button
+        class="dark-btn"
+        onclick="loadOrders()"
+    >
+        🔄 Refresh Orders
+    </button>
+
+</div>
 
 
 <div class="card">
 
-<h2>
-Order Management
-<span
-id="orderCount"
-class="order-count"
->
-0
-</span>
-</h2>
+    <div
+        class="orders-list"
+        id="ordersList"
+    >
 
-<div id="orderStatus" class="status"></div>
+        <div class="loading">
+            Loading orders...
+        </div>
 
-
-<div style="margin-bottom:18px;">
-
-<button
-type="button"
-class="gold-btn"
-onclick="loadOrders()"
->
-🔄 Refresh Orders
-</button>
-
-</div>
-
-
-<div
-id="orderList"
-class="order-list"
->
-
-<div class="loading">
-Loading orders...
-</div>
-
-</div>
+    </div>
 
 </div>
 
@@ -1010,158 +732,116 @@ Loading orders...
 ===================================================== -->
 
 <h2 class="section-heading">
-KimasFootwear Products
+    KimasFootwear Products
 </h2>
 
+
+<!-- ADD PRODUCT -->
 
 <div class="card">
 
-<h2 id="productFormHeading">
-Add Product
-</h2>
-
-<div id="productStatus" class="status"></div>
+    <h2>Add Product</h2>
 
 
-<label>Product Name</label>
+    <label>Product Name</label>
 
-<input
-type="text"
-id="productName"
-placeholder="Example: Luxury Black Loafer"
->
-
-
-<label>Collection</label>
-
-<select id="productCollection">
-
-<option value="">
-Select Collection
-</option>
-
-<option value="Classic">
-Classic
-</option>
-
-<option value="Corporate">
-Corporate
-</option>
-
-<option value="Couples">
-Couples
-</option>
-
-<option value="Custom">
-Custom
-</option>
-
-</select>
+    <input
+        type="text"
+        id="productName"
+        placeholder="Example: Luxury Black Loafer"
+    >
 
 
-<label>Price (₦)</label>
+    <label>Collection</label>
 
-<input
-type="number"
-id="productPrice"
-placeholder="Example: 45000"
-min="0"
-step="0.01"
->
+    <select id="productCollection">
 
+        <option value="">
+            Select Collection
+        </option>
 
-<label>Product Description</label>
+        <option value="Classic">
+            Classic
+        </option>
 
-<textarea
-id="productDescription"
-placeholder="Describe the footwear..."
-></textarea>
+        <option value="Corporate">
+            Corporate
+        </option>
 
+        <option value="Couples">
+            Couples
+        </option>
 
-<label>Product Photo</label>
+        <option value="Custom">
+            Custom
+        </option>
 
-<input
-type="file"
-id="productPhoto"
-accept="image/*"
-onchange="previewProductPhoto(event)"
->
-
-<div class="photo-note">
-Upload a clear photo of the footwear.
-</div>
+    </select>
 
 
-<div
-id="productPhotoPreviewContainer"
-class="product-photo-preview hidden"
->
+    <label>Price (₦)</label>
 
-<img
-id="productPhotoPreview"
-src=""
-alt="Product preview"
->
+    <input
+        type="number"
+        id="productPrice"
+        placeholder="Example: 45000"
+    >
 
-<button
-type="button"
-class="dark-btn"
-onclick="removeProductPhoto()"
->
-Remove Photo
-</button>
+
+    <label>Product Description</label>
+
+    <textarea
+        id="productDescription"
+        placeholder="Describe the footwear..."
+    ></textarea>
+
+
+    <label>Product Photo</label>
+
+    <input
+        type="file"
+        id="productPhoto"
+        accept="image/*"
+    >
+
+    <p class="photo-note">
+        Upload a clear photo of the footwear.
+    </p>
+
+
+    <img
+        id="productPhotoPreview"
+        class="product-photo-preview hidden"
+    >
+
+
+    <button
+        class="gold-btn"
+        onclick="saveProduct()"
+    >
+        Save Product
+    </button>
 
 </div>
 
 
-<button
-type="button"
-id="saveProductButton"
-class="gold-btn"
-onclick="saveProduct()"
->
-Save Product
-</button>
-
-
-<button
-type="button"
-id="cancelProductEditButton"
-class="dark-btn hidden"
-onclick="cancelProductEdit()"
->
-Cancel Edit
-</button>
-
-</div>
-
-
-<!-- =====================================================
-     PRODUCT LIST
-===================================================== -->
+<!-- PRODUCT LIST -->
 
 <div class="card">
 
-<h2>
-Your Products
-</h2>
+    <h2>Your Products</h2>
 
-<div
-id="productList"
-class="message-list"
->
+    <div id="productList">
 
-<div class="loading">
-Loading products...
-</div>
+        <div class="loading">
+            Loading products...
+        </div>
+
+    </div>
 
 </div>
 
 </div>
-
-
-</div>
-
 </div>
 
 
@@ -1179,86 +859,45 @@ const SUPABASE_PUBLISHABLE_KEY =
 
 let supabaseClient = null;
 
-
-/* =====================================================
-   MESSAGE VARIABLES
-===================================================== */
-
-let currentCode = "";
-let editingId = null;
-let currentCustomerLink = "";
-let currentPhotoUrl = "";
-let selectedPhotoFile = null;
+supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 
 /* =====================================================
-   PRODUCT VARIABLES
+   HELPERS
 ===================================================== */
 
-let editingProductId = null;
-let selectedProductPhoto = null;
-let currentProductPhotoUrl = "";
+function escapeHtml(value) {
 
-
-/* =====================================================
-   INITIALIZE SUPABASE
-===================================================== */
-
-function initializeSupabase() {
-
-    if (!window.supabase) {
-
-        showStatus(
-            "loginStatus",
-            "Supabase library could not load. Please refresh the page.",
-            "error"
-        );
-
-        return false;
+    if (value === null || value === undefined) {
+        return "";
     }
 
-    try {
-
-        supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
-
-        return true;
-
-    } catch(error) {
-
-        showStatus(
-            "loginStatus",
-            "Could not connect to Supabase: " + error.message,
-            "error"
-        );
-
-        return false;
-    }
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-/* =====================================================
-   STATUS
-===================================================== */
+function formatDate(date) {
 
-function showStatus(
-    elementId,
-    message,
-    type
-) {
+    if (!date) {
+        return "Unknown date";
+    }
 
-    const element =
-        document.getElementById(elementId);
-
-    if (!element) return;
-
-    element.textContent = message;
-
-    element.className =
-        "status " + type;
+    return new Date(date).toLocaleString(
+        "en-NG",
+        {
+            dateStyle: "medium",
+            timeStyle: "short"
+        }
+    );
 }
 
 
@@ -1266,217 +905,131 @@ function showStatus(
    LOGIN
 ===================================================== */
 
-async function login(event) {
-
-    event.preventDefault();
-
-    const button =
-        document.getElementById("loginButton");
+async function login() {
 
     const email =
-        document
-        .getElementById("loginEmail")
-        .value
-        .trim();
+        document.getElementById("loginEmail").value.trim();
 
     const password =
-        document
-        .getElementById("loginPassword")
-        .value;
+        document.getElementById("loginPassword").value;
 
+    const errorBox =
+        document.getElementById("loginError");
+
+    errorBox.textContent = "";
 
     if (!email || !password) {
 
-        showStatus(
-            "loginStatus",
-            "Please enter your email and password.",
-            "error"
-        );
+        errorBox.textContent =
+            "Please enter your email and password.";
 
         return;
     }
 
 
-    if (!supabaseClient) {
-
-        if (!initializeSupabase()) {
-            return;
-        }
-    }
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Signing in...";
-
-
-    showStatus(
-        "loginStatus",
-        "Connecting to KimasFootwear...",
-        "info"
-    );
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
+    const { error } =
         await supabaseClient.auth.signInWithPassword({
-
             email: email,
             password: password
-
         });
 
 
-        if (error) {
+    if (error) {
 
-            showStatus(
-                "loginStatus",
-                "Login failed: " + error.message,
-                "error"
-            );
+        errorBox.textContent =
+            error.message;
 
-            button.disabled = false;
-
-            button.textContent =
-                "Sign In";
-
-            return;
-        }
-
-
-        if (!data || !data.session) {
-
-            showStatus(
-                "loginStatus",
-                "Login did not create a session.",
-                "error"
-            );
-
-            button.disabled = false;
-
-            button.textContent =
-                "Sign In";
-
-            return;
-        }
-
-
-        document
-        .getElementById("loginScreen")
-        .classList
-        .add("hidden");
-
-
-        document
-        .getElementById("dashboard")
-        .classList
-        .remove("hidden");
-
-
-        button.disabled = false;
-
-        button.textContent =
-            "Sign In";
-
-
-        await generateNewCode();
-        await loadMessages();
-        await loadOrders();
-        await loadProducts();
-
-
-    } catch(error) {
-
-        showStatus(
-            "loginStatus",
-            "Connection error: " + error.message,
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            "Sign In";
+        return;
     }
+
+
+    await showDashboard();
+
 }
 
 
 /* =====================================================
-   CHECK LOGIN
+   LOGOUT
 ===================================================== */
 
-async function checkLogin() {
+async function logout() {
 
-    if (!supabaseClient) return;
+    await supabaseClient.auth.signOut();
 
-    try {
+    document.getElementById("dashboard").style.display =
+        "none";
 
-        const {
-            data
-        } =
+    document.getElementById("loginScreen").style.display =
+        "flex";
+}
+
+
+/* =====================================================
+   SHOW DASHBOARD
+===================================================== */
+
+async function showDashboard() {
+
+    document.getElementById("loginScreen").style.display =
+        "none";
+
+    document.getElementById("dashboard").style.display =
+        "block";
+
+
+    await generateNewCode();
+
+    await loadMessages();
+
+    await loadOrders();
+
+    await loadProducts();
+
+}
+
+
+/* =====================================================
+   CHECK SESSION
+===================================================== */
+
+async function checkSession() {
+
+    const {
+        data: { session }
+    } =
         await supabaseClient.auth.getSession();
 
 
-        if (
-            data &&
-            data.session
-        ) {
+    if (session) {
 
-            document
-            .getElementById("loginScreen")
-            .classList
-            .add("hidden");
+        await showDashboard();
 
+    } else {
 
-            document
-            .getElementById("dashboard")
-            .classList
-            .remove("hidden");
+        document.getElementById("loginScreen").style.display =
+            "flex";
 
-
-            await generateNewCode();
-            await loadMessages();
-            await loadOrders();
-            await loadProducts();
-        }
-
-    } catch(error) {
-
-        console.log(
-            "Session check:",
-            error
-        );
     }
 }
 
 
 /* =====================================================
-   CREATE RANDOM CODE
+   GENERATE KIMAS CODE
 ===================================================== */
 
-function createRandomCode() {
+function generateCode() {
 
     const characters =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     let code = "KIM-";
 
-    for (
-        let i = 0;
-        i < 6;
-        i++
-    ) {
+    for (let i = 0; i < 6; i++) {
 
         code +=
             characters.charAt(
                 Math.floor(
-                    Math.random() *
-                    characters.length
+                    Math.random() * characters.length
                 )
             );
     }
@@ -1485,236 +1038,133 @@ function createRandomCode() {
 }
 
 
-/* =====================================================
-   GENERATE NEW CODE
-===================================================== */
-
 async function generateNewCode() {
 
-    if (!supabaseClient) {
-
-        if (!initializeSupabase()) {
-            return;
-        }
-    }
+    let code = generateCode();
 
 
-    let code = "";
-    let exists = true;
-
-
-    while (exists) {
-
-        code =
-            createRandomCode();
-
-
-        const {
-            data,
-            error
-        } =
+    const { data } =
         await supabaseClient
-        .from("messages")
-        .select("id")
-        .eq("code", code)
-        .limit(1);
+            .from("messages")
+            .select("code")
+            .eq("code", code)
+            .maybeSingle();
 
 
-        if (error) {
+    if (data) {
 
-            console.log(
-                "Code check:",
-                error
-            );
+        return generateNewCode();
 
-            exists = false;
-
-        } else {
-
-            exists =
-                data &&
-                data.length > 0;
-        }
     }
 
 
-    currentCode = code;
+    document.getElementById("generatedCode")
+        .textContent = code;
 
-
-    document
-    .getElementById("generatedCode")
-    .textContent = code;
 }
+
+
+/* =====================================================
+   MESSAGE PREVIEW
+===================================================== */
+
+function updateMessagePreview() {
+
+    const title =
+        document.getElementById("messageTitle").value;
+
+    const message =
+        document.getElementById("messageText").value;
+
+    const sender =
+        document.getElementById("messageSender").value;
+
+    const recipient =
+        document.getElementById("messageRecipient").value;
+
+
+    document.getElementById("messagePreview")
+        .innerHTML = `
+
+        <h3 style="color:#d4af37;">
+            ${escapeHtml(title || "Your Message Title")}
+        </h3>
+
+        <p>
+            ${escapeHtml(message || "Your message will appear here...")}
+        </p>
+
+        <p>
+            <strong>From:</strong>
+            ${escapeHtml(sender || "Sender")}
+        </p>
+
+        <p>
+            <strong>For:</strong>
+            ${escapeHtml(recipient || "Recipient")}
+        </p>
+
+    `;
+}
+
+
+document
+    .getElementById("messageTitle")
+    .addEventListener(
+        "input",
+        updateMessagePreview
+    );
+
+document
+    .getElementById("messageText")
+    .addEventListener(
+        "input",
+        updateMessagePreview
+    );
+
+document
+    .getElementById("messageSender")
+    .addEventListener(
+        "input",
+        updateMessagePreview
+    );
+
+document
+    .getElementById("messageRecipient")
+    .addEventListener(
+        "input",
+        updateMessagePreview
+    );
 
 
 /* =====================================================
    MESSAGE PHOTO PREVIEW
 ===================================================== */
 
-function previewPhoto(event) {
-
-    const file =
-        event.target.files[0];
-
-    if (!file) return;
-
-
-    if (!file.type.startsWith("image/")) {
-
-        showStatus(
-            "saveStatus",
-            "Please select an image file.",
-            "error"
-        );
-
-        removeSelectedPhoto();
-
-        return;
-    }
-
-
-    selectedPhotoFile = file;
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload = function(e) {
-
-        document
-        .getElementById("photoPreview")
-        .src =
-            e.target.result;
-
-
-        document
-        .getElementById("photoPreviewContainer")
-        .classList
-        .remove("hidden");
-    };
-
-
-    reader.readAsDataURL(file);
-}
-
-
-/* =====================================================
-   REMOVE MESSAGE PHOTO
-===================================================== */
-
-function removeSelectedPhoto() {
-
-    selectedPhotoFile = null;
-    currentPhotoUrl = "";
-
-
-    document
+document
     .getElementById("messagePhoto")
-    .value = "";
+    .addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        const preview =
+            document.getElementById("messagePhotoPreview");
 
 
-    document
-    .getElementById("photoPreview")
-    .src = "";
+        if (!file) {
 
+            preview.classList.add("hidden");
 
-    document
-    .getElementById("photoPreviewContainer")
-    .classList
-    .add("hidden");
-}
-
-
-/* =====================================================
-   UPLOAD MESSAGE PHOTO
-===================================================== */
-
-async function uploadPhoto(file) {
-
-    if (!file) {
-        return currentPhotoUrl || "";
-    }
-
-
-    const {
-        data: userData,
-        error: userError
-    } =
-    await supabaseClient.auth.getUser();
-
-
-    if (userError || !userData.user) {
-
-        throw new Error(
-            "Your admin session has expired. Please log in again."
-        );
-    }
-
-
-    const userId =
-        userData.user.id;
-
-
-    const safeName =
-        file.name
-        .replace(/[^a-zA-Z0-9._-]/g, "-");
-
-
-    const filePath =
-        userId +
-        "/" +
-        currentCode +
-        "-" +
-        Date.now() +
-        "-" +
-        safeName;
-
-
-    const {
-        error
-    } =
-    await supabaseClient
-    .storage
-    .from("message-photos")
-    .upload(
-        filePath,
-        file,
-        {
-            cacheControl: "3600",
-            upsert: false
+            return;
         }
-    );
 
 
-    if (error) {
+        preview.src =
+            URL.createObjectURL(file);
 
-        throw new Error(
-            "Photo upload failed: " +
-            error.message
-        );
-    }
+        preview.classList.remove("hidden");
 
-
-    const {
-        data
-    } =
-    supabaseClient
-    .storage
-    .from("message-photos")
-    .getPublicUrl(filePath);
-
-
-    if (!data || !data.publicUrl) {
-
-        throw new Error(
-            "Could not create the photo URL."
-        );
-    }
-
-
-    return data.publicUrl;
-}
+    });
 
 
 /* =====================================================
@@ -1723,215 +1173,149 @@ async function uploadPhoto(file) {
 
 async function saveMessage() {
 
-    if (!supabaseClient) {
-
-        if (!initializeSupabase()) {
-            return;
-        }
-    }
-
+    const code =
+        document.getElementById("generatedCode")
+            .textContent.trim();
 
     const title =
-        document
-        .getElementById("messageTitle")
-        .value
-        .trim();
-
+        document.getElementById("messageTitle")
+            .value.trim();
 
     const message =
-        document
-        .getElementById("personalMessage")
-        .value
-        .trim();
-
+        document.getElementById("messageText")
+            .value.trim();
 
     const sender =
-        document
-        .getElementById("senderName")
-        .value
-        .trim();
-
+        document.getElementById("messageSender")
+            .value.trim();
 
     const recipient =
-        document
-        .getElementById("recipientName")
-        .value
-        .trim();
+        document.getElementById("messageRecipient")
+            .value.trim();
+
+    const photoInput =
+        document.getElementById("messagePhoto");
 
 
-    if (!currentCode) {
+    if (!title || !message || !sender || !recipient) {
 
-        showStatus(
-            "saveStatus",
-            "Please generate a Kimas Code first.",
-            "error"
+        alert(
+            "Please complete all message fields."
         );
 
         return;
     }
 
 
-    if (!title) {
-
-        showStatus(
-            "saveStatus",
-            "Please enter a message title.",
-            "error"
-        );
-
-        return;
-    }
+    let photoUrl = null;
 
 
-    if (!message) {
+    /* PHOTO */
 
-        showStatus(
-            "saveStatus",
-            "Please write the personal message.",
-            "error"
-        );
+    if (photoInput.files.length > 0) {
 
-        return;
-    }
+        const file =
+            photoInput.files[0];
 
-
-    const button =
-        document.getElementById("saveButton");
+        const fileName =
+            Date.now() + "-" + file.name;
 
 
-    const wasEditing =
-        Boolean(editingId);
+        const {
+            error: uploadError
+        } =
+            await supabaseClient.storage
+                .from("message-photos")
+                .upload(
+                    fileName,
+                    file
+                );
 
 
-    button.disabled = true;
+        if (uploadError) {
 
-    button.textContent =
-        wasEditing
-        ? "Updating..."
-        : "Saving...";
-
-
-    try {
-
-        if (selectedPhotoFile) {
-
-            showStatus(
-                "saveStatus",
-                "Uploading photo...",
-                "info"
+            alert(
+                "Photo upload failed: " +
+                uploadError.message
             );
 
-            currentPhotoUrl =
-                await uploadPhoto(
-                    selectedPhotoFile
-                );
+            return;
         }
 
 
-        let result;
+        const {
+            data: publicData
+        } =
+            supabaseClient.storage
+                .from("message-photos")
+                .getPublicUrl(fileName);
 
 
-        if (editingId) {
+        photoUrl =
+            publicData.publicUrl;
 
-            result =
-            await supabaseClient
-            .from("messages")
-            .update({
+    }
 
-                code: currentCode,
-                title: title,
-                message: message,
-                sender: sender,
-                recipient: recipient,
-                photo_url:
-                    currentPhotoUrl || null
 
-            })
-            .eq("id", editingId);
-
-        } else {
-
-            result =
-            await supabaseClient
+    const {
+        error
+    } =
+        await supabaseClient
             .from("messages")
             .insert({
 
-                code: currentCode,
+                code: code,
+
                 title: title,
+
                 message: message,
+
                 sender: sender,
+
                 recipient: recipient,
-                photo_url:
-                    currentPhotoUrl || null,
+
+                photo_url: photoUrl,
+
                 active: true
 
             });
-        }
 
 
-        if (result.error) {
+    if (error) {
 
-            throw new Error(
-                result.error.message
-            );
-        }
-
-
-        showStatus(
-            "saveStatus",
-            wasEditing
-            ? "Message updated successfully!"
-            : "Message saved successfully!",
-            "success"
+        alert(
+            "Unable to save message: " +
+            error.message
         );
 
-
-        createCustomerLink(currentCode);
-
-        clearForm();
-
-        editingId = null;
-        currentPhotoUrl = "";
-        selectedPhotoFile = null;
-
-
-        document
-        .getElementById("formHeading")
-        .textContent =
-            "Create Customer Message";
-
-
-        document
-        .getElementById("cancelEditButton")
-        .classList
-        .add("hidden");
-
-
-        button.disabled = false;
-
-        button.textContent =
-            "Save Message";
-
-
-        await loadMessages();
-        await generateNewCode();
-
-
-    } catch(error) {
-
-        showStatus(
-            "saveStatus",
-            "Error: " + error.message,
-            "error"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-            wasEditing
-            ? "Update Message"
-            : "Save Message";
+        return;
     }
+
+
+    alert(
+        "Customer message saved successfully."
+    );
+
+
+    document.getElementById("messageTitle").value = "";
+
+    document.getElementById("messageText").value = "";
+
+    document.getElementById("messageSender").value = "";
+
+    document.getElementById("messageRecipient").value = "";
+
+    document.getElementById("messagePhoto").value = "";
+
+    document
+        .getElementById("messagePhotoPreview")
+        .classList.add("hidden");
+
+
+    await generateNewCode();
+
+    await loadMessages();
+
 }
 
 
@@ -1941,313 +1325,181 @@ async function saveMessage() {
 
 async function loadMessages() {
 
-    if (!supabaseClient) return;
-
-
     const list =
         document.getElementById("messageList");
 
 
     list.innerHTML =
-        '<div class="loading">Loading messages...</div>';
+        `<div class="loading">
+            Loading messages...
+        </div>`;
 
 
-    try {
-
-        const {
-            data,
-            error
-        } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
-        .from("messages")
-        .select("*")
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
-
-
-        if (error) {
-
-            list.innerHTML =
-                '<div class="empty">Unable to load messages: ' +
-                escapeHtml(error.message) +
-                '</div>';
-
-            return;
-        }
-
-
-        if (!data || data.length === 0) {
-
-            list.innerHTML =
-                '<div class="empty">No customer messages yet.</div>';
-
-            return;
-        }
-
-
-        list.innerHTML = "";
-
-
-        data.forEach(function(item) {
-
-            const div =
-                document.createElement("div");
-
-
-            div.className =
-                "message-item";
-
-
-            const photoHtml =
-                item.photo_url
-                ?
-                `
-                <img
-                    src="${escapeHtml(item.photo_url)}"
-                    alt="Message photo"
-                >
-                `
-                :
-                "";
-
-
-            div.innerHTML = `
-
-                <h3>
-                    ${escapeHtml(item.title)}
-                </h3>
-
-                <div class="message-code">
-                    ${escapeHtml(item.code)}
-                </div>
-
-                ${photoHtml}
-
-                <p>
-                    ${escapeHtml(item.message)}
-                </p>
-
-                <p>
-                    <strong>From:</strong>
-                    ${escapeHtml(item.sender || "-")}
-                    <br>
-
-                    <strong>For:</strong>
-                    ${escapeHtml(item.recipient || "-")}
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    ${item.active ? "Active" : "Inactive"}
-                </p>
-
-                <div class="message-actions">
-
-                    <button
-                        type="button"
-                        class="gold-btn"
-                        onclick="editMessage(${item.id})"
-                    >
-                        Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="dark-btn"
-                        onclick="showMessageLink('${escapeJs(item.code)}')"
-                    >
-                        Link / QR
-                    </button>
-
-                    <button
-                        type="button"
-                        class="danger-btn"
-                        onclick="deleteMessage(${item.id})"
-                    >
-                        Delete
-                    </button>
-
-                </div>
-            `;
-
-
-            list.appendChild(div);
-
-        });
-
-
-    } catch(error) {
-
-        list.innerHTML =
-            '<div class="empty">Error loading messages.</div>';
-
-        console.log(error);
-    }
-}
-
-
-/* =====================================================
-   EDIT MESSAGE
-===================================================== */
-
-async function editMessage(id) {
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-        .from("messages")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-
-        if (error) {
-
-            showStatus(
-                "saveStatus",
-                "Could not load message: " +
-                error.message,
-                "error"
+            .from("messages")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
             );
 
-            return;
-        }
 
+    if (error) {
 
-        editingId = id;
-        currentCode = data.code;
-        currentPhotoUrl = data.photo_url || "";
-        selectedPhotoFile = null;
+        list.innerHTML =
+            `<div class="order-error">
+                Unable to load messages:
+                ${escapeHtml(error.message)}
+            </div>`;
 
-
-        document
-        .getElementById("generatedCode")
-        .textContent =
-            data.code;
-
-
-        document
-        .getElementById("messageTitle")
-        .value =
-            data.title || "";
-
-
-        document
-        .getElementById("personalMessage")
-        .value =
-            data.message || "";
-
-
-        document
-        .getElementById("senderName")
-        .value =
-            data.sender || "";
-
-
-        document
-        .getElementById("recipientName")
-        .value =
-            data.recipient || "";
-
-
-        document
-        .getElementById("messagePhoto")
-        .value = "";
-
-
-        if (data.photo_url) {
-
-            document
-            .getElementById("photoPreview")
-            .src =
-                data.photo_url;
-
-
-            document
-            .getElementById("photoPreviewContainer")
-            .classList
-            .remove("hidden");
-
-        } else {
-
-            document
-            .getElementById("photoPreviewContainer")
-            .classList
-            .add("hidden");
-        }
-
-
-        document
-        .getElementById("formHeading")
-        .textContent =
-            "Edit Customer Message";
-
-
-        document
-        .getElementById("saveButton")
-        .textContent =
-            "Update Message";
-
-
-        document
-        .getElementById("cancelEditButton")
-        .classList
-        .remove("hidden");
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-
-    } catch(error) {
-
-        console.log(error);
+        return;
     }
+
+
+    if (!data || data.length === 0) {
+
+        list.innerHTML =
+            `<div class="empty">
+                No customer messages yet.
+            </div>`;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        data.map(message => `
+
+        <div class="message-item">
+
+            <h3>
+                ${escapeHtml(message.title)}
+            </h3>
+
+            <div class="message-code">
+                ${escapeHtml(message.code)}
+            </div>
+
+            ${
+                message.photo_url
+                ?
+                `<p>
+                    <img
+                        src="${escapeHtml(message.photo_url)}"
+                        class="photo-preview"
+                    >
+                </p>`
+                :
+                ""
+            }
+
+            <p>
+                ${escapeHtml(message.message)}
+            </p>
+
+            <p>
+                <strong>From:</strong>
+                ${escapeHtml(message.sender)}
+            </p>
+
+            <p>
+                <strong>For:</strong>
+                ${escapeHtml(message.recipient)}
+            </p>
+
+            <p class="status">
+                Status:
+                ${message.active ? "Active" : "Inactive"}
+            </p>
+
+            <div class="message-actions">
+
+                <button
+                    class="gold-btn"
+                    onclick="editMessage('${escapeHtml(message.id)}')"
+                >
+                    Edit
+                </button>
+
+                <button
+                    class="dark-btn"
+                    onclick="showMessageLink('${escapeHtml(message.code)}')"
+                >
+                    Link / QR
+                </button>
+
+                <button
+                    class="danger-btn"
+                    onclick="deleteMessage('${escapeHtml(message.id)}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
 }
 
 
 /* =====================================================
-   CANCEL MESSAGE EDIT
+   MESSAGE LINK / QR
 ===================================================== */
 
-function cancelEdit() {
+function showMessageLink(code) {
 
-    editingId = null;
-    currentPhotoUrl = "";
-    selectedPhotoFile = null;
-
-    clearForm();
-
-
-    document
-    .getElementById("formHeading")
-    .textContent =
-        "Create Customer Message";
+    const baseUrl =
+        window.location.origin +
+        window.location.pathname
+            .replace("admin.html", "message.html");
 
 
-    document
-    .getElementById("saveButton")
-    .textContent =
-        "Save Message";
+    const url =
+        baseUrl +
+        "?code=" +
+        encodeURIComponent(code);
 
 
-    document
-    .getElementById("cancelEditButton")
-    .classList
-    .add("hidden");
+    document.getElementById("linkArea")
+        .innerHTML = `
+
+        <p>
+            Customer Link:
+        </p>
+
+        <p>
+            <a
+                class="customer-link"
+                href="${escapeHtml(url)}"
+                target="_blank"
+            >
+                ${escapeHtml(url)}
+            </a>
+        </p>
+
+    `;
 
 
-    generateNewCode();
+    const qr =
+        document.getElementById("qrcode");
+
+    qr.innerHTML = "";
+
+
+    new QRCode(qr, {
+        text: url,
+        width: 180,
+        height: 180
+    });
+
 }
 
 
@@ -2257,608 +1509,461 @@ function cancelEdit() {
 
 async function deleteMessage(id) {
 
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this customer message?"
-        );
-
-
-    if (!confirmed) return;
-
-
-    try {
-
-        const {
-            error
-        } =
-        await supabaseClient
-        .from("messages")
-        .delete()
-        .eq("id", id);
-
-
-        if (error) {
-
-            showStatus(
-                "saveStatus",
-                "Could not delete message: " +
-                error.message,
-                "error"
-            );
-
-            return;
-        }
-
-
-        showStatus(
-            "saveStatus",
-            "Message deleted successfully.",
-            "success"
-        );
-
-
-        await loadMessages();
-
-
-    } catch(error) {
-
-        showStatus(
-            "saveStatus",
-            "Delete error: " +
-            error.message,
-            "error"
-        );
-    }
-}
-
-
-/* =====================================================
-   MESSAGE PREVIEW
-===================================================== */
-
-function previewMessage() {
-
-    const title =
-        document
-        .getElementById("messageTitle")
-        .value
-        .trim();
-
-
-    const message =
-        document
-        .getElementById("personalMessage")
-        .value
-        .trim();
-
-
-    const sender =
-        document
-        .getElementById("senderName")
-        .value
-        .trim();
-
-
-    const recipient =
-        document
-        .getElementById("recipientName")
-        .value
-        .trim();
-
-
-    document
-    .getElementById("previewTitle")
-    .textContent =
-        title || "Message Title";
-
-
-    document
-    .getElementById("previewMessage")
-    .textContent =
-        message ||
-        "Your message will appear here.";
-
-
-    document
-    .getElementById("previewSender")
-    .textContent =
-        sender || "-";
-
-
-    document
-    .getElementById("previewRecipient")
-    .textContent =
-        recipient || "-";
-
-
-    const previewPhoto =
-        document.getElementById("previewPhoto");
-
-
-    if (selectedPhotoFile) {
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload =
-            function(e) {
-
-                previewPhoto.src =
-                    e.target.result;
-
-                previewPhoto.classList
-                    .remove("hidden");
-            };
-
-
-        reader.readAsDataURL(
-            selectedPhotoFile
-        );
-
-    } else if (currentPhotoUrl) {
-
-        previewPhoto.src =
-            currentPhotoUrl;
-
-        previewPhoto.classList
-            .remove("hidden");
-
-    } else {
-
-        previewPhoto.src = "";
-
-        previewPhoto.classList
-            .add("hidden");
-    }
-
-
-    document
-    .getElementById("previewCard")
-    .classList
-    .remove("hidden");
-}
-
-
-/* =====================================================
-   CUSTOMER LINK
-===================================================== */
-
-function createCustomerLink(code) {
-
-    const baseUrl =
-        window.location.origin +
-        window.location.pathname
-        .replace(
-            "admin.html",
-            "message.html"
-        );
-
-
-    currentCustomerLink =
-        baseUrl +
-        "?code=" +
-        encodeURIComponent(code);
-
-
-    document
-    .getElementById("customerLink")
-    .textContent =
-        currentCustomerLink;
-
-
-    document
-    .getElementById("linkCard")
-    .classList
-    .remove("hidden");
-
-
-    generateQR(
-        currentCustomerLink
-    );
-}
-
-
-/* =====================================================
-   SHOW EXISTING LINK
-===================================================== */
-
-function showMessageLink(code) {
-
-    currentCode = code;
-
-    createCustomerLink(code);
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =====================================================
-   GENERATE QR
-===================================================== */
-
-function generateQR(url) {
-
-    const qr =
-        document.getElementById("qrcode");
-
-
-    qr.innerHTML = "";
-
-
     if (
-        typeof QRCode ===
-        "undefined"
+        !confirm(
+            "Delete this customer message?"
+        )
     ) {
-
-        qr.innerHTML =
-            "<p style='color:#111'>QR library unavailable.</p>";
-
         return;
     }
 
 
-    new QRCode(qr, {
-
-        text: url,
-
-        width: 300,
-
-        height: 300,
-
-        colorDark: "#000000",
-
-        colorLight: "#ffffff",
-
-        correctLevel:
-            QRCode.CorrectLevel.H
-
-    });
-}
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("messages")
+            .delete()
+            .eq("id", id);
 
 
-/* =====================================================
-   COPY LINK
-===================================================== */
+    if (error) {
 
-async function copyCustomerLink() {
-
-    if (!currentCustomerLink) {
-
-        showStatus(
-            "saveStatus",
-            "No customer link available.",
-            "error"
+        alert(
+            "Unable to delete message: " +
+            error.message
         );
 
         return;
     }
 
 
-    try {
+    await loadMessages();
 
-        await navigator.clipboard.writeText(
-            currentCustomerLink
-        );
-
-
-        showStatus(
-            "saveStatus",
-            "Customer link copied!",
-            "success"
-        );
-
-
-    } catch(error) {
-
-        showStatus(
-            "saveStatus",
-            "Could not copy automatically. Please copy the link manually.",
-            "error"
-        );
-    }
 }
 
 
 /* =====================================================
-   DOWNLOAD QR
+   EDIT MESSAGE
 ===================================================== */
 
-function downloadQR() {
+async function editMessage(id) {
 
-    const qr =
-        document.getElementById("qrcode");
-
-
-    const canvas =
-        qr.querySelector("canvas");
-
-
-    if (canvas) {
-
-        canvas.toBlob(
-            function(blob) {
-
-                if (!blob) return;
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("messages")
+            .select("*")
+            .eq("id", id)
+            .single();
 
 
-                const url =
-                    URL.createObjectURL(blob);
+    if (error) {
 
-
-                const link =
-                    document.createElement("a");
-
-
-                link.href = url;
-
-
-                link.download =
-                    "KimasFootwear-" +
-                    currentCode +
-                    "-QR.png";
-
-
-                document.body.appendChild(link);
-
-                link.click();
-
-                document.body.removeChild(link);
-
-
-                setTimeout(function() {
-
-                    URL.revokeObjectURL(url);
-
-                }, 1000);
-
-            },
-            "image/png"
+        alert(
+            "Unable to load message: " +
+            error.message
         );
 
         return;
     }
 
 
-    showStatus(
-        "saveStatus",
-        "QR code is not ready yet.",
-        "error"
-    );
+    document.getElementById("messageTitle")
+        .value = data.title || "";
+
+    document.getElementById("messageText")
+        .value = data.message || "";
+
+    document.getElementById("messageSender")
+        .value = data.sender || "";
+
+    document.getElementById("messageRecipient")
+        .value = data.recipient || "";
+
+
+    updateMessagePreview();
+
+
+    const newTitle =
+        prompt(
+            "Edit message title:",
+            data.title || ""
+        );
+
+
+    if (newTitle === null) {
+        return;
+    }
+
+
+    const newMessage =
+        prompt(
+            "Edit personal message:",
+            data.message || ""
+        );
+
+
+    if (newMessage === null) {
+        return;
+    }
+
+
+    const {
+        error: updateError
+    } =
+        await supabaseClient
+            .from("messages")
+            .update({
+                title: newTitle,
+                message: newMessage
+            })
+            .eq("id", id);
+
+
+    if (updateError) {
+
+        alert(
+            "Unable to update message: " +
+            updateError.message
+        );
+
+        return;
+    }
+
+
+    await loadMessages();
+
 }
 
 
 /* =====================================================
-   CLEAR MESSAGE FORM
-===================================================== */
-
-function clearForm() {
-
-    document.getElementById("messageTitle").value = "";
-    document.getElementById("personalMessage").value = "";
-    document.getElementById("senderName").value = "";
-    document.getElementById("recipientName").value = "";
-    document.getElementById("messagePhoto").value = "";
-
-    document.getElementById("photoPreview").src = "";
-
-    document
-    .getElementById("photoPreviewContainer")
-    .classList
-    .add("hidden");
-}
-
-
-/* =====================================================
-   =====================================================
    CUSTOMER ORDERS
-   =====================================================
-===================================================== */
-
-
-/* =====================================================
-   LOAD ORDERS
 ===================================================== */
 
 async function loadOrders() {
 
-    if (!supabaseClient) return;
-
-
     const list =
-        document.getElementById("orderList");
-
+        document.getElementById("ordersList");
 
     const count =
         document.getElementById("orderCount");
 
 
-    if (!list) return;
-
-
     list.innerHTML =
-        '<div class="loading">Loading orders...</div>';
+        `<div class="loading">
+            Loading orders...
+        </div>`;
 
 
-    try {
-
-        const {
-            data,
-            error
-        } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
-        .from("orders")
-        .select("*")
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
-
-
-        if (error) {
-
-            console.error(
-                "Orders error:",
-                error
+            .from("orders")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
             );
 
 
-            list.innerHTML =
-                '<div class="empty">Unable to load orders: ' +
-                escapeHtml(error.message) +
-                '</div>';
+    if (error) {
+
+        list.innerHTML =
+            `<div class="order-error">
+                Unable to load orders:
+                ${escapeHtml(error.message)}
+            </div>`;
+
+        count.textContent = "0";
+
+        return;
+    }
 
 
-            if (count) {
-                count.textContent = "0";
-            }
-
-            return;
-        }
+    count.textContent =
+        data ? data.length : 0;
 
 
-        if (!data || data.length === 0) {
+    if (!data || data.length === 0) {
 
-            list.innerHTML =
-                '<div class="empty">No customer orders yet.</div>';
+        list.innerHTML =
+            `<div class="empty">
+                No customer orders yet.
+            </div>`;
 
-
-            if (count) {
-                count.textContent = "0";
-            }
-
-            return;
-        }
+        return;
+    }
 
 
-        if (count) {
-            count.textContent =
-                data.length;
-        }
+    list.innerHTML =
+        data.map(order => {
 
-
-        list.innerHTML = "";
-
-
-        data.forEach(function(order) {
-
-            const item =
-                document.createElement("div");
-
-
-            item.className =
-                "order-item";
-
-
-            if (
-                !order.status ||
-                order.status === "New"
-            ) {
-
-                item.classList.add(
-                    "new-order"
-                );
-            }
-
-
-            const createdDate =
-                order.created_at
-                ?
-                new Date(
-                    order.created_at
-                ).toLocaleString(
-                    "en-NG",
-                    {
-                        dateStyle: "medium",
-                        timeStyle: "short"
-                    }
-                )
-                :
-                "Unknown";
+            const message =
+                order.whatsapp_message ||
+                buildOrderMessage(order);
 
 
             const status =
-                order.status ||
-                "New";
+                order.status || "New";
 
 
-            const personalMessage =
-                order.private_message_enabled
-                ?
-                `
-                <div class="order-detail">
+            return `
 
-                    <h4>
-                        💌 Personal Message
-                    </h4>
+            <div class="order-item">
 
-                    <p>
-                        <strong>From:</strong>
-                        ${escapeHtml(
-                            order.message_sender || "-"
-                        )}
-                    </p>
+                <h3>
+                    ${escapeHtml(order.product_name)}
+                </h3>
 
-                    <p>
-                        <strong>To:</strong>
-                        ${escapeHtml(
-                            order.message_recipient || "-"
-                        )}
-                    </p>
+                <div class="order-meta">
 
-                    <p>
-                        <strong>Message:</strong><br>
-                        ${escapeHtml(
-                            order.private_message || "-"
-                        )}
-                    </p>
+                    Order #${escapeHtml(order.id)}
+
+                    • ${escapeHtml(
+                        formatDate(order.created_at)
+                    )}
+
+                    <br><br>
+
+                    <span class="order-badge">
+                        ${escapeHtml(status)}
+                    </span>
 
                 </div>
-                `
-                :
-                `
-                <div class="order-detail">
-
-                    <h4>
-                        💌 Personal Message
-                    </h4>
-
-                    <p>
-                        No personal message requested.
-                    </p>
-
-                </div>
-                `;
 
 
-            item.innerHTML = `
+                <div class="order-grid">
 
-                <div class="order-header">
+                    <div class="order-detail">
 
-                    <div>
+                        <strong>Customer</strong>
 
-                        <h3>
-                            📦 Order #${escapeHtml(
-                                String(order.id)
-                            )}
-                        </h3>
-
-                        <div class="order-date">
-                            ${escapeHtml(createdDate)}
-                        </div>
+                        <span>
+                            ${escapeHtml(order.customer_name)}
+                        </span>
 
                     </div>
 
 
+                    <div class="order-detail">
+
+                        <strong>WhatsApp</strong>
+
+                        <span>
+                            ${escapeHtml(order.customer_phone)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Email</strong>
+
+                        <span>
+                            ${escapeHtml(
+                                order.customer_email ||
+                                "Not provided"
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Collection</strong>
+
+                        <span>
+                            ${escapeHtml(order.collection)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Size</strong>
+
+                        <span>
+                            ${escapeHtml(order.size)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Quantity</strong>
+
+                        <span>
+                            ${escapeHtml(order.quantity)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Colour</strong>
+
+                        <span>
+                            ${escapeHtml(
+                                order.colour ||
+                                "Not specified"
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Custom Request</strong>
+
+                        <span>
+                            ${escapeHtml(
+                                order.custom_request ||
+                                "None"
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Delivery Address</strong>
+
+                        <span>
+                            ${escapeHtml(
+                                order.delivery_address
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>City</strong>
+
+                        <span>
+                            ${escapeHtml(order.delivery_city)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>State</strong>
+
+                        <span>
+                            ${escapeHtml(order.delivery_state)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Personal Message</strong>
+
+                        <span>
+                            ${
+                                order.private_message_enabled
+                                ? "Yes"
+                                : "No"
+                            }
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                ${
+                    order.private_message_enabled
+                    ?
+                    `
+
+                    <div style="margin-top:15px;">
+
+                        <div class="order-detail">
+
+                            <strong>
+                                Personal Message Details
+                            </strong>
+
+                            <span>
+                                <b>From:</b>
+                                ${escapeHtml(
+                                    order.message_sender ||
+                                    ""
+                                )}
+                                <br>
+
+                                <b>For:</b>
+                                ${escapeHtml(
+                                    order.message_recipient ||
+                                    ""
+                                )}
+                                <br><br>
+
+                                ${escapeHtml(
+                                    order.private_message ||
+                                    ""
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    `
+                    :
+                    ""
+                }
+
+
+                <div style="margin-top:18px;">
+
+                    <strong style="color:#d4af37;">
+                        WhatsApp Order Message
+                    </strong>
+
+                    <pre
+                        class="order-message"
+                        id="orderMessage-${escapeHtml(order.id)}"
+                    >${escapeHtml(message)}</pre>
+
+
+                    <button
+                        class="dark-btn"
+                        onclick="copyOrderMessage('${escapeHtml(order.id)}')"
+                    >
+                        📋 Copy WhatsApp Message
+                    </button>
+
+                </div>
+
+
+                <div class="order-status">
+
+                    <strong style="color:#d4af37;">
+                        Order Status:
+                    </strong>
+
                     <select
-                        class="order-status"
-                        id="order-status-${order.id}"
-                        onchange="updateOrderStatus(${order.id}, this.value)"
+                        id="status-${escapeHtml(order.id)}"
                     >
 
                         <option
@@ -2898,290 +2003,114 @@ async function loadOrders() {
 
                     </select>
 
-                </div>
-
-
-                <div class="order-grid">
-
-
-                    <!-- CUSTOMER -->
-
-                    <div class="order-detail">
-
-                        <h4>
-                            👤 Customer
-                        </h4>
-
-                        <p>
-                            <strong>Name:</strong>
-                            ${escapeHtml(
-                                order.customer_name
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>WhatsApp:</strong>
-                            ${escapeHtml(
-                                order.customer_phone
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Email:</strong>
-                            ${escapeHtml(
-                                order.customer_email ||
-                                "Not provided"
-                            )}
-                        </p>
-
-                    </div>
-
-
-                    <!-- PRODUCT -->
-
-                    <div class="order-detail">
-
-                        <h4>
-                            👞 Footwear
-                        </h4>
-
-                        <p>
-                            <strong>Product:</strong>
-                            ${escapeHtml(
-                                order.product_name
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Collection:</strong>
-                            ${escapeHtml(
-                                order.collection
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Size:</strong>
-                            ${escapeHtml(
-                                order.size
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Quantity:</strong>
-                            ${escapeHtml(
-                                String(
-                                    order.quantity || 1
-                                )
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Colour:</strong>
-                            ${escapeHtml(
-                                order.colour ||
-                                "Not specified"
-                            )}
-                        </p>
-
-                    </div>
-
-
-                    <!-- DELIVERY -->
-
-                    <div class="order-detail">
-
-                        <h4>
-                            📍 Delivery
-                        </h4>
-
-                        <p>
-                            <strong>Address:</strong><br>
-                            ${escapeHtml(
-                                order.delivery_address
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>City:</strong>
-                            ${escapeHtml(
-                                order.delivery_city
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>State:</strong>
-                            ${escapeHtml(
-                                order.delivery_state
-                            )}
-                        </p>
-
-                    </div>
-
-
-                    <!-- CUSTOM REQUEST -->
-
-                    <div class="order-detail">
-
-                        <h4>
-                            📝 Customisation
-                        </h4>
-
-                        <p>
-                            ${escapeHtml(
-                                order.custom_request ||
-                                "No special request."
-                            )}
-                        </p>
-
-                    </div>
-
-
-                    ${personalMessage}
-
-                </div>
-
-
-                <!-- EXACT WHATSAPP MESSAGE -->
-
-                <div class="order-message">
-
-                    <h4>
-                        📲 WhatsApp Message
-                    </h4>
-
-                    <pre id="whatsapp-message-${order.id}">${escapeHtml(
-                        order.whatsapp_message ||
-                        "No WhatsApp message was saved with this order."
-                    )}</pre>
-
-                </div>
-
-
-                <div class="order-actions">
 
                     <button
-                        type="button"
                         class="gold-btn"
-                        onclick="copyOrderMessage(${order.id})"
+                        onclick="updateOrderStatus('${escapeHtml(order.id)}')"
                     >
-                        Copy WhatsApp Message
-                    </button>
-
-                    <button
-                        type="button"
-                        class="dark-btn"
-                        onclick="contactCustomer('${escapeJs(
-                            order.customer_phone || ""
-                        )}')"
-                    >
-                        Open WhatsApp
-                    </button>
-
-                    <button
-                        type="button"
-                        class="danger-btn"
-                        onclick="deleteOrder(${order.id})"
-                    >
-                        Delete Order
+                        Update Status
                     </button>
 
                 </div>
+
+            </div>
 
             `;
 
+        }).join("");
 
-            list.appendChild(item);
-
-        });
-
-
-    } catch(error) {
-
-        console.error(
-            "Unexpected orders error:",
-            error
-        );
-
-
-        list.innerHTML =
-            '<div class="empty">Error loading customer orders.</div>';
-    }
 }
 
 
 /* =====================================================
-   UPDATE ORDER STATUS
+   BUILD ORDER MESSAGE
+   Used for older orders that don't have
+   whatsapp_message saved.
 ===================================================== */
 
-async function updateOrderStatus(
-    orderId,
-    newStatus
-) {
+function buildOrderMessage(order) {
 
-    if (!supabaseClient) return;
+    let messageSection = "";
 
 
-    try {
+    if (order.private_message_enabled) {
 
-        const {
-            error
-        } =
-        await supabaseClient
-        .from("orders")
-        .update({
-            status: newStatus
-        })
-        .eq(
-            "id",
-            orderId
-        );
+        messageSection = `
 
+━━━━━━━━━━━━━━━━━━
+💌 PERSONAL MESSAGE
+━━━━━━━━━━━━━━━━━━
 
-        if (error) {
+From: ${order.message_sender || ""}
+For: ${order.message_recipient || ""}
 
-            console.error(
-                "Status update error:",
-                error
-            );
+Message:
+${order.private_message || ""}
 
+`;
 
-            showStatus(
-                "orderStatus",
-                "Could not update order status: " +
-                error.message,
-                "error"
-            );
+    } else {
 
+        messageSection = `
 
-            await loadOrders();
+━━━━━━━━━━━━━━━━━━
+💌 PERSONAL MESSAGE
+━━━━━━━━━━━━━━━━━━
 
-            return;
-        }
+No personal message requested.
 
+`;
 
-        showStatus(
-            "orderStatus",
-            "Order #" +
-            orderId +
-            " status updated to " +
-            newStatus +
-            ".",
-            "success"
-        );
-
-
-        await loadOrders();
-
-
-    } catch(error) {
-
-        showStatus(
-            "orderStatus",
-            "Error updating order: " +
-            error.message,
-            "error"
-        );
     }
+
+
+    return `
+*KIMASFOOTWEAR — NEW ORDER*
+
+━━━━━━━━━━━━━━━━━━
+👤 CUSTOMER DETAILS
+━━━━━━━━━━━━━━━━━━
+
+Name: ${order.customer_name}
+WhatsApp: ${order.customer_phone}
+Email: ${order.customer_email || "Not provided"}
+
+━━━━━━━━━━━━━━━━━━
+👞 FOOTWEAR DETAILS
+━━━━━━━━━━━━━━━━━━
+
+Product: ${order.product_name}
+Collection: ${order.collection}
+Size: ${order.size}
+Quantity: ${order.quantity}
+Colour: ${order.colour || "Not specified"}
+
+Customisation / Special Request:
+${order.custom_request || "None"}
+
+━━━━━━━━━━━━━━━━━━
+📦 DELIVERY DETAILS
+━━━━━━━━━━━━━━━━━━
+
+Address:
+${order.delivery_address}
+
+City: ${order.delivery_city}
+State: ${order.delivery_state}
+
+${messageSection}
+
+━━━━━━━━━━━━━━━━━━
+✅ TERMS & CONDITIONS
+━━━━━━━━━━━━━━━━━━
+
+Customer has confirmed that they have read and agreed to the KimasFootwear Terms & Conditions.
+
+Please confirm availability, final price, payment and delivery details.
+
+Thank you.
+`;
+
 }
 
 
@@ -3189,25 +2118,15 @@ async function updateOrderStatus(
    COPY ORDER MESSAGE
 ===================================================== */
 
-async function copyOrderMessage(
-    orderId
-) {
+async function copyOrderMessage(id) {
 
     const element =
         document.getElementById(
-            "whatsapp-message-" +
-            orderId
+            "orderMessage-" + id
         );
 
 
     if (!element) {
-
-        showStatus(
-            "orderStatus",
-            "Order message could not be found.",
-            "error"
-        );
-
         return;
     }
 
@@ -3222,146 +2141,71 @@ async function copyOrderMessage(
             message
         );
 
-
-        showStatus(
-            "orderStatus",
-            "WhatsApp message copied successfully.",
-            "success"
+        alert(
+            "WhatsApp message copied."
         );
 
+    } catch (error) {
 
-    } catch(error) {
-
-        showStatus(
-            "orderStatus",
-            "Could not copy the message automatically.",
-            "error"
+        alert(
+            "Unable to copy automatically. Please select and copy the message."
         );
+
     }
+
 }
 
 
 /* =====================================================
-   OPEN CUSTOMER WHATSAPP
+   UPDATE ORDER STATUS
 ===================================================== */
 
-function contactCustomer(
-    phone
-) {
+async function updateOrderStatus(id) {
 
-    if (!phone) {
+    const select =
+        document.getElementById(
+            "status-" + id
+        );
 
-        showStatus(
-            "orderStatus",
-            "Customer WhatsApp number is not available.",
-            "error"
+
+    if (!select) {
+        return;
+    }
+
+
+    const newStatus =
+        select.value;
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("orders")
+            .update({
+                status: newStatus
+            })
+            .eq("id", id);
+
+
+    if (error) {
+
+        alert(
+            "Unable to update order: " +
+            error.message
         );
 
         return;
     }
 
 
-    let cleaned =
-        phone.replace(
-            /[^0-9+]/g,
-            ""
-        );
-
-
-    if (
-        cleaned.startsWith("0")
-    ) {
-
-        cleaned =
-            "234" +
-            cleaned.substring(1);
-    }
-
-
-    if (
-        cleaned.startsWith("+")
-    ) {
-
-        cleaned =
-            cleaned.substring(1);
-    }
-
-
-    window.open(
-        "https://wa.me/" +
-        cleaned,
-        "_blank"
+    alert(
+        "Order status updated."
     );
-}
 
 
-/* =====================================================
-   DELETE ORDER
-===================================================== */
+    await loadOrders();
 
-async function deleteOrder(
-    orderId
-) {
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to permanently delete Order #" +
-            orderId +
-            "?"
-        );
-
-
-    if (!confirmed) return;
-
-
-    try {
-
-        const {
-            error
-        } =
-        await supabaseClient
-        .from("orders")
-        .delete()
-        .eq(
-            "id",
-            orderId
-        );
-
-
-        if (error) {
-
-            showStatus(
-                "orderStatus",
-                "Could not delete order: " +
-                error.message,
-                "error"
-            );
-
-            return;
-        }
-
-
-        showStatus(
-            "orderStatus",
-            "Order #" +
-            orderId +
-            " deleted successfully.",
-            "success"
-        );
-
-
-        await loadOrders();
-
-
-    } catch(error) {
-
-        showStatus(
-            "orderStatus",
-            "Delete error: " +
-            error.message,
-            "error"
-        );
-    }
 }
 
 
@@ -3369,174 +2213,32 @@ async function deleteOrder(
    PRODUCT PHOTO PREVIEW
 ===================================================== */
 
-function previewProductPhoto(event) {
-
-    const file =
-        event.target.files[0];
-
-
-    if (!file) return;
-
-
-    if (!file.type.startsWith("image/")) {
-
-        showStatus(
-            "productStatus",
-            "Please select an image file.",
-            "error"
-        );
-
-        removeProductPhoto();
-
-        return;
-    }
-
-
-    selectedProductPhoto = file;
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(e) {
-
-            document
-            .getElementById("productPhotoPreview")
-            .src =
-                e.target.result;
-
-
-            document
-            .getElementById("productPhotoPreviewContainer")
-            .classList
-            .remove("hidden");
-        };
-
-
-    reader.readAsDataURL(file);
-}
-
-
-/* =====================================================
-   REMOVE PRODUCT PHOTO
-===================================================== */
-
-function removeProductPhoto() {
-
-    selectedProductPhoto = null;
-    currentProductPhotoUrl = "";
-
-
-    document
+document
     .getElementById("productPhoto")
-    .value = "";
+    .addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        const preview =
+            document.getElementById(
+                "productPhotoPreview"
+            );
 
 
-    document
-    .getElementById("productPhotoPreview")
-    .src = "";
+        if (!file) {
 
+            preview.classList.add("hidden");
 
-    document
-    .getElementById("productPhotoPreviewContainer")
-    .classList
-    .add("hidden");
-}
-
-
-/* =====================================================
-   UPLOAD PRODUCT PHOTO
-===================================================== */
-
-async function uploadProductPhoto(file) {
-
-    if (!file) {
-
-        return currentProductPhotoUrl || "";
-    }
-
-
-    const {
-        data: userData,
-        error: userError
-    } =
-    await supabaseClient.auth.getUser();
-
-
-    if (userError || !userData.user) {
-
-        throw new Error(
-            "Your admin session has expired. Please log in again."
-        );
-    }
-
-
-    const userId =
-        userData.user.id;
-
-
-    const safeName =
-        file.name
-        .replace(
-            /[^a-zA-Z0-9._-]/g,
-            "-"
-        );
-
-
-    const filePath =
-        userId +
-        "/products/" +
-        Date.now() +
-        "-" +
-        safeName;
-
-
-    const {
-        error
-    } =
-    await supabaseClient
-    .storage
-    .from("message-photos")
-    .upload(
-        filePath,
-        file,
-        {
-            cacheControl: "3600",
-            upsert: false
+            return;
         }
-    );
 
 
-    if (error) {
+        preview.src =
+            URL.createObjectURL(file);
 
-        throw new Error(
-            "Product photo upload failed: " +
-            error.message
-        );
-    }
+        preview.classList.remove("hidden");
 
-
-    const {
-        data
-    } =
-    supabaseClient
-    .storage
-    .from("message-photos")
-    .getPublicUrl(filePath);
-
-
-    if (!data || !data.publicUrl) {
-
-        throw new Error(
-            "Could not create product photo URL."
-        );
-    }
-
-
-    return data.publicUrl;
-}
+    });
 
 
 /* =====================================================
@@ -3545,209 +2247,142 @@ async function uploadProductPhoto(file) {
 
 async function saveProduct() {
 
-    if (!supabaseClient) {
-
-        if (!initializeSupabase()) {
-            return;
-        }
-    }
-
-
     const name =
-        document
-        .getElementById("productName")
-        .value
-        .trim();
-
+        document.getElementById("productName")
+            .value.trim();
 
     const collection =
-        document
-        .getElementById("productCollection")
-        .value;
-
+        document.getElementById("productCollection")
+            .value;
 
     const price =
-        document
-        .getElementById("productPrice")
-        .value;
-
+        document.getElementById("productPrice")
+            .value;
 
     const description =
-        document
-        .getElementById("productDescription")
-        .value
-        .trim();
+        document.getElementById("productDescription")
+            .value.trim();
+
+    const photoInput =
+        document.getElementById("productPhoto");
 
 
-    if (!name) {
+    if (!name || !collection || !price) {
 
-        showStatus(
-            "productStatus",
-            "Please enter the product name.",
-            "error"
+        alert(
+            "Please complete the product name, collection and price."
         );
 
         return;
     }
 
 
-    if (!collection) {
-
-        showStatus(
-            "productStatus",
-            "Please select a collection.",
-            "error"
-        );
-
-        return;
-    }
+    let photoUrl = null;
 
 
-    if (!price || Number(price) < 0) {
+    if (photoInput.files.length > 0) {
 
-        showStatus(
-            "productStatus",
-            "Please enter a valid price.",
-            "error"
-        );
+        const file =
+            photoInput.files[0];
 
-        return;
-    }
-
-
-    const button =
-        document.getElementById(
-            "saveProductButton"
-        );
+        const fileName =
+            "product-" +
+            Date.now() +
+            "-" +
+            file.name;
 
 
-    const isEditing =
-        Boolean(editingProductId);
-
-
-    button.disabled = true;
-
-    button.textContent =
-        isEditing
-        ? "Updating..."
-        : "Saving...";
-
-
-    try {
-
-        if (selectedProductPhoto) {
-
-            showStatus(
-                "productStatus",
-                "Uploading product photo...",
-                "info"
-            );
-
-
-            currentProductPhotoUrl =
-                await uploadProductPhoto(
-                    selectedProductPhoto
+        const {
+            error: uploadError
+        } =
+            await supabaseClient.storage
+                .from("message-photos")
+                .upload(
+                    fileName,
+                    file
                 );
-        }
 
 
-        const productData = {
+        if (uploadError) {
 
-            name: name,
-
-            collection: collection,
-
-            price: Number(price),
-
-            description: description,
-
-            photo_url:
-                currentProductPhotoUrl || null
-
-        };
-
-
-        let result;
-
-
-        if (editingProductId) {
-
-            result =
-            await supabaseClient
-            .from("products")
-            .update(productData)
-            .eq(
-                "id",
-                editingProductId
+            alert(
+                "Photo upload failed: " +
+                uploadError.message
             );
 
-        } else {
-
-            result =
-            await supabaseClient
-            .from("products")
-            .insert(productData)
-            .select()
-            .single();
+            return;
         }
 
 
-        if (result.error) {
-
-            throw new Error(
-                result.error.message
-            );
-        }
-
-
-        if (
-            !editingProductId &&
-            !result.data
-        ) {
-
-            throw new Error(
-                "Supabase did not return the newly added product."
-            );
-        }
+        const {
+            data: publicData
+        } =
+            supabaseClient.storage
+                .from("message-photos")
+                .getPublicUrl(fileName);
 
 
-        showStatus(
-            "productStatus",
-            isEditing
-            ? "Product updated successfully!"
-            : "Product added successfully!",
-            "success"
-        );
+        photoUrl =
+            publicData.publicUrl;
 
-
-        clearProductForm();
-
-
-        await loadProducts();
-
-
-    } catch(error) {
-
-        console.error(
-            "PRODUCT SAVE ERROR:",
-            error
-        );
-
-
-        showStatus(
-            "productStatus",
-            "Error: " + error.message,
-            "error"
-        );
-
-
-    } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-            "Save Product";
     }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("products")
+            .insert({
+
+                name: name,
+
+                collection: collection,
+
+                price: Number(price),
+
+                description: description,
+
+                image_url: photoUrl,
+
+                active: true
+
+            });
+
+
+    if (error) {
+
+        alert(
+            "Unable to save product: " +
+            error.message
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Product saved successfully."
+    );
+
+
+    document.getElementById("productName").value = "";
+
+    document.getElementById("productCollection").value = "";
+
+    document.getElementById("productPrice").value = "";
+
+    document.getElementById("productDescription").value = "";
+
+    document.getElementById("productPhoto").value = "";
+
+    document
+        .getElementById("productPhotoPreview")
+        .classList.add("hidden");
+
+
+    await loadProducts();
+
 }
 
 
@@ -3758,425 +2393,176 @@ async function saveProduct() {
 async function loadProducts() {
 
     const list =
-        document.getElementById(
-            "productList"
-        );
-
-
-    if (!list) return;
+        document.getElementById("productList");
 
 
     list.innerHTML =
-        '<div class="loading">Loading products...</div>';
+        `<div class="loading">
+            Loading products...
+        </div>`;
 
 
-    try {
-
-        const {
-            data,
-            error
-        } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
-        .from("products")
-        .select("*")
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
+            .from("products")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
 
-        if (error) {
+    if (error) {
 
-            list.innerHTML =
-                '<div class="empty">Unable to load products: ' +
-                escapeHtml(error.message) +
-                '</div>';
+        list.innerHTML =
+            `<div class="order-error">
+                Unable to load products:
+                ${escapeHtml(error.message)}
+            </div>`;
 
-            return;
-        }
-
-
-        if (!data || data.length === 0) {
-
-            list.innerHTML =
-                '<div class="empty">No products added yet.</div>';
-
-            return;
-        }
+        return;
+    }
 
 
-        list.innerHTML = "";
+    if (!data || data.length === 0) {
+
+        list.innerHTML =
+            `<div class="empty">
+                No products yet.
+            </div>`;
+
+        return;
+    }
 
 
-        data.forEach(function(product) {
+    list.innerHTML =
+        data.map(product => `
 
-            const item =
-                document.createElement("div");
+        <div class="product-item">
 
-
-            item.className =
-                "product-item";
-
-
-            const image =
-                product.photo_url
+            ${
+                product.image_url
                 ?
                 `
                 <img
-                    src="${escapeHtml(product.photo_url)}"
+                    src="${escapeHtml(product.image_url)}"
                     class="product-admin-image"
-                    alt="${escapeHtml(product.name)}"
                 >
                 `
                 :
-                "";
+                ""
+            }
 
 
-            const formattedPrice =
-                Number(product.price)
-                .toLocaleString(
-                    "en-NG",
-                    {
-                        style: "currency",
-                        currency: "NGN",
-                        minimumFractionDigits: 0
-                    }
-                );
+            <h3>
+                ${escapeHtml(product.name)}
+            </h3>
 
 
-            item.innerHTML = `
-
-                ${image}
-
-                <span class="product-collection">
-                    ${escapeHtml(product.collection)}
-                </span>
-
-                <h3>
-                    ${escapeHtml(product.name)}
-                </h3>
-
-                <div class="product-price">
-                    ${formattedPrice}
-                </div>
-
-                <div class="product-description">
-                    ${escapeHtml(
-                        product.description || ""
-                    )}
-                </div>
-
-                <div>
-                    <strong>Status:</strong>
-                    ${product.active ? "Active" : "Hidden"}
-                </div>
-
-                <div class="product-actions">
-
-                    <button
-                        type="button"
-                        class="gold-btn"
-                        onclick="editProduct(${product.id})"
-                    >
-                        Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="dark-btn"
-                        onclick="toggleProduct(${product.id}, ${product.active})"
-                    >
-                        ${product.active ? "Hide" : "Show"}
-                    </button>
-
-                    <button
-                        type="button"
-                        class="danger-btn"
-                        onclick="deleteProduct(${product.id})"
-                    >
-                        Delete
-                    </button>
-
-                </div>
-            `;
+            <div class="product-collection">
+                ${escapeHtml(product.collection)}
+            </div>
 
 
-            list.appendChild(item);
+            <div class="product-price">
 
-        });
+                ₦${Number(product.price || 0)
+                    .toLocaleString()}
+
+            </div>
 
 
-    } catch(error) {
+            <div class="product-description">
 
-        list.innerHTML =
-            '<div class="empty">Error loading products.</div>';
+                ${escapeHtml(
+                    product.description ||
+                    ""
+                )}
 
-        console.log(error);
-    }
+            </div>
+
+
+            <div>
+
+                Status:
+                ${
+                    product.active
+                    ? `<span class="status">Active</span>`
+                    : `<span style="color:#999;">Hidden</span>`
+                }
+
+            </div>
+
+
+            <div class="product-actions">
+
+                <button
+                    class="gold-btn"
+                    onclick="editProduct('${escapeHtml(product.id)}')"
+                >
+                    Edit
+                </button>
+
+
+                <button
+                    class="dark-btn"
+                    onclick="toggleProduct('${escapeHtml(product.id)}', ${product.active ? "false" : "true"})"
+                >
+                    ${product.active ? "Hide" : "Show"}
+                </button>
+
+
+                <button
+                    class="danger-btn"
+                    onclick="deleteProduct('${escapeHtml(product.id)}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
 }
 
 
 /* =====================================================
-   EDIT PRODUCT
+   TOGGLE PRODUCT
 ===================================================== */
 
-async function editProduct(id) {
+async function toggleProduct(id, active) {
 
-    try {
-
-        const {
-            data,
-            error
-        } =
+    const {
+        error
+    } =
         await supabaseClient
-        .from("products")
-        .select("*")
-        .eq(
-            "id",
-            id
-        )
-        .single();
+            .from("products")
+            .update({
+                active: active
+            })
+            .eq("id", id);
 
 
-        if (error) {
+    if (error) {
 
-            showStatus(
-                "productStatus",
-                "Could not load product: " +
-                error.message,
-                "error"
-            );
+        alert(
+            "Unable to change product status: " +
+            error.message
+        );
 
-            return;
-        }
-
-
-        editingProductId = id;
-
-        currentProductPhotoUrl =
-            data.photo_url || "";
-
-        selectedProductPhoto = null;
-
-
-        document
-        .getElementById("productName")
-        .value =
-            data.name || "";
-
-
-        document
-        .getElementById("productCollection")
-        .value =
-            data.collection || "";
-
-
-        document
-        .getElementById("productPrice")
-        .value =
-            data.price || "";
-
-
-        document
-        .getElementById("productDescription")
-        .value =
-            data.description || "";
-
-
-        document
-        .getElementById("productPhoto")
-        .value = "";
-
-
-        if (data.photo_url) {
-
-            document
-            .getElementById("productPhotoPreview")
-            .src =
-                data.photo_url;
-
-
-            document
-            .getElementById("productPhotoPreviewContainer")
-            .classList
-            .remove("hidden");
-
-        } else {
-
-            document
-            .getElementById("productPhotoPreviewContainer")
-            .classList
-            .add("hidden");
-        }
-
-
-        document
-        .getElementById("productFormHeading")
-        .textContent =
-            "Edit Product";
-
-
-        document
-        .getElementById("saveProductButton")
-        .textContent =
-            "Update Product";
-
-
-        document
-        .getElementById("cancelProductEditButton")
-        .classList
-        .remove("hidden");
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-
-    } catch(error) {
-
-        console.log(error);
+        return;
     }
-}
 
 
-/* =====================================================
-   CANCEL PRODUCT EDIT
-===================================================== */
+    await loadProducts();
 
-function cancelProductEdit() {
-
-    clearProductForm();
-}
-
-
-/* =====================================================
-   CLEAR PRODUCT FORM
-===================================================== */
-
-function clearProductForm() {
-
-    editingProductId = null;
-    selectedProductPhoto = null;
-    currentProductPhotoUrl = "";
-
-
-    document
-    .getElementById("productName")
-    .value = "";
-
-
-    document
-    .getElementById("productCollection")
-    .value = "";
-
-
-    document
-    .getElementById("productPrice")
-    .value = "";
-
-
-    document
-    .getElementById("productDescription")
-    .value = "";
-
-
-    document
-    .getElementById("productPhoto")
-    .value = "";
-
-
-    document
-    .getElementById("productPhotoPreview")
-    .src = "";
-
-
-    document
-    .getElementById("productPhotoPreviewContainer")
-    .classList
-    .add("hidden");
-
-
-    document
-    .getElementById("productFormHeading")
-    .textContent =
-        "Add Product";
-
-
-    document
-    .getElementById("saveProductButton")
-    .textContent =
-        "Save Product";
-
-
-    document
-    .getElementById("cancelProductEditButton")
-    .classList
-    .add("hidden");
-}
-
-
-/* =====================================================
-   HIDE / SHOW PRODUCT
-===================================================== */
-
-async function toggleProduct(
-    id,
-    currentStatus
-) {
-
-    try {
-
-        const {
-            error
-        } =
-        await supabaseClient
-        .from("products")
-        .update({
-            active: !currentStatus
-        })
-        .eq(
-            "id",
-            id
-        );
-
-
-        if (error) {
-
-            showStatus(
-                "productStatus",
-                "Could not update product: " +
-                error.message,
-                "error"
-            );
-
-            return;
-        }
-
-
-        showStatus(
-            "productStatus",
-            currentStatus
-            ? "Product hidden."
-            : "Product is now visible.",
-            "success"
-        );
-
-
-        await loadProducts();
-
-
-    } catch(error) {
-
-        showStatus(
-            "productStatus",
-            "Error: " + error.message,
-            "error"
-        );
-    }
 }
 
 
@@ -4186,134 +2572,134 @@ async function toggleProduct(
 
 async function deleteProduct(id) {
 
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this product?"
-        );
-
-
-    if (!confirmed) return;
-
-
-    try {
-
-        const {
-            error
-        } =
-        await supabaseClient
-        .from("products")
-        .delete()
-        .eq(
-            "id",
-            id
-        );
-
-
-        if (error) {
-
-            showStatus(
-                "productStatus",
-                "Could not delete product: " +
-                error.message,
-                "error"
-            );
-
-            return;
-        }
-
-
-        showStatus(
-            "productStatus",
-            "Product deleted successfully.",
-            "success"
-        );
-
-
-        await loadProducts();
-
-
-    } catch(error) {
-
-        showStatus(
-            "productStatus",
-            "Delete error: " +
-            error.message,
-            "error"
-        );
-    }
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout() {
-
-    if (supabaseClient) {
-
-        await supabaseClient.auth.signOut();
-    }
-
-
-    document
-    .getElementById("dashboard")
-    .classList
-    .add("hidden");
-
-
-    document
-    .getElementById("loginScreen")
-    .classList
-    .remove("hidden");
-
-
-    document
-    .getElementById("loginEmail")
-    .value = "";
-
-
-    document
-    .getElementById("loginPassword")
-    .value = "";
-
-
-    showStatus(
-        "loginStatus",
-        "You have been logged out.",
-        "success"
-    );
-}
-
-
-/* =====================================================
-   SECURITY HELPERS
-===================================================== */
-
-function escapeHtml(value) {
-
     if (
-        value === null ||
-        value === undefined
+        !confirm(
+            "Delete this product?"
+        )
     ) {
-        return "";
+        return;
     }
 
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("products")
+            .delete()
+            .eq("id", id);
+
+
+    if (error) {
+
+        alert(
+            "Unable to delete product: " +
+            error.message
+        );
+
+        return;
+    }
+
+
+    await loadProducts();
+
 }
 
 
-function escapeJs(value) {
+/* =====================================================
+   EDIT PRODUCT
+===================================================== */
 
-    return String(value)
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'");
+async function editProduct(id) {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("products")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+
+    if (error) {
+
+        alert(
+            "Unable to load product: " +
+            error.message
+        );
+
+        return;
+    }
+
+
+    const name =
+        prompt(
+            "Product name:",
+            data.name || ""
+        );
+
+
+    if (name === null) {
+        return;
+    }
+
+
+    const price =
+        prompt(
+            "Product price:",
+            data.price || ""
+        );
+
+
+    if (price === null) {
+        return;
+    }
+
+
+    const description =
+        prompt(
+            "Product description:",
+            data.description || ""
+        );
+
+
+    if (description === null) {
+        return;
+    }
+
+
+    const {
+        error: updateError
+    } =
+        await supabaseClient
+            .from("products")
+            .update({
+
+                name: name,
+
+                price: Number(price),
+
+                description: description
+
+            })
+            .eq("id", id);
+
+
+    if (updateError) {
+
+        alert(
+            "Unable to update product: " +
+            updateError.message
+        );
+
+        return;
+    }
+
+
+    await loadProducts();
+
 }
 
 
@@ -4321,21 +2707,7 @@ function escapeJs(value) {
    START
 ===================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async function() {
-
-        const ready =
-            initializeSupabase();
-
-
-        if (ready) {
-
-            await checkLogin();
-        }
-
-    }
-);
+checkSession();
 
 </script>
 
