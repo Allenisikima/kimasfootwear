@@ -290,7 +290,7 @@ header p {
 }
 
 /* =========================
-   ORDER SUMMARY
+   ADVANCED DASHBOARD SUMMARY
 ========================= */
 
 .summary-grid {
@@ -319,6 +319,17 @@ header p {
     color: #d4af37;
     font-size: 30px;
     font-weight: 700;
+}
+
+.revenue-card {
+    border-color: #5a4a19;
+}
+
+.revenue-number {
+    color: #d4af37;
+    font-size: 27px;
+    font-weight: 700;
+    word-break: break-word;
 }
 
 /* =========================
@@ -471,20 +482,12 @@ header p {
    MOBILE
 ========================= */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 
     .summary-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
     }
 
-    .summary-card {
-        padding: 15px 10px;
-    }
-
-    .summary-number {
-        font-size: 25px;
-    }
 }
 
 @media (max-width: 600px) {
@@ -499,6 +502,23 @@ header p {
 
     .section-heading {
         font-size: 28px;
+    }
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 15px 10px;
+    }
+
+    .summary-number {
+        font-size: 25px;
+    }
+
+    .revenue-number {
+        font-size: 21px;
     }
 
     .order-grid {
@@ -597,10 +617,24 @@ header p {
 
 
 <!-- =====================================================
-     ORDER SUMMARY
+     ADVANCED ORDER SUMMARY
 ===================================================== -->
 
 <div class="summary-grid">
+
+    <div class="summary-card revenue-card">
+
+        <h3>💰 Total Revenue</h3>
+
+        <div
+            class="revenue-number"
+            id="totalRevenue"
+        >
+            ₦0
+        </div>
+
+    </div>
+
 
     <div class="summary-card">
 
@@ -651,6 +685,48 @@ header p {
         <div
             class="summary-number"
             id="completedOrdersCount"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>📅 Orders Today</h3>
+
+        <div
+            class="summary-number"
+            id="ordersTodayCount"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>📆 This Month</h3>
+
+        <div
+            class="summary-number"
+            id="ordersMonthCount"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>❌ Cancelled</h3>
+
+        <div
+            class="summary-number"
+            id="cancelledOrdersCount"
         >
             0
         </div>
@@ -1008,6 +1084,18 @@ function formatDate(date) {
         {
             dateStyle: "medium",
             timeStyle: "short"
+        }
+    );
+}
+
+
+function formatNaira(amount) {
+
+    return "₦" + Number(amount || 0).toLocaleString(
+        "en-NG",
+        {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
         }
     );
 }
@@ -1735,7 +1823,9 @@ async function loadOrders() {
 
         count.textContent = "0";
 
-        updateOrderSummary([]);
+        allOrders = [];
+
+        updateOrderSummary();
 
         return;
     }
@@ -1752,7 +1842,7 @@ async function loadOrders() {
 
 
 /* =====================================================
-   ORDER SUMMARY
+   ADVANCED ORDER SUMMARY
 ===================================================== */
 
 function updateOrderSummary() {
@@ -1760,32 +1850,136 @@ function updateOrderSummary() {
     const total =
         allOrders.length;
 
+
     const newOrders =
         allOrders.filter(order =>
             (order.status || "New").toLowerCase() === "new"
         ).length;
+
 
     const processing =
         allOrders.filter(order =>
             (order.status || "").toLowerCase() === "processing"
         ).length;
 
+
     const completed =
         allOrders.filter(order =>
             (order.status || "").toLowerCase() === "completed"
         ).length;
 
+
+    const cancelled =
+        allOrders.filter(order =>
+            (order.status || "").toLowerCase() === "cancelled"
+        ).length;
+
+
+    /*
+       Revenue excludes cancelled orders.
+       It uses total_amount saved with each order.
+    */
+
+    const revenue =
+        allOrders
+            .filter(order =>
+                (order.status || "").toLowerCase() !== "cancelled"
+            )
+            .reduce(
+                (sum, order) =>
+                    sum + Number(order.total_amount || 0),
+                0
+            );
+
+
+    /*
+       Today
+    */
+
+    const now =
+        new Date();
+
+    const todayYear =
+        now.getFullYear();
+
+    const todayMonth =
+        now.getMonth();
+
+    const todayDate =
+        now.getDate();
+
+
+    const ordersToday =
+        allOrders.filter(order => {
+
+            if (!order.created_at) {
+                return false;
+            }
+
+            const orderDate =
+                new Date(order.created_at);
+
+            return (
+                orderDate.getFullYear() === todayYear &&
+                orderDate.getMonth() === todayMonth &&
+                orderDate.getDate() === todayDate
+            );
+
+        }).length;
+
+
+    /*
+       This month
+    */
+
+    const ordersThisMonth =
+        allOrders.filter(order => {
+
+            if (!order.created_at) {
+                return false;
+            }
+
+            const orderDate =
+                new Date(order.created_at);
+
+            return (
+                orderDate.getFullYear() === todayYear &&
+                orderDate.getMonth() === todayMonth
+            );
+
+        }).length;
+
+
+    document.getElementById("totalRevenue")
+        .textContent = formatNaira(revenue);
+
+
     document.getElementById("totalOrdersCount")
         .textContent = total;
+
 
     document.getElementById("newOrdersCount")
         .textContent = newOrders;
 
+
     document.getElementById("processingOrdersCount")
         .textContent = processing;
 
+
     document.getElementById("completedOrdersCount")
         .textContent = completed;
+
+
+    document.getElementById("ordersTodayCount")
+        .textContent = ordersToday;
+
+
+    document.getElementById("ordersMonthCount")
+        .textContent = ordersThisMonth;
+
+
+    document.getElementById("cancelledOrdersCount")
+        .textContent = cancelled;
 }
 
 
@@ -1971,6 +2165,28 @@ function renderOrders(orders) {
 
                         <span>
                             ${escapeHtml(order.quantity)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Unit Price</strong>
+
+                        <span>
+                            ${formatNaira(order.unit_price)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-detail">
+
+                        <strong>Total Amount</strong>
+
+                        <span>
+                            ${formatNaira(order.total_amount)}
                         </span>
 
                     </div>
@@ -2299,6 +2515,8 @@ Product: ${order.product_name}
 Collection: ${order.collection}
 Size: ${order.size}
 Quantity: ${order.quantity}
+Unit Price: ${formatNaira(order.unit_price)}
+Total Amount: ${formatNaira(order.total_amount)}
 Colour: ${order.colour || "Not specified"}
 
 Customisation / Special Request:
