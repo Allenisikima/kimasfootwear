@@ -290,6 +290,38 @@ header p {
 }
 
 /* =========================
+   ORDER SUMMARY
+========================= */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.summary-card h3 {
+    margin: 0 0 10px;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.summary-number {
+    color: #d4af37;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* =========================
    PRODUCTS
 ========================= */
 
@@ -439,6 +471,22 @@ header p {
    MOBILE
 ========================= */
 
+@media (max-width: 700px) {
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 15px 10px;
+    }
+
+    .summary-number {
+        font-size: 25px;
+    }
+}
+
 @media (max-width: 600px) {
 
     .container {
@@ -544,6 +592,70 @@ header p {
     <button class="dark-btn" onclick="logout()">
         Logout
     </button>
+
+</div>
+
+
+<!-- =====================================================
+     ORDER SUMMARY
+===================================================== -->
+
+<div class="summary-grid">
+
+    <div class="summary-card">
+
+        <h3>📦 Total Orders</h3>
+
+        <div
+            class="summary-number"
+            id="totalOrdersCount"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>🆕 New Orders</h3>
+
+        <div
+            class="summary-number"
+            id="newOrdersCount"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>🔄 Processing</h3>
+
+        <div
+            class="summary-number"
+            id="processingOrdersCount"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>✅ Completed</h3>
+
+        <div
+            class="summary-number"
+            id="completedOrdersCount"
+        >
+            0
+        </div>
+
+    </div>
 
 </div>
 
@@ -1623,6 +1735,8 @@ async function loadOrders() {
 
         count.textContent = "0";
 
+        updateOrderSummary([]);
+
         return;
     }
 
@@ -1631,7 +1745,47 @@ async function loadOrders() {
     count.textContent =
         allOrders.length;
 
+    updateOrderSummary();
+
     renderOrders(allOrders);
+}
+
+
+/* =====================================================
+   ORDER SUMMARY
+===================================================== */
+
+function updateOrderSummary() {
+
+    const total =
+        allOrders.length;
+
+    const newOrders =
+        allOrders.filter(order =>
+            (order.status || "New").toLowerCase() === "new"
+        ).length;
+
+    const processing =
+        allOrders.filter(order =>
+            (order.status || "").toLowerCase() === "processing"
+        ).length;
+
+    const completed =
+        allOrders.filter(order =>
+            (order.status || "").toLowerCase() === "completed"
+        ).length;
+
+    document.getElementById("totalOrdersCount")
+        .textContent = total;
+
+    document.getElementById("newOrdersCount")
+        .textContent = newOrders;
+
+    document.getElementById("processingOrdersCount")
+        .textContent = processing;
+
+    document.getElementById("completedOrdersCount")
+        .textContent = completed;
 }
 
 
@@ -2063,13 +2217,6 @@ function chatWithCustomer(phone, customerName) {
     let cleanPhone =
         String(phone)
             .replace(/\D/g, "");
-
-    /*
-       Nigeria numbers:
-       08012345678
-       becomes
-       2348012345678
-    */
 
     if (cleanPhone.startsWith("0")) {
 
