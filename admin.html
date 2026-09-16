@@ -137,6 +137,15 @@ button {
     color: #fff;
 }
 
+.whatsapp-btn {
+    background: #25D366;
+    color: #fff;
+}
+
+.whatsapp-btn:hover {
+    background: #1ebe5d;
+}
+
 .full {
     width: 100%;
     margin: 5px 0;
@@ -320,12 +329,6 @@ header p {
     margin-top: 15px;
 }
 
-.product-photo-preview {
-    max-width: 200px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
 /* =========================
    ORDERS
 ========================= */
@@ -426,6 +429,12 @@ header p {
     border-radius: 8px;
 }
 
+.search-note {
+    color: #777;
+    font-size: 12px;
+    margin-top: -8px;
+}
+
 /* =========================
    MOBILE
 ========================= */
@@ -486,6 +495,7 @@ header p {
         <p>Private Message, Order & Product Management Dashboard</p>
 
         <label>Email</label>
+
         <input
             type="email"
             id="loginEmail"
@@ -493,6 +503,7 @@ header p {
         >
 
         <label>Password</label>
+
         <input
             type="password"
             id="loginPassword"
@@ -545,9 +556,6 @@ header p {
     Customer Messages
 </h2>
 
-
-<!-- CREATE MESSAGE -->
-
 <div class="card">
 
     <h2>Create Customer Message</h2>
@@ -572,7 +580,6 @@ header p {
 
     </div>
 
-
     <label>Message Title</label>
 
     <input
@@ -581,14 +588,12 @@ header p {
         placeholder="Example: A Special Message For You"
     >
 
-
     <label>Personal Message</label>
 
     <textarea
         id="messageText"
         placeholder="Write the message the receiver will see..."
     ></textarea>
-
 
     <label>Sender Name</label>
 
@@ -598,7 +603,6 @@ header p {
         placeholder="Example: Allen"
     >
 
-
     <label>Recipient Name</label>
 
     <input
@@ -606,7 +610,6 @@ header p {
         id="messageRecipient"
         placeholder="Example: Pearl"
     >
-
 
     <label>Photo for the Receiver</label>
 
@@ -620,12 +623,10 @@ header p {
         Optional. Add a personal photo that the receiver will see with the message.
     </p>
 
-
     <img
         id="messagePhotoPreview"
         class="photo-preview hidden"
     >
-
 
     <button
         class="gold-btn"
@@ -636,8 +637,6 @@ header p {
 
 </div>
 
-
-<!-- MESSAGE PREVIEW -->
 
 <div class="card">
 
@@ -653,8 +652,6 @@ header p {
 </div>
 
 
-<!-- LINK / QR -->
-
 <div class="card">
 
     <h2>Link / QR</h2>
@@ -667,8 +664,6 @@ header p {
 
 </div>
 
-
-<!-- MESSAGE LIST -->
 
 <div class="card">
 
@@ -700,6 +695,17 @@ header p {
         Order Management
         <span id="orderCount">0</span>
     </h2>
+
+    <input
+        type="text"
+        id="orderSearch"
+        placeholder="🔎 Search by customer, phone, product or order ID..."
+        oninput="filterOrders()"
+    >
+
+    <p class="search-note">
+        Search works with customer name, phone number, product name, collection, order ID or status.
+    </p>
 
     <button
         class="dark-btn"
@@ -736,12 +742,9 @@ header p {
 </h2>
 
 
-<!-- ADD PRODUCT -->
-
 <div class="card">
 
     <h2>Add Product</h2>
-
 
     <label>Product Name</label>
 
@@ -750,7 +753,6 @@ header p {
         id="productName"
         placeholder="Example: Luxury Black Loafer"
     >
-
 
     <label>Collection</label>
 
@@ -778,7 +780,6 @@ header p {
 
     </select>
 
-
     <label>Price (₦)</label>
 
     <input
@@ -787,14 +788,12 @@ header p {
         placeholder="Example: 45000"
     >
 
-
     <label>Product Description</label>
 
     <textarea
         id="productDescription"
         placeholder="Describe the footwear..."
     ></textarea>
-
 
     <label>Product Photo</label>
 
@@ -808,12 +807,10 @@ header p {
         Upload a clear photo of the footwear.
     </p>
 
-
     <img
         id="productPhotoPreview"
         class="product-photo-preview hidden"
     >
-
 
     <button
         class="gold-btn"
@@ -824,8 +821,6 @@ header p {
 
 </div>
 
-
-<!-- PRODUCT LIST -->
 
 <div class="card">
 
@@ -857,13 +852,18 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_7xeB9QdYgjXpZ1pHRvtI9w_Wzbe1SIh";
 
-let supabaseClient = null;
-
-supabaseClient =
+let supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_PUBLISHABLE_KEY
     );
+
+
+/* =====================================================
+   ORDER STORAGE
+===================================================== */
+
+let allOrders = [];
 
 
 /* =====================================================
@@ -926,13 +926,11 @@ async function login() {
         return;
     }
 
-
     const { error } =
         await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password
         });
-
 
     if (error) {
 
@@ -942,9 +940,7 @@ async function login() {
         return;
     }
 
-
     await showDashboard();
-
 }
 
 
@@ -976,7 +972,6 @@ async function showDashboard() {
     document.getElementById("dashboard").style.display =
         "block";
 
-
     await generateNewCode();
 
     await loadMessages();
@@ -984,7 +979,6 @@ async function showDashboard() {
     await loadOrders();
 
     await loadProducts();
-
 }
 
 
@@ -999,7 +993,6 @@ async function checkSession() {
     } =
         await supabaseClient.auth.getSession();
 
-
     if (session) {
 
         await showDashboard();
@@ -1008,7 +1001,6 @@ async function checkSession() {
 
         document.getElementById("loginScreen").style.display =
             "flex";
-
     }
 }
 
@@ -1042,7 +1034,6 @@ async function generateNewCode() {
 
     let code = generateCode();
 
-
     const { data } =
         await supabaseClient
             .from("messages")
@@ -1050,17 +1041,14 @@ async function generateNewCode() {
             .eq("code", code)
             .maybeSingle();
 
-
     if (data) {
 
         return generateNewCode();
 
     }
 
-
     document.getElementById("generatedCode")
         .textContent = code;
-
 }
 
 
@@ -1081,7 +1069,6 @@ function updateMessagePreview() {
 
     const recipient =
         document.getElementById("messageRecipient").value;
-
 
     document.getElementById("messagePreview")
         .innerHTML = `
@@ -1150,14 +1137,12 @@ document
         const preview =
             document.getElementById("messagePhotoPreview");
 
-
         if (!file) {
 
             preview.classList.add("hidden");
 
             return;
         }
-
 
         preview.src =
             URL.createObjectURL(file);
@@ -1196,7 +1181,6 @@ async function saveMessage() {
     const photoInput =
         document.getElementById("messagePhoto");
 
-
     if (!title || !message || !sender || !recipient) {
 
         alert(
@@ -1206,11 +1190,7 @@ async function saveMessage() {
         return;
     }
 
-
     let photoUrl = null;
-
-
-    /* PHOTO */
 
     if (photoInput.files.length > 0) {
 
@@ -1219,7 +1199,6 @@ async function saveMessage() {
 
         const fileName =
             Date.now() + "-" + file.name;
-
 
         const {
             error: uploadError
@@ -1231,7 +1210,6 @@ async function saveMessage() {
                     file
                 );
 
-
         if (uploadError) {
 
             alert(
@@ -1242,7 +1220,6 @@ async function saveMessage() {
             return;
         }
 
-
         const {
             data: publicData
         } =
@@ -1250,12 +1227,9 @@ async function saveMessage() {
                 .from("message-photos")
                 .getPublicUrl(fileName);
 
-
         photoUrl =
             publicData.publicUrl;
-
     }
-
 
     const {
         error
@@ -1280,7 +1254,6 @@ async function saveMessage() {
 
             });
 
-
     if (error) {
 
         alert(
@@ -1291,11 +1264,9 @@ async function saveMessage() {
         return;
     }
 
-
     alert(
         "Customer message saved successfully."
     );
-
 
     document.getElementById("messageTitle").value = "";
 
@@ -1311,11 +1282,9 @@ async function saveMessage() {
         .getElementById("messagePhotoPreview")
         .classList.add("hidden");
 
-
     await generateNewCode();
 
     await loadMessages();
-
 }
 
 
@@ -1328,12 +1297,10 @@ async function loadMessages() {
     const list =
         document.getElementById("messageList");
 
-
     list.innerHTML =
         `<div class="loading">
             Loading messages...
         </div>`;
-
 
     const {
         data,
@@ -1349,7 +1316,6 @@ async function loadMessages() {
                 }
             );
 
-
     if (error) {
 
         list.innerHTML =
@@ -1361,7 +1327,6 @@ async function loadMessages() {
         return;
     }
 
-
     if (!data || data.length === 0) {
 
         list.innerHTML =
@@ -1371,7 +1336,6 @@ async function loadMessages() {
 
         return;
     }
-
 
     list.innerHTML =
         data.map(message => `
@@ -1446,7 +1410,6 @@ async function loadMessages() {
         </div>
 
     `).join("");
-
 }
 
 
@@ -1461,12 +1424,10 @@ function showMessageLink(code) {
         window.location.pathname
             .replace("admin.html", "message.html");
 
-
     const url =
         baseUrl +
         "?code=" +
         encodeURIComponent(code);
-
 
     document.getElementById("linkArea")
         .innerHTML = `
@@ -1487,19 +1448,16 @@ function showMessageLink(code) {
 
     `;
 
-
     const qr =
         document.getElementById("qrcode");
 
     qr.innerHTML = "";
-
 
     new QRCode(qr, {
         text: url,
         width: 180,
         height: 180
     });
-
 }
 
 
@@ -1517,7 +1475,6 @@ async function deleteMessage(id) {
         return;
     }
 
-
     const {
         error
     } =
@@ -1525,7 +1482,6 @@ async function deleteMessage(id) {
             .from("messages")
             .delete()
             .eq("id", id);
-
 
     if (error) {
 
@@ -1537,9 +1493,7 @@ async function deleteMessage(id) {
         return;
     }
 
-
     await loadMessages();
-
 }
 
 
@@ -1559,7 +1513,6 @@ async function editMessage(id) {
             .eq("id", id)
             .single();
 
-
     if (error) {
 
         alert(
@@ -1569,7 +1522,6 @@ async function editMessage(id) {
 
         return;
     }
-
 
     document.getElementById("messageTitle")
         .value = data.title || "";
@@ -1583,9 +1535,7 @@ async function editMessage(id) {
     document.getElementById("messageRecipient")
         .value = data.recipient || "";
 
-
     updateMessagePreview();
-
 
     const newTitle =
         prompt(
@@ -1593,11 +1543,9 @@ async function editMessage(id) {
             data.title || ""
         );
 
-
     if (newTitle === null) {
         return;
     }
-
 
     const newMessage =
         prompt(
@@ -1605,11 +1553,9 @@ async function editMessage(id) {
             data.message || ""
         );
 
-
     if (newMessage === null) {
         return;
     }
-
 
     const {
         error: updateError
@@ -1622,7 +1568,6 @@ async function editMessage(id) {
             })
             .eq("id", id);
 
-
     if (updateError) {
 
         alert(
@@ -1633,9 +1578,7 @@ async function editMessage(id) {
         return;
     }
 
-
     await loadMessages();
-
 }
 
 
@@ -1651,12 +1594,10 @@ async function loadOrders() {
     const count =
         document.getElementById("orderCount");
 
-
     list.innerHTML =
         `<div class="loading">
             Loading orders...
         </div>`;
-
 
     const {
         data,
@@ -1672,7 +1613,6 @@ async function loadOrders() {
                 }
             );
 
-
     if (error) {
 
         list.innerHTML =
@@ -1686,33 +1626,105 @@ async function loadOrders() {
         return;
     }
 
+    allOrders = data || [];
 
     count.textContent =
-        data ? data.length : 0;
+        allOrders.length;
+
+    renderOrders(allOrders);
+}
 
 
-    if (!data || data.length === 0) {
+/* =====================================================
+   SEARCH ORDERS
+===================================================== */
+
+function filterOrders() {
+
+    const search =
+        document.getElementById("orderSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+    if (!search) {
+
+        renderOrders(allOrders);
+
+        return;
+    }
+
+    const filtered =
+        allOrders.filter(order => {
+
+            const searchableText = [
+
+                order.id,
+
+                order.customer_name,
+
+                order.customer_phone,
+
+                order.customer_email,
+
+                order.product_name,
+
+                order.collection,
+
+                order.size,
+
+                order.colour,
+
+                order.status,
+
+                order.delivery_city,
+
+                order.delivery_state
+
+            ]
+            .filter(value =>
+                value !== null &&
+                value !== undefined
+            )
+            .join(" ")
+            .toLowerCase();
+
+            return searchableText.includes(search);
+
+        });
+
+    renderOrders(filtered);
+}
+
+
+/* =====================================================
+   RENDER ORDERS
+===================================================== */
+
+function renderOrders(orders) {
+
+    const list =
+        document.getElementById("ordersList");
+
+    if (!orders || orders.length === 0) {
 
         list.innerHTML =
             `<div class="empty">
-                No customer orders yet.
+                No matching customer orders found.
             </div>`;
 
         return;
     }
 
-
     list.innerHTML =
-        data.map(order => {
+        orders.map(order => {
 
             const message =
                 order.whatsapp_message ||
                 buildOrderMessage(order);
 
-
             const status =
                 order.status || "New";
-
 
             return `
 
@@ -1904,11 +1916,13 @@ async function loadOrders() {
                             </strong>
 
                             <span>
+
                                 <b>From:</b>
                                 ${escapeHtml(
                                     order.message_sender ||
                                     ""
                                 )}
+
                                 <br>
 
                                 <b>For:</b>
@@ -1916,12 +1930,14 @@ async function loadOrders() {
                                     order.message_recipient ||
                                     ""
                                 )}
+
                                 <br><br>
 
                                 ${escapeHtml(
                                     order.private_message ||
                                     ""
                                 )}
+
                             </span>
 
                         </div>
@@ -1951,6 +1967,14 @@ async function loadOrders() {
                         onclick="copyOrderMessage('${escapeHtml(order.id)}')"
                     >
                         📋 Copy WhatsApp Message
+                    </button>
+
+
+                    <button
+                        class="whatsapp-btn"
+                        onclick="chatWithCustomer('${escapeHtml(order.customer_phone)}', '${escapeHtml(order.customer_name)}')"
+                    >
+                        📱 Chat with Customer
                     </button>
 
                 </div>
@@ -2018,20 +2042,66 @@ async function loadOrders() {
             `;
 
         }).join("");
+}
 
+
+/* =====================================================
+   CHAT WITH CUSTOMER
+===================================================== */
+
+function chatWithCustomer(phone, customerName) {
+
+    if (!phone) {
+
+        alert(
+            "This customer does not have a phone number."
+        );
+
+        return;
+    }
+
+    let cleanPhone =
+        String(phone)
+            .replace(/\D/g, "");
+
+    /*
+       Nigeria numbers:
+       08012345678
+       becomes
+       2348012345678
+    */
+
+    if (cleanPhone.startsWith("0")) {
+
+        cleanPhone =
+            "234" +
+            cleanPhone.substring(1);
+
+    }
+
+    const message =
+        `Hello ${customerName || "there"}, this is KimasFootwear. We are following up regarding your footwear order.`;
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        cleanPhone +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(
+        whatsappUrl,
+        "_blank"
+    );
 }
 
 
 /* =====================================================
    BUILD ORDER MESSAGE
-   Used for older orders that don't have
-   whatsapp_message saved.
 ===================================================== */
 
 function buildOrderMessage(order) {
 
     let messageSection = "";
-
 
     if (order.private_message_enabled) {
 
@@ -2062,7 +2132,6 @@ No personal message requested.
 `;
 
     }
-
 
     return `
 *KIMASFOOTWEAR — NEW ORDER*
@@ -2125,15 +2194,12 @@ async function copyOrderMessage(id) {
             "orderMessage-" + id
         );
 
-
     if (!element) {
         return;
     }
 
-
     const message =
         element.textContent;
-
 
     try {
 
@@ -2152,7 +2218,6 @@ async function copyOrderMessage(id) {
         );
 
     }
-
 }
 
 
@@ -2167,15 +2232,12 @@ async function updateOrderStatus(id) {
             "status-" + id
         );
 
-
     if (!select) {
         return;
     }
 
-
     const newStatus =
         select.value;
-
 
     const {
         error
@@ -2187,7 +2249,6 @@ async function updateOrderStatus(id) {
             })
             .eq("id", id);
 
-
     if (error) {
 
         alert(
@@ -2198,14 +2259,11 @@ async function updateOrderStatus(id) {
         return;
     }
 
-
     alert(
         "Order status updated."
     );
 
-
     await loadOrders();
-
 }
 
 
@@ -2224,14 +2282,12 @@ document
                 "productPhotoPreview"
             );
 
-
         if (!file) {
 
             preview.classList.add("hidden");
 
             return;
         }
-
 
         preview.src =
             URL.createObjectURL(file);
@@ -2266,7 +2322,6 @@ async function saveProduct() {
     const photoInput =
         document.getElementById("productPhoto");
 
-
     if (!name || !collection || !price) {
 
         alert(
@@ -2276,9 +2331,7 @@ async function saveProduct() {
         return;
     }
 
-
     let photoUrl = null;
-
 
     if (photoInput.files.length > 0) {
 
@@ -2291,7 +2344,6 @@ async function saveProduct() {
             "-" +
             file.name;
 
-
         const {
             error: uploadError
         } =
@@ -2301,7 +2353,6 @@ async function saveProduct() {
                     fileName,
                     file
                 );
-
 
         if (uploadError) {
 
@@ -2313,7 +2364,6 @@ async function saveProduct() {
             return;
         }
 
-
         const {
             data: publicData
         } =
@@ -2321,12 +2371,9 @@ async function saveProduct() {
                 .from("message-photos")
                 .getPublicUrl(fileName);
 
-
         photoUrl =
             publicData.publicUrl;
-
     }
-
 
     const {
         error
@@ -2349,7 +2396,6 @@ async function saveProduct() {
 
             });
 
-
     if (error) {
 
         alert(
@@ -2360,11 +2406,9 @@ async function saveProduct() {
         return;
     }
 
-
     alert(
         "Product saved successfully."
     );
-
 
     document.getElementById("productName").value = "";
 
@@ -2380,9 +2424,7 @@ async function saveProduct() {
         .getElementById("productPhotoPreview")
         .classList.add("hidden");
 
-
     await loadProducts();
-
 }
 
 
@@ -2395,12 +2437,10 @@ async function loadProducts() {
     const list =
         document.getElementById("productList");
 
-
     list.innerHTML =
         `<div class="loading">
             Loading products...
         </div>`;
-
 
     const {
         data,
@@ -2416,7 +2456,6 @@ async function loadProducts() {
                 }
             );
 
-
     if (error) {
 
         list.innerHTML =
@@ -2428,7 +2467,6 @@ async function loadProducts() {
         return;
     }
 
-
     if (!data || data.length === 0) {
 
         list.innerHTML =
@@ -2438,7 +2476,6 @@ async function loadProducts() {
 
         return;
     }
-
 
     list.innerHTML =
         data.map(product => `
@@ -2458,16 +2495,13 @@ async function loadProducts() {
                 ""
             }
 
-
             <h3>
                 ${escapeHtml(product.name)}
             </h3>
 
-
             <div class="product-collection">
                 ${escapeHtml(product.collection)}
             </div>
-
 
             <div class="product-price">
 
@@ -2475,7 +2509,6 @@ async function loadProducts() {
                     .toLocaleString()}
 
             </div>
-
 
             <div class="product-description">
 
@@ -2486,10 +2519,10 @@ async function loadProducts() {
 
             </div>
 
-
             <div>
 
                 Status:
+
                 ${
                     product.active
                     ? `<span class="status">Active</span>`
@@ -2497,7 +2530,6 @@ async function loadProducts() {
                 }
 
             </div>
-
 
             <div class="product-actions">
 
@@ -2508,14 +2540,12 @@ async function loadProducts() {
                     Edit
                 </button>
 
-
                 <button
                     class="dark-btn"
                     onclick="toggleProduct('${escapeHtml(product.id)}', ${product.active ? "false" : "true"})"
                 >
                     ${product.active ? "Hide" : "Show"}
                 </button>
-
 
                 <button
                     class="danger-btn"
@@ -2529,7 +2559,6 @@ async function loadProducts() {
         </div>
 
     `).join("");
-
 }
 
 
@@ -2549,7 +2578,6 @@ async function toggleProduct(id, active) {
             })
             .eq("id", id);
 
-
     if (error) {
 
         alert(
@@ -2560,9 +2588,7 @@ async function toggleProduct(id, active) {
         return;
     }
 
-
     await loadProducts();
-
 }
 
 
@@ -2580,7 +2606,6 @@ async function deleteProduct(id) {
         return;
     }
 
-
     const {
         error
     } =
@@ -2588,7 +2613,6 @@ async function deleteProduct(id) {
             .from("products")
             .delete()
             .eq("id", id);
-
 
     if (error) {
 
@@ -2600,9 +2624,7 @@ async function deleteProduct(id) {
         return;
     }
 
-
     await loadProducts();
-
 }
 
 
@@ -2622,7 +2644,6 @@ async function editProduct(id) {
             .eq("id", id)
             .single();
 
-
     if (error) {
 
         alert(
@@ -2633,18 +2654,15 @@ async function editProduct(id) {
         return;
     }
 
-
     const name =
         prompt(
             "Product name:",
             data.name || ""
         );
 
-
     if (name === null) {
         return;
     }
-
 
     const price =
         prompt(
@@ -2652,11 +2670,9 @@ async function editProduct(id) {
             data.price || ""
         );
 
-
     if (price === null) {
         return;
     }
-
 
     const description =
         prompt(
@@ -2664,11 +2680,9 @@ async function editProduct(id) {
             data.description || ""
         );
 
-
     if (description === null) {
         return;
     }
-
 
     const {
         error: updateError
@@ -2686,7 +2700,6 @@ async function editProduct(id) {
             })
             .eq("id", id);
 
-
     if (updateError) {
 
         alert(
@@ -2697,9 +2710,7 @@ async function editProduct(id) {
         return;
     }
 
-
     await loadProducts();
-
 }
 
 
