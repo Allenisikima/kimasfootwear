@@ -303,6 +303,7 @@ footer strong {
 }
 
 @media (max-width: 650px) {
+
     header {
         padding: 18px 5%;
     }
@@ -356,8 +357,13 @@ footer strong {
 <main class="container">
 
     <div class="page-title">
+
         <h1>Place Your Order</h1>
-        <p>Every step tells a story. Let's create yours.</p>
+
+        <p>
+            Every step tells a story. Let's create yours.
+        </p>
+
     </div>
 
 
@@ -370,24 +376,32 @@ footer strong {
         <div class="grid">
 
             <div class="form-group">
-                <label for="customerName">Full Name *</label>
+
+                <label for="customerName">
+                    Full Name *
+                </label>
 
                 <input
                     type="text"
                     id="customerName"
                     placeholder="Your full name"
                 >
+
             </div>
 
 
             <div class="form-group">
-                <label for="customerPhone">WhatsApp Number *</label>
+
+                <label for="customerPhone">
+                    WhatsApp Number *
+                </label>
 
                 <input
                     type="tel"
                     id="customerPhone"
                     placeholder="e.g. 08012345678"
                 >
+
             </div>
 
         </div>
@@ -738,6 +752,7 @@ footer strong {
             <label for="terms">
 
                 I have read and agree to the
+
                 <span
                     class="terms-link"
                     onclick="openTerms()"
@@ -755,6 +770,7 @@ footer strong {
             <button
                 type="button"
                 class="btn"
+                id="submitOrderButton"
                 onclick="submitOrder()"
             >
                 📲 Submit Order via WhatsApp
@@ -841,7 +857,7 @@ footer strong {
 <script>
 
 /* ==========================================
-   SUPABASE CONFIGURATION
+   SUPABASE
 ========================================== */
 
 const SUPABASE_URL =
@@ -886,24 +902,21 @@ if (product) {
     document.getElementById(
         "productBox"
     ).classList.remove("hidden");
+
 }
 
 
 if (collection) {
 
-    const collectionSelect =
-        document.getElementById(
-            "collection"
-        );
-
-    collectionSelect.value =
-        collection;
+    document.getElementById(
+        "collection"
+    ).value = collection;
 
 }
 
 
 /* ==========================================
-   PERSONAL MESSAGE TOGGLE
+   PERSONAL MESSAGE
 ========================================== */
 
 function togglePersonalMessage() {
@@ -917,6 +930,7 @@ function togglePersonalMessage() {
         document.getElementById(
             "personalMessage"
         );
+
 
     if (yes) {
 
@@ -932,7 +946,7 @@ function togglePersonalMessage() {
 
 
 /* ==========================================
-   TERMS MODAL
+   TERMS
 ========================================== */
 
 function openTerms() {
@@ -956,8 +970,7 @@ function closeTerms() {
 function closeTermsOutside(event) {
 
     if (
-        event.target.id ===
-        "termsModal"
+        event.target.id === "termsModal"
     ) {
 
         closeTerms();
@@ -973,107 +986,112 @@ function closeTermsOutside(event) {
 
 async function submitOrder() {
 
+    const button =
+        document.getElementById(
+            "submitOrderButton"
+        );
+
+
     const name =
-        document
-            .getElementById("customerName")
-            .value
-            .trim();
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
 
     const phone =
-        document
-            .getElementById("customerPhone")
-            .value
-            .trim();
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
 
     const email =
-        document
-            .getElementById("customerEmail")
-            .value
-            .trim();
+        document.getElementById(
+            "customerEmail"
+        ).value.trim();
 
 
     const productName =
-        document
-            .getElementById("productName")
-            .value
-            .trim();
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
 
     const collection =
-        document
-            .getElementById("collection")
-            .value;
+        document.getElementById(
+            "collection"
+        ).value;
+
 
     const size =
-        document
-            .getElementById("size")
-            .value;
+        document.getElementById(
+            "size"
+        ).value;
+
 
     const quantity =
-        document
-            .getElementById("quantity")
-            .value;
+        document.getElementById(
+            "quantity"
+        ).value;
+
 
     const colour =
-        document
-            .getElementById("colour")
-            .value
-            .trim();
+        document.getElementById(
+            "colour"
+        ).value.trim();
+
 
     const customRequest =
-        document
-            .getElementById("customRequest")
-            .value
-            .trim();
+        document.getElementById(
+            "customRequest"
+        ).value.trim();
 
 
     const address =
-        document
-            .getElementById("address")
-            .value
-            .trim();
+        document.getElementById(
+            "address"
+        ).value.trim();
+
 
     const city =
-        document
-            .getElementById("city")
-            .value
-            .trim();
+        document.getElementById(
+            "city"
+        ).value.trim();
+
 
     const state =
-        document
-            .getElementById("state")
-            .value
-            .trim();
+        document.getElementById(
+            "state"
+        ).value.trim();
 
 
     const messageYes =
-        document
-            .getElementById("messageYes")
-            .checked;
+        document.getElementById(
+            "messageYes"
+        ).checked;
 
 
     const messageSender =
-        document
-            .getElementById("messageSender")
-            .value
-            .trim();
+        document.getElementById(
+            "messageSender"
+        ).value.trim();
+
 
     const messageRecipient =
-        document
-            .getElementById("messageRecipient")
-            .value
-            .trim();
+        document.getElementById(
+            "messageRecipient"
+        ).value.trim();
+
 
     const privateMessage =
-        document
-            .getElementById("privateMessage")
-            .value
-            .trim();
+        document.getElementById(
+            "privateMessage"
+        ).value.trim();
 
 
     const terms =
-        document
-            .getElementById("terms")
-            .checked;
+        document.getElementById(
+            "terms"
+        ).checked;
 
 
     /* ==========================================
@@ -1081,79 +1099,44 @@ async function submitOrder() {
     ========================================== */
 
     if (!name) {
-
-        alert(
-            "Please enter your name."
-        );
-
+        alert("Please enter your name.");
         return;
-
     }
 
 
     if (!phone) {
-
-        alert(
-            "Please enter your WhatsApp number."
-        );
-
+        alert("Please enter your WhatsApp number.");
         return;
-
     }
 
 
     if (!productName) {
-
-        alert(
-            "Please select a product."
-        );
-
+        alert("Please select a product.");
         return;
-
     }
 
 
     if (!collection) {
-
-        alert(
-            "Please select a collection."
-        );
-
+        alert("Please select a collection.");
         return;
-
     }
 
 
     if (!size) {
-
-        alert(
-            "Please select a size."
-        );
-
+        alert("Please select a size.");
         return;
-
     }
 
 
     if (!address || !city || !state) {
-
-        alert(
-            "Please complete your delivery address."
-        );
-
+        alert("Please complete your delivery address.");
         return;
-
     }
 
 
     if (!terms) {
-
-        alert(
-            "Please agree to the Terms & Conditions."
-        );
-
+        alert("Please agree to the Terms & Conditions.");
         return;
-
     }
 
 
@@ -1177,7 +1160,6 @@ async function submitOrder() {
             );
 
             return;
-
         }
 
 
@@ -1191,6 +1173,16 @@ To: ${messageRecipient}
 
 Message:
 ${privateMessage}
+`;
+
+    } else {
+
+        messageSection = `
+━━━━━━━━━━━━━━━━━━
+💌 PERSONAL MESSAGE
+━━━━━━━━━━━━━━━━━━
+
+No personal message requested.
 `;
 
     }
@@ -1250,42 +1242,31 @@ Thank you.
 
 
     /* ==========================================
-       BUTTON
+       DISABLE BUTTON
     ========================================== */
 
-    const submitButton =
-        document.querySelector(
-            'button[onclick="submitOrder()"]'
-        );
+    button.disabled = true;
 
-
-    if (submitButton) {
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-            "Saving Order...";
-
-    }
+    button.textContent =
+        "Saving Order...";
 
 
     /* ==========================================
-       SAVE TO SUPABASE
+       SAVE ORDER
     ========================================== */
 
     try {
 
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("orders")
-            .insert([
-                {
+        const { error } =
+            await supabaseClient
+                .from("orders")
+                .insert({
 
-                    customer_name: name,
+                    customer_name:
+                        name,
 
-                    customer_phone: phone,
+                    customer_phone:
+                        phone,
 
                     customer_email:
                         email || null,
@@ -1346,41 +1327,40 @@ Thank you.
                     status:
                         "New"
 
-                }
-            ])
-            .select();
+                });
 
+
+        /* ======================================
+           CHECK DATABASE RESULT
+        ====================================== */
 
         if (error) {
 
             console.error(
-                "Order save error:",
+                "Supabase order error:",
                 error
             );
 
+
+            button.disabled = false;
+
+            button.textContent =
+                "📲 Submit Order via WhatsApp";
+
+
             alert(
-                "Your order could not be saved. Please check your internet connection and try again."
+                "Your order could not be saved.\n\n" +
+                error.message
             );
 
 
-            if (submitButton) {
-
-                submitButton.disabled =
-                    false;
-
-                submitButton.textContent =
-                    "📲 Submit Order via WhatsApp";
-
-            }
-
             return;
-
         }
 
 
-        /* ==========================================
-           WHATSAPP
-        ========================================== */
+        /* ======================================
+           OPEN WHATSAPP
+        ====================================== */
 
         const whatsappNumber =
             "2349042375290";
@@ -1395,6 +1375,10 @@ Thank you.
             );
 
 
+        button.textContent =
+            "Opening WhatsApp...";
+
+
         window.location.href =
             whatsappUrl;
 
@@ -1407,20 +1391,16 @@ Thank you.
         );
 
 
+        button.disabled = false;
+
+        button.textContent =
+            "📲 Submit Order via WhatsApp";
+
+
         alert(
-            "Something went wrong while submitting your order. Please try again."
+            "Something went wrong while submitting your order.\n\n" +
+            error.message
         );
-
-
-        if (submitButton) {
-
-            submitButton.disabled =
-                false;
-
-            submitButton.textContent =
-                "📲 Submit Order via WhatsApp";
-
-        }
 
     }
 
